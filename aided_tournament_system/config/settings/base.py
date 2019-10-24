@@ -11,37 +11,53 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from os.path import abspath, dirname, basename
 
+
+DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_ROOT = dirname(DJANGO_ROOT)
+BASE_NAME = basename(DJANGO_ROOT)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+
+# DEBUG CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = False
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
+TEMPLATE_DEBUG = DEBUG
+# END DEBUG CONFIGURATION
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
-INSTALLED_APPS = [
-    'user_auth.apps.UserAuthConfig',
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework_swagger',
-    'debug_toolbar',
+)
+
+LOCAL_APPS = (
+
+)
+
+THIRD_PART_APPS = (
+    'user_auth.apps.UserAuthConfig',
     'rest_framework',
-]
+)
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PART_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,10 +67,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = '%s.urls' % BASE_NAME
 
 TEMPLATES = [
     {
@@ -72,20 +87,18 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
-
+WSGI_APPLICATION = '%s.wsgi.application' % BASE_NAME
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'oleg',
-        'NAME': 'tournament_system',
+        'ENGINE': 'django.db.backends',
+        'USER': '',
+        'NAME': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -105,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -119,24 +131,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
 # Internal IPs
 
 INTERNAL_IPS = [
-    # ...
     '127.0.0.1',
-    # ...
 ]
-
-# REST Framework
-
-REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS':
-        'rest_framework.schemas.coreapi.AutoSchema'
-}
