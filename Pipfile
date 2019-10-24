@@ -13,6 +13,7 @@ psycopg2-binary = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.7"
