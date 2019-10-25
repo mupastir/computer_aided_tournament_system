@@ -4,6 +4,7 @@ from .base import *
 
 INSTALLED_APPS += (
     'debug_toolbar',
+    'django_extensions',
     'rest_framework_swagger',
 )
 
@@ -16,7 +17,7 @@ MIDDLEWARE += [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'oleg',
         'NAME': 'tournament_system',
         'PASSWORD': '',
@@ -32,5 +33,14 @@ DEBUG = True
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS':
-        'rest_framework.schemas.coreapi.AutoSchema'
+        'rest_framework.schemas.coreapi.AutoSchema',
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    ),
 }
+
+# SWAGGER CONF
+
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'

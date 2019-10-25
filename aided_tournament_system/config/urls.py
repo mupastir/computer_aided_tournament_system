@@ -18,16 +18,20 @@ from django.conf import settings
 from django.urls import include, path
 from rest_framework_swagger.views import get_swagger_view
 
-schema_view = get_swagger_view(title='Pastebin API')
+schema_view = get_swagger_view(title='Aided tournament system API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', schema_view),
+    path('user/', include('user_auth.urls')),
+    path('participant/', include('participant.urls'))
 ]
 
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
+        path('', schema_view),
+        path('api-auth/', include('rest_framework.urls'),
+             name='rest_framework'),
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns

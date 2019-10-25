@@ -37,6 +37,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
+# Add custom user model
+
+AUTH_USER_MODEL = 'user_auth.User'
+
 # Application definition
 
 DJANGO_APPS = (
@@ -49,11 +53,13 @@ DJANGO_APPS = (
 )
 
 LOCAL_APPS = (
-
+    'user_auth.apps.UserAuthConfig',
+    'competition.apps.CompetitionConfig',
+    'game.apps.GameConfig',
+    'participant.apps.ParticipantConfig',
 )
 
 THIRD_PART_APPS = (
-    'user_auth.apps.UserAuthConfig',
     'rest_framework',
 )
 
@@ -117,6 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

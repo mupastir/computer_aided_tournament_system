@@ -4,16 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+django-debug-toolbar = "*"
 
 [packages]
 django = "~=2.2"
-django-debug-toolbar = "*"
 django-rest-swagger = "*"
-psycopg2-binary = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 pre-commit = "*"
+django-extensions = "*"
+django-countries = "*"
+django-model-utils = "*"
+psycopg2 = "==2.7.5"
 
 [requires]
 python_version = "3.7"
