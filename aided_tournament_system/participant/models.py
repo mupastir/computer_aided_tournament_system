@@ -12,11 +12,6 @@ class Player(User):
         woman = ('w', 'Woman')
         man = ('m', 'Man')
 
-    uuid = models.UUIDField(
-        db_index=True,
-        default=uuid_lib.uuid4,
-        editable=False
-    )
     slug = models.SlugField(unique=True)
     sex = models.CharField(
         max_length=1,
@@ -54,3 +49,11 @@ class Team(models.Model):
 
     def get_absolute_url(self):
         return reverse('flavors:detail', kwargs={'slug': self.slug})
+
+
+class Referee(User):
+    pass
+
+
+class ScoreMarker(User):
+    pass
