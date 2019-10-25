@@ -12,17 +12,20 @@ class Player(User):
         woman = ('w', 'Woman')
         man = ('m', 'Man')
 
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, verbose_name='slug')
     sex = models.CharField(
         max_length=1,
-        choices=[x.value for x in SEXES]
+        choices=[x.value for x in SEXES],
+        verbose_name='sex'
     )
 
     country = CountryField(
-        blank_label='(select country)'
+        blank_label='(select country)',
+        verbose_name='sex'
     )
     rating = models.IntegerField(
-        null=True
+        null=True,
+        verbose_name='rating'
     )
 
     def get_absolute_url(self):
@@ -33,18 +36,21 @@ class Team(models.Model):
     uuid = models.UUIDField(
         db_index=True,
         default=uuid_lib.uuid4,
-        editable=False
+        editable=False,
+        primary_key=True
     )
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, verbose_name='slug')
     title = models.CharField(
         max_length=100
     )
     player = models.ForeignKey(
         Player,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        verbose_name='players'
     )
     rating = models.IntegerField(
-        null=True
+        null=True,
+        verbose_name='total team rating'
     )
 
     def get_absolute_url(self):

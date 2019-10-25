@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import Game
+from .models import BaseGame
 
 
-@admin.register(Game)
+@admin.register(BaseGame)
 class GameAdmin(admin.ModelAdmin):
     pass
