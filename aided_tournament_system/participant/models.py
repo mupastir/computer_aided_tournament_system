@@ -1,9 +1,10 @@
-from django.db import models
-from django_countries.fields import CountryField
-from django.urls import reverse
-from user_auth.models import User
-from enum import Enum
 import uuid as uuid_lib
+from enum import Enum
+
+from django.db import models
+from django.urls import reverse
+from django_countries.fields import CountryField
+from user_auth.models import User
 
 
 class Player(User):

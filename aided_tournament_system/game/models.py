@@ -1,6 +1,7 @@
+import uuid as uuid_lib
+
 from django.db import models
 from participant.models import Team
-import uuid as uuid_lib
 
 
 class Game(models.Model):

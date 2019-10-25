@@ -1,16 +1,11 @@
-from rest_framework.schemas import SchemaGenerator
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from ..models import (
-    Player,
-    Team
-)
-from .serializers import (
-    PlayerSerializer,
-    TeamSerializer
-)
 from rest_framework_swagger import renderers
+
+from ..models import Player, Team
+from .serializers import PlayerSerializer, TeamSerializer
 
 
 class PlayerLookAPIView(APIView):
