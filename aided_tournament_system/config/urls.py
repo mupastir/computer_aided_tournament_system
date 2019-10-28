@@ -33,5 +33,6 @@ if settings.DEBUG:
         path('', schema_view),
         path('api-auth/', include('rest_framework.urls'),
              name='rest_framework'),
+        path(r'rest-auth/', include('rest_auth.urls')),
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
