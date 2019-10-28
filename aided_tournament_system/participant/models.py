@@ -9,19 +9,18 @@ from user_auth.models import User
 
 
 class Player(User):
-    class SEXES(Enum):
+    class GENDER(Enum):
         woman = ('w', 'Woman')
         man = ('m', 'Man')
 
-    sex = models.CharField(max_length=1,
-                           choices=[x.value for x in SEXES],
-                           verbose_name='sex')
+    gender = models.CharField(max_length=1,
+                              choices=[x.value for x in GENDER],
+                              verbose_name='sex')
     country = CountryField(blank_label='(select country)',
                            verbose_name='country')
     rating = models.IntegerField(null=True,
                                  verbose_name='rating')
     team = models.ManyToManyField('Team',
-                                  on_delete=models.SET_NULL,
                                   verbose_name='team')
 
 
@@ -35,7 +34,6 @@ class Team(models.Model):
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
     competition = models.ManyToManyField(Application,
-                                         on_delete=models.SET_NULL,
                                          verbose_name='competition')
 
 
@@ -46,8 +44,7 @@ class Referee(User):
         scorer = ('scr', 'Scorer')
         line_judge = ('lnj', 'Line judge')
 
-    game = models.ManyToManyField(Game,
-                                  on_delete=models.SET_NULL)
+    game = models.ManyToManyField(Game)
     role = models.CharField(max_length=3,
                             choices=[x.value for x in Roles],
                             verbose_name='role')
