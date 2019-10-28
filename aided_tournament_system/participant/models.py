@@ -29,12 +29,14 @@ class Team(models.Model):
     uuid = models.UUIDField(db_index=True,
                             default=uuid_lib.uuid4,
                             editable=False,
-                            primary_key=True)
-    title = models.CharField(max_length=100)
+                            primary_key=True,
+                            verbose_name='uuid')
+    title = models.CharField(max_length=100, verbose_name='title')
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
     competition = models.ManyToManyField(Competition,
-                                         on_delete=models.SET_NULL)
+                                         on_delete=models.SET_NULL,
+                                         verbose_name='competition')
 
 
 class Referee(User):
