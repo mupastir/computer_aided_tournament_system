@@ -1,7 +1,7 @@
 import uuid as uuid_lib
 from enum import Enum
 
-from competition.models import Competition
+from competition.models import Application
 from django.db import models
 from django_countries.fields import CountryField
 from game.models import Game
@@ -34,7 +34,7 @@ class Team(models.Model):
     title = models.CharField(max_length=100, verbose_name='title')
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
-    competition = models.ManyToManyField(Competition,
+    competition = models.ManyToManyField(Application,
                                          on_delete=models.SET_NULL,
                                          verbose_name='competition')
 
