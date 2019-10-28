@@ -1,30 +1,23 @@
 import uuid as uuid_lib
 
+from competition.models import Competition
 from django.db import models
-from participant.models import Referee, ScoreMarker, Team
+from participant.models import Team
 
 
-class BaseGame(models.Model):
+class Game(models.Model):
     uuid = models.UUIDField(
         db_index=True,
         default=uuid_lib.uuid4,
         editable=False,
-        primary_key=True
+        primary_key=True,
+        verbose_name='uuid'
     )
     start_time = models.DateTimeField(verbose_name='time start')
     end_time = models.DateTimeField(verbose_name='time end')
     round_game = models.CharField(max_length=7, verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
     court_number = models.IntegerField(verbose_name='court number')
-    referee = models.ForeignKey(Referee,
-                                on_delete=models.SET_NULL,
-                                verbose_name='referee',
-                                null=True)
-    score_marker = models.ForeignKey(ScoreMarker,
-                                     on_delete=models.SET_NULL,
-                                     verbose_name='person which '
-                                                  'calculate score',
-                                     null=True)
     owner_team = models.ForeignKey(Team,
                                    on_delete=models.SET_NULL,
                                    related_name='owner',
@@ -43,3 +36,6 @@ class BaseGame(models.Model):
     loser_score = models.IntegerField(blank=True,
                                       null=True,
                                       verbose_name='winner_score')
+    competition = models.ForeignKey(Competition,
+                                    on_delete=models.CASCADE,
+                                    verbose_name='competition')
