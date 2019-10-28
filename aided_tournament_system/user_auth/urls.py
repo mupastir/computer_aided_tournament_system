@@ -6,7 +6,7 @@ urlpatterns = [
     # /user/
     url(
         regex=r'^$',
-        view=views.UserListCreateAPIView.as_view(),
-        name='user_rest_api'
+        view=views.UserReadAPIView.as_view(),
+        name='user_rest_api',
     ),
 ]

@@ -1,13 +1,7 @@
-import uuid as uuid_lib
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django_utils.models import UUIDTimeStampModel
 
 
-class User(AbstractUser):
-    uuid = models.UUIDField(
-        db_index=True,
-        default=uuid_lib.uuid4,
-        editable=False,
-        primary_key=True
-    )
+class User(UUIDTimeStampModel, AbstractUser):
+    birthdate = models.DateField(verbose_name='birthdate', null='True')
