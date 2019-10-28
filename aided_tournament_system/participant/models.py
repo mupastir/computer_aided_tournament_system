@@ -1,6 +1,7 @@
 import uuid as uuid_lib
 from enum import Enum
 
+from competition.models import Competition
 from django.db import models
 from django.urls import reverse
 from django_countries.fields import CountryField
@@ -38,11 +39,11 @@ class Team(models.Model):
                             primary_key=True)
     slug = models.SlugField(unique=True,
                             verbose_name='slug')
-    title = models.CharField(max_length=100)
-
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
-    active = models.BooleanField(verbose_name='is team playing')
+    title = models.CharField(max_length=100)
+    competition = models.ManyToManyField(Competition,
+                                         on_delete=models.SET_NULL)
 
     def get_absolute_url(self):
         return reverse('flavors:detail', kwargs={'slug': self.slug})
