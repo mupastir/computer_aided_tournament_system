@@ -1,17 +1,9 @@
-import uuid as uuid_lib
-
 from competition.models import Competition
 from django.db import models
+from django_utils.models import UUIDTimeStampModel
 
 
-class Game(models.Model):
-    uuid = models.UUIDField(
-        db_index=True,
-        default=uuid_lib.uuid4,
-        editable=False,
-        primary_key=True,
-        verbose_name='uuid'
-    )
+class Game(UUIDTimeStampModel):
     start_time = models.DateTimeField(verbose_name='time start')
     end_time = models.DateTimeField(verbose_name='time end')
     round_game = models.CharField(max_length=7, verbose_name='round')
