@@ -3,7 +3,6 @@ from enum import Enum
 
 from competition.models import Competition
 from django.db import models
-from django.urls import reverse
 from django_countries.fields import CountryField
 from game.models import Game
 from user_auth.models import User
@@ -14,8 +13,6 @@ class Player(User):
         woman = ('w', 'Woman')
         man = ('m', 'Man')
 
-    slug = models.SlugField(unique=True,
-                            verbose_name='slug')
     sex = models.CharField(max_length=1,
                            choices=[x.value for x in SEXES],
                            verbose_name='sex')
@@ -27,26 +24,17 @@ class Player(User):
                                   on_delete=models.SET_NULL,
                                   verbose_name='team')
 
-    def get_absolute_url(self):
-        return reverse('flavors:detail',
-                       kwargs={'slug': self.slug})
-
 
 class Team(models.Model):
     uuid = models.UUIDField(db_index=True,
                             default=uuid_lib.uuid4,
                             editable=False,
                             primary_key=True)
-    slug = models.SlugField(unique=True,
-                            verbose_name='slug')
+    title = models.CharField(max_length=100)
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
-    title = models.CharField(max_length=100)
     competition = models.ManyToManyField(Competition,
                                          on_delete=models.SET_NULL)
-
-    def get_absolute_url(self):
-        return reverse('flavors:detail', kwargs={'slug': self.slug})
 
 
 class Referee(User):
