@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1713bc1ca3be2af1d1e0257e9a377d12d07a42a4c5572dca25e6d9d1192fd44b"
+            "sha256": "00ac5c65d70b8155c335ec61bbb69a927e1d10451592c6fe5810b2fde43f092e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -98,13 +98,20 @@
             "index": "pypi",
             "version": "==3.2.0"
         },
-        "django-rest-swagger": {
+        "django-rest-auth": {
             "hashes": [
-                "sha256:48f6aded9937e90ae7cbe9e6c932b9744b8af80cc4e010088b3278c700e0685b",
-                "sha256:b039b0288bab4665cd45dc5d16f94b13911bc4ad0ed55f74ad3b90aa31c87c17"
+                "sha256:f11e12175dafeed772f50d740d22caeab27e99a3caca24ec65e66a8d6de16571"
             ],
             "index": "pypi",
-            "version": "==2.2.0"
+            "version": "==0.9.5"
+        },
+        "django-rest-swagger": {
+            "hashes": [
+                "sha256:3471e6c21a3e97751fa6f7b81b66e916e40fa645cac36be1594c0efed810d247",
+                "sha256:ff889e2b339a9a57010dba7729d56471e05b77827f6dd36c0bcb983839882598"
+            ],
+            "index": "pypi",
+            "version": "==2.1.2"
         },
         "djangorestframework": {
             "hashes": [
@@ -133,6 +140,7 @@
                 "sha256:aa18d7378b00b40847790e7c27e11673d7fed219354109d0e7b9e5b25dc3ad26",
                 "sha256:d5f18a79777f3aa179c145737780282e27b508fc8fd688cb17c7a813e8bd39af"
             ],
+            "markers": "python_version < '3.8'",
             "version": "==0.23"
         },
         "itypes": {
@@ -210,11 +218,11 @@
         },
         "pre-commit": {
             "hashes": [
-                "sha256:1d3c0587bda7c4e537a46c27f2c84aa006acc18facf9970bf947df596ce91f3f",
-                "sha256:fa78ff96e8e9ac94c748388597693f18b041a181c94a4f039ad20f45287ba44a"
+                "sha256:2080b7a375e54e4fdc41bd0606193d0bad06b4d4f23526ffb73f0b512b537353",
+                "sha256:8dbdad6e79fa438b9ae4dafc91c85baf93a5ff29aeff5d6899396d5aebe2d338"
             ],
             "index": "pypi",
-            "version": "==1.18.3"
+            "version": "==1.19.0"
         },
         "psycopg2": {
             "hashes": [

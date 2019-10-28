@@ -8,7 +8,7 @@ django-debug-toolbar = "*"
 
 [packages]
 django = "~=2.2"
-django-rest-swagger = "*"
+django-rest-swagger = "==2.1.2"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
@@ -17,6 +17,7 @@ django-extensions = "*"
 django-countries = "*"
 django-model-utils = "*"
 psycopg2 = "==2.7.5"
+django-rest-auth = "*"
 
 [requires]
 python_version = "3.7"
