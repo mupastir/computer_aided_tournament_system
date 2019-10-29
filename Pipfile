@@ -7,7 +7,6 @@ verify_ssl = true
 django-debug-toolbar = "*"
 
 [packages]
-django = "~=2.2"
 django-rest-swagger = "==2.1.2"
 djangorestframework = "*"
 markdown = "*"
@@ -18,6 +17,10 @@ django-countries = "*"
 django-model-utils = "*"
 psycopg2 = "==2.7.5"
 django-rest-auth = "*"
+django = "*"
+django-allauth = "*"
+pytest = "*"
+behave-django = "*"
 
 [requires]
 python_version = "3.7"
