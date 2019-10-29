@@ -22,7 +22,6 @@ class Player(UUIDTimeStampModel):
                                  verbose_name='rating')
     team = models.ManyToManyField('Team',
                                   blank=True,
-                                  null=True,
                                   verbose_name='team')
 
 
