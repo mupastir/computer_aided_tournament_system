@@ -26,13 +26,16 @@ urlpatterns = [
     path('participant/', include('participant.urls'))
 ]
 
-
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns = [
-        path('', schema_view),
-        path('api-auth/', include('rest_framework.urls'),
-             name='rest_framework'),
-        path(r'rest-auth/', include('rest_auth.urls')),
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      path('', schema_view),
+                      path('api-auth/', include('rest_framework.urls'),
+                           name='rest_framework'),
+                      path(r'rest-auth/', include('rest_auth.urls')),
+                      path(r'accounts/', include('allauth.urls')),
+                      path(r'rest-auth/registration/',
+                           include('rest_auth.registration.urls')),
+                      path('__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns
