@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 django-debug-toolbar = "*"
+pudb = "*"
 
 [packages]
 django-rest-swagger = "==2.1.2"
@@ -21,6 +22,7 @@ django = "*"
 django-allauth = "*"
 pytest = "*"
 behave-django = "*"
+bpython = "*"
 
 [requires]
 python_version = "3.7"
