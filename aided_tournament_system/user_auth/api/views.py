@@ -1,13 +1,14 @@
-from aided_tournament_system.user_auth.models import User
 from allauth.socialaccount.providers.facebook.views import \
     FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from allauth.socialaccount.providers.instagram.views import \
     InstagramOAuth2Adapter
-from rest_auth.registration.views import RegisterView, SocialConnectView
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from rest_auth.registration.views import RegisterView, SocialLoginView
 from rest_auth.views import LoginView, LogoutView
 from rest_framework.generics import ListAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from user_auth.models import User
 
 from .serializers import (UserRegisterSerializer, UserSerializer,
                           UserUpdateSerializer)
@@ -36,13 +37,14 @@ class UserRegisterAPIView(RegisterView):
     serializer_class = UserRegisterSerializer
 
 
-class FacebookConnect(SocialConnectView):
+class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+    client_class = OAuth2Client
 
 
-class GoogleConnect(SocialConnectView):
+class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
 
 
-class InstagramConnect(SocialConnectView):
+class InstagramLogin(SocialLoginView):
     adapter_class = InstagramOAuth2Adapter
