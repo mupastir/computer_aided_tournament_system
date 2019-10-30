@@ -6,11 +6,11 @@ from ..models import Player, Team
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-    fields = ['first_name', 'last_name', 'uuid', 'sex', 'country',
-              'rating', 'email']
+        fields = ['first_name', 'last_name', 'id', 'sex', 'country',
+                  'rating', 'email']
 
 
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-    fields = ['uuid', 'title', 'player', 'rating', 'games']
+        fields = ['id', 'title', 'player', 'rating', 'games']

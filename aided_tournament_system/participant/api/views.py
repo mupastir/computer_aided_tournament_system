@@ -1,3 +1,4 @@
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
@@ -8,18 +9,19 @@ from ..models import Player, Team
 from .serializers import PlayerSerializer, TeamSerializer
 
 
-class PlayerLookAPIView(APIView):
-    renderer_classes = [
-        renderers.OpenAPIRenderer,
-        renderers.SwaggerUIRenderer
-    ]
+class PlayerListAPIView(ListAPIView):
+    queryset = Player.objects.all()
+
+    serializer_class = PlayerSerializer
+    permission_classes = (IsAuthenticated,)
+
+
+class PlayerExampleView(APIView):
+
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        generator = SchemaGenerator()
-        schema = generator.get_schema(request=request)
-
-        return Response(schema)
+        return Response(f'{request.user}')
 
 
 class PlayerCreateAPIView(APIView):
@@ -30,7 +32,6 @@ class PlayerCreateAPIView(APIView):
     )
     permission_classes = (AllowAny, )
     serializer_class = PlayerSerializer
-    lookup_field = 'uuid'
 
     def post(self, request):
         generator = SchemaGenerator()
@@ -47,7 +48,9 @@ class TeamListCreateAPIView(APIView):
     )
     permission_classes = (AllowAny,)
     serializer_class = TeamSerializer
-    lookup_field = 'uuid'
+
+    def get(self):
+        pass
 
 
 class TeamRetrieveUpdateDestroyAPIView(APIView):
@@ -58,4 +61,3 @@ class TeamRetrieveUpdateDestroyAPIView(APIView):
     )
     permission_classes = (IsAuthenticated, )
     serializer_class = TeamSerializer
-    lookup_field = 'uuid'
