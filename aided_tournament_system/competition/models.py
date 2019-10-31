@@ -18,6 +18,7 @@ class Application(UUIDTimeStampModel):
                                     related_name='applications')
     is_open = models.BooleanField(default=True,
                                   verbose_name='Is application open')
+    objects = RankingsManager()
 
     def __str__(self):
         return f'{self.competition.title}: {self.team.title}'
@@ -41,7 +42,8 @@ class Ranking(UUIDTimeStampModel):
     objects = RankingsManager()
 
     def __str__(self):
-        return f'{self.competition.title}: {self.team.title}'
+        return f'{self.team.title}. place {self.place}. ' \
+               f'comp: {self.competition.title}'
 
     class Meta:
         db_table = 'rankings'
