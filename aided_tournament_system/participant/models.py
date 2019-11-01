@@ -5,15 +5,13 @@ from django_countries.fields import CountryField
 from django_utils.models import UUIDTimeStampModel
 from game.models import Game
 
+from .choices import GenderChoices
+
 
 class Player(UUIDTimeStampModel):
-    class GENDER(Enum):
-        woman = ('w', 'Woman')
-        man = ('m', 'Man')
-
     user = models.UUIDField(verbose_name='users uuid', unique=True)
     gender = models.CharField(max_length=1,
-                              choices=[x.value for x in GENDER],
+                              choices=GenderChoices.get_choices(),
                               verbose_name='sex')
     country = CountryField(blank_label='(select country)',
                            verbose_name='country')

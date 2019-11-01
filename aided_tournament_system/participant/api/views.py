@@ -1,3 +1,5 @@
+from django_utils.permisions import IsOwnerOrReadOnly
+from participant.models import Player, Team
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -5,7 +7,6 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework_swagger import renderers
 
-from ..models import Player, Team
 from .serializers import PlayerSerializer, TeamSerializer
 
 
@@ -13,7 +14,7 @@ class PlayerListAPIView(ListAPIView):
     queryset = Player.objects.all()
 
     serializer_class = PlayerSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsOwnerOrReadOnly,)
 
 
 class PlayerExampleView(APIView):
