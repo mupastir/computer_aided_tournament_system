@@ -16,7 +16,7 @@ class CompetitionCreateSerializer(serializers.ModelSerializer):
         fields = ['title',
                   'start_time',
                   'end_time',
-                  'schedule_system'
+                  'schedule_system',
                   'courts_number',
                   'gender']
 
