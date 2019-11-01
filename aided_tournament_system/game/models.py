@@ -6,7 +6,9 @@ from .managers import GameManager
 
 
 class Game(UUIDTimeStampModel):
-    start_time = models.DateTimeField(verbose_name='time start')
+    start_time = models.DateTimeField(blank=True,
+                                      null=True,
+                                      verbose_name='time start')
     end_time = models.DateTimeField(blank=True,
                                     null=True,
                                     verbose_name='time end')
@@ -14,7 +16,9 @@ class Game(UUIDTimeStampModel):
                                   max_length=8,
                                   verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
-    court_number = models.IntegerField(verbose_name='court number')
+    court_number = models.IntegerField(verbose_name='court number',
+                                       blank=True,
+                                       null=True)
     home_team = models.CharField(max_length=300,
                                  verbose_name='team which plays at home',
                                  blank=True,
