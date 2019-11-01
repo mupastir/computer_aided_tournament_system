@@ -2,11 +2,25 @@ from datetime import datetime
 
 from behave import given, then, when
 from game.models import Game
+from user_auth.models import User
 
 
 @given('Admin user')
 def create_superuser(context):
-    pass
+    context.execute_steps('''
+                when I entered a valid user data
+            ''')
+    user = User.objects.get(username="test")
+    user.is_superuser = True
+    user.is_staff = True
+    user.save()
+
+
+@given('Logged in admin')
+def logging_admin(context):
+    context.execute_steps('''
+                    when I login existing user
+                ''')
 
 
 @when('I create competition with valid data')
@@ -25,12 +39,12 @@ def create_competition_with_valid_data(context):
 
 
 @then('Competition is successfully created')
-def is_competition_created(context):
+def check_competition_created(context):
     assert context.response.status_code == 201
 
 
 @then('Games are created for competition')
-def are_games_created(context):
+def check_games_created(context):
     assert len(Game.objects.all()) > 0
 
 
@@ -50,4 +64,4 @@ def create_invalid_competition(context):
 
 @then('Competition is not created')
 def is_competition_created(context):
-    assert context.response.status_code == 301
+    assert context.response.status_code == 400
