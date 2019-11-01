@@ -2,7 +2,7 @@ from django.db import models
 from django_utils.models import UUIDTimeStampModel
 from participant.models import Team
 
-from .choices import ScheduleChoices
+from .choices import GenderChoices, ScheduleChoices
 from .managers import RankingsManager
 
 
@@ -52,7 +52,8 @@ class Ranking(UUIDTimeStampModel):
 
 class Competition(UUIDTimeStampModel):
     title = models.CharField(max_length=300,
-                             verbose_name='title')
+                             verbose_name='title',
+                             unique=True)
     start_time = models.DateTimeField(verbose_name='start time')
     end_time = models.DateTimeField(verbose_name='end time')
     courts_number = models.IntegerField(verbose_name='courts number')
@@ -60,6 +61,10 @@ class Competition(UUIDTimeStampModel):
                                        max_length=2,
                                        verbose_name='Schedule by number '
                                                     'of teams participated')
+    gender = models.CharField(choices=GenderChoices.get_choices(),
+                              max_length=1,
+                              default='m',
+                              verbose_name='gender')
 
     def __str__(self):
         return self.title
