@@ -213,8 +213,8 @@ class Tournament16Teams(BaseTournament):
         pass
 
 
-SCHEDULE_SIZES_AVAILABLE = {'16': Tournament32Teams,
-                            '32': Tournament16Teams}
+SCHEDULE_SIZES_AVAILABLE = {'16': Tournament16Teams,
+                            '32': Tournament32Teams}
 
 
 class TournamentGames:
