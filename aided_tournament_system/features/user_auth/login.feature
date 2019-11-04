@@ -2,6 +2,7 @@
 Feature: Login
 
   Scenario: Login user
+
     Given Existing user
     When I login existing user
     Then I get token of this user

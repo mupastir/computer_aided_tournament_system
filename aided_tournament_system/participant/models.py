@@ -1,20 +1,17 @@
 from enum import Enum
 
-from competition.models import Application
 from django.db import models
 from django_countries.fields import CountryField
 from django_utils.models import UUIDTimeStampModel
 from game.models import Game
 
+from .choices import GenderChoices
+
 
 class Player(UUIDTimeStampModel):
-    class GENDER(Enum):
-        woman = ('w', 'Woman')
-        man = ('m', 'Man')
-
     user = models.UUIDField(verbose_name='users uuid', unique=True)
     gender = models.CharField(max_length=1,
-                              choices=[x.value for x in GENDER],
+                              choices=GenderChoices.get_choices(),
                               verbose_name='sex')
     country = CountryField(blank_label='(select country)',
                            verbose_name='country')
@@ -24,13 +21,23 @@ class Player(UUIDTimeStampModel):
                                   blank=True,
                                   verbose_name='team')
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        db_table = 'player'
+
 
 class Team(UUIDTimeStampModel):
     title = models.CharField(max_length=100, verbose_name='title')
     rating = models.IntegerField(null=True,
                                  verbose_name='total team rating')
-    competition = models.ManyToManyField(Application,
-                                         verbose_name='competition')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'team'
 
 
 class Referee(UUIDTimeStampModel):
@@ -45,3 +52,9 @@ class Referee(UUIDTimeStampModel):
     role = models.CharField(max_length=3,
                             choices=[x.value for x in Roles],
                             verbose_name='role')
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        db_table = 'referee'

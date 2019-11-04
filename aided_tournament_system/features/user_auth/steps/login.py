@@ -20,7 +20,7 @@ def login_existed_user(context):
 
 @then('I get token of this user')
 def get_user_token(context):
-    assert len(context.response.json()['key']) > 1
+    assert len(context.response.json()['key']) > 0
 
 
 @then('Status code is 200')
