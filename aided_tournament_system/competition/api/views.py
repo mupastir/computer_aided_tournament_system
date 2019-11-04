@@ -1,5 +1,6 @@
 from competition.models import Competition
-from game.services.schedule_creation_service import TournamentGames
+from game.services.schedule_creation_services.schedule_creator import \
+    ScheduleCreator
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAdminUser
@@ -30,7 +31,7 @@ class CompetitionCreateAPIView(CreateAPIView):
             .values('id', 'schedule_system')
         competition_id = query_id[0].get('id')
         schedule_system = query_id[0].get('schedule_system')
-        tournament_games = TournamentGames(schedule_system, competition_id)
+        tournament_games = ScheduleCreator(schedule_system, competition_id)
         tournament_games.create_schedule()
         return Response(serializer.data, status=status.HTTP_201_CREATED,
                         headers=headers)
