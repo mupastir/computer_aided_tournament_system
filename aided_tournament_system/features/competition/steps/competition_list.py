@@ -2,6 +2,9 @@ from datetime import datetime
 
 from behave import given, then, when
 from competition.models import Competition
+from rest_framework.test import APIClient
+
+client = APIClient()
 
 
 @given('Existing competitions')
