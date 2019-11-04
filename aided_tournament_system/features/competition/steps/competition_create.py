@@ -1,32 +1,29 @@
+from ast import literal_eval
 from datetime import datetime
 
 from behave import given, then, when
+from features.utils import api_post
 from game.models import Game
 from user_auth.models import User
 
 
-@given('Admin user')
-def create_superuser(context):
-    context.execute_steps('''
-                when I entered a valid user data
-            ''')
-    user = User.objects.get(username="test")
-    user.is_superuser = True
-    user.is_staff = True
-    user.save()
+@given('User with email: {email} and password: {password}, '
+       'superuser: {is_superuser}, staff: {is_staff}.')
+def create_superuser(context, email, password, is_superuser, is_staff):
+    context.user = User.objects.create_superuser(
+        username=email,
+        password=password,
+        email=email,
+        is_superuser=literal_eval(is_superuser),
+        is_staff=literal_eval(is_staff)
+    )
 
 
-@given('Logged in admin')
-def logging_admin(context):
-    context.execute_steps('''
-                    when I login existing user
-                ''')
-
-
-@when('I create competition with valid data')
+@when('User creates competition with valid data')
 def create_competition_with_valid_data(context):
-    context.response = context.test.client.post(
+    context.response = api_post(
         '/competition/create/',
+        context.user,
         {
             'title': 'Test',
             'start_time': datetime.now(),
@@ -48,10 +45,11 @@ def check_games_created(context):
     assert len(Game.objects.all()) > 0
 
 
-@when('I create competition with invalid data')
+@when('User creates competition with invalid data')
 def create_invalid_competition(context):
-    context.response = context.test.client.post(
+    context.response = api_post(
         '/competition/create/',
+        context.user,
         {
             'title': 'Test',
             'start_time': datetime.now(),
