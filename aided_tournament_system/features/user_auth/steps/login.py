@@ -1,24 +1,27 @@
 from behave import given, then, when
+from rest_framework.test import APIClient
+
+client = APIClient()
 
 
 @given('Existing user')
 def existing_user(context):
     context.execute_steps('''
-            when I entered a valid user data
+            when User entered a valid user data
         ''')
 
 
-@when('I login existing user')
+@when('User login existing user')
 def login_existed_user(context):
-    context.response = context.test.client.post('/user/login/',
-                                                {
-                                                    'username': 'test',
-                                                    'email': 'test@test.com',
-                                                    'password': 'top_secure'
-                                                })
+    context.response = client.post('/user/login/',
+                                   {
+                                       'username': 'test',
+                                       'email': 'test@test.com',
+                                       'password': 'top_secure'
+                                   })
 
 
-@then('I get token of this user')
+@then('User get token of this user')
 def get_user_token(context):
     assert len(context.response.json()['key']) > 0
 
@@ -28,17 +31,17 @@ def get_success_status_code(context):
     assert context.response.status_code == 200
 
 
-@when('I login not existing user')
+@when('User login not existing user')
 def login_not_existing_user(context):
-    context.response = context.test.client.post('/user/login/',
-                                                {
-                                                    'username': 'est',
-                                                    'email': 'est@test.com',
-                                                    'password': 'top_secure'
-                                                })
+    context.response = client.post('/user/login/',
+                                   {
+                                       'username': 'est',
+                                       'email': 'est@test.com',
+                                       'password': 'top_secure'
+                                   })
 
 
-@then('I get error message')
+@then('User get error message')
 def get_error_msg(context):
     print(context.response)
     assert context.response.status_code == 400
