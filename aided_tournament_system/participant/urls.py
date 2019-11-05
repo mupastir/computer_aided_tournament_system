@@ -13,10 +13,14 @@ urlpatterns = [
         view=views.RefereeListAPIView.as_view(),
         name='referee_list_rest_api_1'
     ),
-    # /player/api/:slug/
     url(
         regex=r'^team/detail/$',
         view=views.TeamListAPIView.as_view(),
         name='team_list_rest_api_2'
+    ),
+    url(
+        regex=r'team/(?P<title>.+)/players/$',
+        view=views.PlayersInTeamsListAPIView.as_view(),
+        name='players_in_team'
     )
 ]

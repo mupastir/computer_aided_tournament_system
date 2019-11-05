@@ -20,3 +20,9 @@ class TeamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ['title', 'rating']
+
+
+class PlayerInTeamListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['last_name', 'first_name', 'team.title']
