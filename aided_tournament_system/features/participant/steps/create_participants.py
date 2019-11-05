@@ -7,13 +7,13 @@ from user_auth.models import User
 
 @when('User add player role')
 def add_player(context):
-    context.response = api_post('/participant/player/create',
+    context.response = api_post('/participant/player/add',
                                 context.user)
 
 
 @when('User add referee role')
 def add_referee(context):
-    context.response = api_post('/participant/referee/create',
+    context.response = api_post('/participant/referee/add',
                                 context.user)
 
 
@@ -47,7 +47,7 @@ def add_players_to_team(context, player_username, team_title):
                                 })
 
 
-@given('{team_title}')
+@given('The {team_title}')
 def create_team(context, team_title):
     Team.objects.create(title=team_title)
 

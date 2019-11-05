@@ -13,7 +13,7 @@ def create_team_with_players(context, team_title):
                                         password=row['password'],
                                         first_name=row['first_name'],
                                         last_name=row['last_name'])
-        player = Player.objects.create(user=user.id)
+        player = Player.objects.create(user_id=user.id)
         player.team.add(team)
 
 
