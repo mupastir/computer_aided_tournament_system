@@ -1,6 +1,6 @@
-from django_utils.choices import BaseChoices
+from django_utils.choices import BaseChoices, StrChoice
 
 
 class GenderChoices(BaseChoices):
-    woman = ('w', 'Woman')
-    man = ('m', 'Man')
+    woman = StrChoice('w', 'Woman')
+    man = StrChoice('m', 'Man')

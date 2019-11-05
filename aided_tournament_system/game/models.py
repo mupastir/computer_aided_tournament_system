@@ -13,7 +13,7 @@ class Game(UUIDTimeStampModel):
                                     null=True,
                                     verbose_name='time end')
     round_game = models.CharField(choices=RoundChoices.get_choices(),
-                                  max_length=8,
+                                  max_length=30,
                                   verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
     court_number = models.IntegerField(verbose_name='court number',
