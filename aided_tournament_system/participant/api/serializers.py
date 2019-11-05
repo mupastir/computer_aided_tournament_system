@@ -6,14 +6,13 @@ from ..models import Player, Referee, Team
 class PlayerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['first_name', 'last_name', 'sex', 'country',
-                  'rating']
+        fields = ['rating']
 
 
 class RefereeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Referee
-        fields = ['first_name', 'last_name']
+        fields = []
 
 
 class TeamListSerializer(serializers.ModelSerializer):
@@ -26,3 +25,15 @@ class PlayerInTeamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = ['last_name', 'first_name', 'team.title']
+
+
+class PlayerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = []
+
+
+class RefereeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referee
+        fields = []
