@@ -37,3 +37,9 @@ class RefereeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Referee
         fields = []
+
+
+class TeamCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ['title']

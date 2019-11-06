@@ -1,13 +1,13 @@
+from participant.models import Player, Referee, Team
 from rest_framework import status
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from participant.models import Player, Referee, Team
-from rest_framework.generics import ListAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
-
 from .serializers import (PlayerInTeamListSerializer, PlayerListSerializer,
-                          RefereeListSerializer, TeamListSerializer)
+                          RefereeListSerializer, TeamCreateSerializer,
+                          TeamListSerializer)
 
 
 class PlayerListAPIView(ListAPIView):
@@ -42,7 +42,8 @@ class PlayerCreateAPIView(APIView):
 
     def post(self, request):
         Player.objects.create(user_id=request.user.id)
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(data={'detail': 'Player has successfully created.'},
+                        status=status.HTTP_201_CREATED)
 
 
 class RefereeCreateAPIView(APIView):
@@ -50,4 +51,23 @@ class RefereeCreateAPIView(APIView):
 
     def post(self, request):
         Referee.objects.create(user_id=request.user.id)
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(data={'detail': 'Referee has successfully created.'},
+                        status=status.HTTP_201_CREATED)
+
+
+class TeamCreateAPIView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TeamCreateSerializer
+
+
+class PlayerJoinToTeamAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def put(self, request):
+        team = Team.objects.get(title=request.data['title'])
+        player = Player.objects.get(user_id=request.user.id)
+        player.save()
+        player.team.add(team)
+        return Response(data={
+            'detail': f'You successfully added to {team.title}.'
+        })
