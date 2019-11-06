@@ -31,11 +31,9 @@ def create_players(context):
 
 @when('User try to join to {team_title}')
 def add_players_to_team(context, team_title):
-    context.response = api_put(f'/participant/join_to_team/',
-                               context.user,
-                               {
-                                   'title': team_title
-                               })
+    context.response = api_put(
+        f'/participant/join_to_team/{Team.objects.first().id}/',
+        context.user)
 
 
 @given('The {team_title}')
