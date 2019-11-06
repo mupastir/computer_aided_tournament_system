@@ -39,7 +39,7 @@ urlpatterns = [
         name='create_team'
     ),
     url(
-        regex=r'^join_to_team/$',
+        regex=r'^join_to_team/(?P<team_id>.+)/$',
         view=views.PlayerJoinToTeamAPIView.as_view(),
         name='join_player_to_team'
     )

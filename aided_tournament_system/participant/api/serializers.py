@@ -1,6 +1,5 @@
+from participant.models import Player, Referee, Team
 from rest_framework import serializers
-
-from ..models import Player, Referee, Team
 
 
 class PlayerListSerializer(serializers.ModelSerializer):

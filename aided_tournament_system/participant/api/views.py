@@ -63,8 +63,8 @@ class TeamCreateAPIView(CreateAPIView):
 class PlayerJoinToTeamAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def put(self, request):
-        team = Team.objects.get(title=request.data['title'])
+    def put(self, request, team_id):
+        team = Team.objects.get(id=team_id)
         player = Player.objects.get(user_id=request.user.id)
         player.save()
         player.team.add(team)

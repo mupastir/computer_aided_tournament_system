@@ -1,8 +1,7 @@
-from enum import Enum
-
 from django.db import models
 from django_utils.models import UUIDTimeStampModel
 from game.models import Game
+from participant.choices import RefereeRoles
 from user_auth.services import get_user_by_id
 
 from .managers import PlayerManager
@@ -39,16 +38,10 @@ class Team(UUIDTimeStampModel):
 
 
 class Referee(UUIDTimeStampModel):
-    class Roles(Enum):
-        first = ('1st', 'First')
-        second = ('2nd', 'Second')
-        scorer = ('scr', 'Scorer')
-        line_judge = ('lnj', 'Line judge')
-
     user_id = models.UUIDField(verbose_name='users uuid', unique=True)
     game = models.ManyToManyField(Game)
     role = models.CharField(max_length=3,
-                            choices=[x.value for x in Roles],
+                            choices=RefereeRoles.get_choices(),
                             verbose_name='role')
 
     def __str__(self):
