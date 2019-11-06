@@ -1,16 +1,44 @@
+from participant.models import Player, Referee, Team
 from rest_framework import serializers
 
-from ..models import Player, Team
 
-
-class PlayerSerializer(serializers.ModelSerializer):
+class PlayerListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['first_name', 'last_name', 'id', 'sex', 'country',
-                  'rating', 'email']
+        fields = ['rating']
 
 
-class TeamSerializer(serializers.ModelSerializer):
+class RefereeListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referee
+        fields = []
+
+
+class TeamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ['id', 'title', 'player', 'rating', 'games']
+        fields = ['title', 'rating']
+
+
+class PlayerInTeamListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['last_name', 'first_name', 'team.title']
+
+
+class PlayerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = []
+
+
+class RefereeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referee
+        fields = []
+
+
+class TeamCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ['title']

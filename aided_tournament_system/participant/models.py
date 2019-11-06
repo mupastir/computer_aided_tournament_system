@@ -1,28 +1,24 @@
-from enum import Enum
-
 from django.db import models
-from django_countries.fields import CountryField
 from django_utils.models import UUIDTimeStampModel
 from game.models import Game
+from participant.choices import RefereeRoles
+from user_auth.services import get_user_by_id
 
-from .choices import GenderChoices
+from .managers import PlayerManager
 
 
 class Player(UUIDTimeStampModel):
-    user = models.UUIDField(verbose_name='users uuid', unique=True)
-    gender = models.CharField(max_length=1,
-                              choices=GenderChoices.get_choices(),
-                              verbose_name='sex')
-    country = CountryField(blank_label='(select country)',
-                           verbose_name='country')
+    user_id = models.UUIDField(verbose_name='users uuid', unique=True)
     rating = models.IntegerField(null=True,
                                  verbose_name='rating')
     team = models.ManyToManyField('Team',
                                   blank=True,
                                   verbose_name='team')
+    objects = PlayerManager()
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        user = get_user_by_id(self.user_id)
+        return f'{user.first_name} {user.last_name}'
 
     class Meta:
         db_table = 'player'
@@ -30,7 +26,8 @@ class Player(UUIDTimeStampModel):
 
 class Team(UUIDTimeStampModel):
     title = models.CharField(max_length=100, verbose_name='title')
-    rating = models.IntegerField(null=True,
+    rating = models.IntegerField(blank=True,
+                                 null=True,
                                  verbose_name='total team rating')
 
     def __str__(self):
@@ -41,20 +38,15 @@ class Team(UUIDTimeStampModel):
 
 
 class Referee(UUIDTimeStampModel):
-    class Roles(Enum):
-        first = ('1st', 'First')
-        second = ('2nd', 'Second')
-        scorer = ('scr', 'Scorer')
-        line_judge = ('lnj', 'Line judge')
-
-    user = models.UUIDField(verbose_name='users uuid', unique=True)
+    user_id = models.UUIDField(verbose_name='users uuid', unique=True)
     game = models.ManyToManyField(Game)
     role = models.CharField(max_length=3,
-                            choices=[x.value for x in Roles],
+                            choices=RefereeRoles.get_choices(),
                             verbose_name='role')
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        user = get_user_by_id(self.user_id)
+        return f'{user.first_name} {user.last_name}'
 
     class Meta:
         db_table = 'referee'

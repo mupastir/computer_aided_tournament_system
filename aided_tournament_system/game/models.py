@@ -13,7 +13,7 @@ class Game(UUIDTimeStampModel):
                                     null=True,
                                     verbose_name='time end')
     round_game = models.CharField(choices=RoundChoices.get_choices(),
-                                  max_length=8,
+                                  max_length=30,
                                   verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
     court_number = models.IntegerField(verbose_name='court number',
@@ -27,12 +27,12 @@ class Game(UUIDTimeStampModel):
                                  verbose_name='team which plays visiting',
                                  blank=True,
                                  null=True)
-    winner_score = models.IntegerField(blank=True,
-                                       null=True,
-                                       verbose_name='winner score')
-    loser_score = models.IntegerField(blank=True,
-                                      null=True,
-                                      verbose_name='winner_score')
+    home_team_score = models.IntegerField(blank=True,
+                                          null=True,
+                                          verbose_name='home team score')
+    away_team_score = models.IntegerField(blank=True,
+                                          null=True,
+                                          verbose_name='away team score')
     competition = models.ForeignKey('competition.Competition',
                                     on_delete=models.CASCADE,
                                     verbose_name='competition')

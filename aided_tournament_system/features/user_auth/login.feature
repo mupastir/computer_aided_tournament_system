@@ -4,9 +4,9 @@ Feature: Login
   Scenario: Login user
 
     Given Existing user
-    When I login existing user
-    Then I get token of this user
+    When User login existing user
+    Then User get token of this user
     And Status code is 200
 
-    When I login not existing user
-    Then I get error message
+    When User login not existing user
+    Then User get error message

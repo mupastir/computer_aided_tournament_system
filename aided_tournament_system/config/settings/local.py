@@ -46,3 +46,6 @@ SWAGGER_SETTINGS = {
 
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
+
+if os.environ.get('ENV') == 'behave':
+    from .test import *

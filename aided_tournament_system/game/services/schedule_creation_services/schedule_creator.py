@@ -1,11 +1,7 @@
 from uuid import UUID
 
-from game.services.schedule_creation_services.tournament_schedules import (
-    Tournament8Teams, Tournament16Teams, Tournament32Teams)
-
-SCHEDULE_SIZES_AVAILABLE = {'8': Tournament8Teams,
-                            '16': Tournament16Teams,
-                            '32': Tournament32Teams}
+from game.services.schedule_creation_services.tournament_schedules import \
+    SCHEDULE_SIZES_AVAILABLE
 
 
 class ScheduleCreator:

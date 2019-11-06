@@ -2,8 +2,8 @@
 Feature: Register
 
   Scenario: Registration user
-	When I entered a valid user data
-	Then I got success status code
+	When User entered a valid user data
+	Then User got success status code
 
-	When I entered invalid user data
-	Then I am got fail status code
+	When User entered invalid user data
+	Then User am got fail status code

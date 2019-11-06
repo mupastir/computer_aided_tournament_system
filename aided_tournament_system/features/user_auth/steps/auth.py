@@ -1,7 +1,7 @@
 from behave import then, when
 
 
-@when('I entered a valid user data')
+@when('User entered a valid user data')
 def valid_user_data(context):
     context.response = context.test.client.post('/user/register/',
                                                 {
@@ -14,12 +14,12 @@ def valid_user_data(context):
                                                 })
 
 
-@then('I got success status code')
+@then('User got success status code')
 def get_success_status_code(context):
     assert context.response.status_code == 201
 
 
-@when('I entered invalid user data')
+@when('User entered invalid user data')
 def invalid_user_data(context):
     context.response = context.test.client.post('/user/register',
                                                 {
@@ -32,7 +32,7 @@ def invalid_user_data(context):
                                                 })
 
 
-@then('I am got fail status code')
+@then('User am got fail status code')
 def get_fail_status_code(context):
     print(context.response)
     assert context.response.status_code == 301

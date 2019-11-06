@@ -1,64 +1,73 @@
-from django_utils.permisions import IsOwnerOrReadOnly
-from participant.models import Player, Team
-from rest_framework.generics import ListAPIView
+from participant.models import Player, Referee, Team
+from rest_framework import status
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
-from rest_framework_swagger import renderers
 
-from .serializers import PlayerSerializer, TeamSerializer
+from .serializers import (PlayerInTeamListSerializer, PlayerListSerializer,
+                          RefereeListSerializer, TeamCreateSerializer,
+                          TeamListSerializer)
 
 
 class PlayerListAPIView(ListAPIView):
     queryset = Player.objects.all()
-
-    serializer_class = PlayerSerializer
-    permission_classes = (IsOwnerOrReadOnly,)
-
-
-class PlayerExampleView(APIView):
-
     permission_classes = (AllowAny,)
+    serializer_class = PlayerListSerializer
 
-    def get(self, request):
-        return Response(f'{request.user}')
+
+class RefereeListAPIView(ListAPIView):
+    queryset = Referee.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RefereeListSerializer
+
+
+class TeamListAPIView(ListAPIView):
+    queryset = Team.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = TeamListSerializer
+
+
+class PlayersInTeamsListAPIView(ListAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = PlayerInTeamListSerializer
+
+    def get_queryset(self):
+        title = self.kwargs['title']
+        return Player.objects.filter(team__title=title)
 
 
 class PlayerCreateAPIView(APIView):
-    queryset = Player.objects.all()
-    renderer_classes = (
-        renderers.OpenAPIRenderer,
-        renderers.SwaggerUIRenderer
-    )
-    permission_classes = (AllowAny, )
-    serializer_class = PlayerSerializer
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        generator = SchemaGenerator()
-        schema = generator.get_schema(request=request)
-
-        return Response(schema)
-
-
-class TeamListCreateAPIView(APIView):
-    queryset = Team.objects.all()
-    renderer_classes = (
-        renderers.OpenAPIRenderer,
-        renderers.SwaggerUIRenderer
-    )
-    permission_classes = (AllowAny,)
-    serializer_class = TeamSerializer
-
-    def get(self):
-        pass
+        Player.objects.create(user_id=request.user.id)
+        return Response(data={'detail': 'Player has successfully created.'},
+                        status=status.HTTP_201_CREATED)
 
 
-class TeamRetrieveUpdateDestroyAPIView(APIView):
-    queryset = Team.objects.all()
-    renderer_classes = (
-        renderers.OpenAPIRenderer,
-        renderers.SwaggerUIRenderer
-    )
-    permission_classes = (IsAuthenticated, )
-    serializer_class = TeamSerializer
+class RefereeCreateAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        Referee.objects.create(user_id=request.user.id)
+        return Response(data={'detail': 'Referee has successfully created.'},
+                        status=status.HTTP_201_CREATED)
+
+
+class TeamCreateAPIView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TeamCreateSerializer
+
+
+class PlayerJoinToTeamAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def put(self, request, team_id):
+        team = Team.objects.get(id=team_id)
+        player = Player.objects.get(user_id=request.user.id)
+        player.save()
+        player.team.add(team)
+        return Response(data={
+            'detail': f'You successfully added to {team.title}.'
+        })

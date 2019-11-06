@@ -17,3 +17,8 @@ def api_get(path, client, *args, **kwargs):
 @force_authenticated
 def api_post(path, client, *args, **kwargs):
     return client.post(path, *args, **kwargs)
+
+
+@force_authenticated
+def api_put(path, client, *args, **kwargs):
+    return client.put(path, *args, **kwargs)

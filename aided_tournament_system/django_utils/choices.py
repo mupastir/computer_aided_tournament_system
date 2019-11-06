@@ -1,12 +1,25 @@
 from enum import Enum
 
 
+class ChoiceMixin:
+    def __new__(cls, value, text=None):
+        inst = super().__new__(cls, value)
+        if isinstance(value, ChoiceMixin):
+            text = value.text
+        inst.text = text
+        return inst
+
+
 class BaseChoices(Enum):
 
     @classmethod
-    def get_choices(cls):
-        choices = []
-        for _cls in cls.mro():
-            if _cls is not object:
-                choices.extend(choice.value for choice in _cls)
-        return choices
+    def get_choices(cls) -> tuple:
+        return tuple((i.value, i.value.text) for i in cls)
+
+
+class IntChoice(ChoiceMixin, int):
+    pass
+
+
+class StrChoice(ChoiceMixin, str):
+    pass
