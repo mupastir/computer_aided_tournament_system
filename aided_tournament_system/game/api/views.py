@@ -10,5 +10,5 @@ class UpdateScoreForGameAPIView(UpdateAPIView):
     serializer_class = UpdateGameScoreSerializer
 
     def get_queryset(self):
-        game_id = self.kwargs['pk']
-        return Game.objects.filter(pk=game_id)
+        pk = self.kwargs['pk']
+        return Game.objects.filter(pk=pk)
