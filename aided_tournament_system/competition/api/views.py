@@ -2,7 +2,7 @@ from competition.models import Competition
 from game.services.schedule_creation_services.schedule_creator import \
     ScheduleCreator
 from rest_framework.generics import CreateAPIView, ListAPIView
-from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 
 from .serializers import CompetitionCreateSerializer, CompetitionListSerializer
 
@@ -15,7 +15,7 @@ class CompetitionListAPIView(ListAPIView):
 
 class CompetitionCreateAPIView(CreateAPIView):
     serializer_class = CompetitionCreateSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated,)
 
     def perform_create(self, serializer):
         super().perform_create(serializer)
