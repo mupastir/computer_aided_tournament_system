@@ -1,7 +1,6 @@
 from django.db import models
 from django_utils.models import UUIDTimeStampModel
 
-from .choices import RoundChoices
 from .managers import GameManager
 
 
@@ -12,8 +11,7 @@ class Game(UUIDTimeStampModel):
     end_time = models.DateTimeField(blank=True,
                                     null=True,
                                     verbose_name='time end')
-    round_game = models.CharField(choices=RoundChoices.get_choices(),
-                                  max_length=3,
+    round_game = models.CharField(max_length=3,
                                   verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
     court_number = models.IntegerField(verbose_name='court number',
