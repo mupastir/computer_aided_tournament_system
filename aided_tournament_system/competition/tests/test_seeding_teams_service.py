@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from competition.choices import ScheduleChoices
 from competition.models import Application, Competition
 from competition.services.seeding_teams_service import SeedingTeamsService
 from django.test import TestCase
@@ -21,12 +22,14 @@ class SeedingTeamsTestCase(TestCase):
             Team(title='carrot', rating=33),
             Team(title='beluga', rating=2)
         ])
-        competition = Competition.objects.create(title='Test',
-                                                 start_time=datetime.now(),
-                                                 end_time=datetime.now(),
-                                                 courts_number=4,
-                                                 schedule_system='8',
-                                                 gender='m')
+        competition = Competition.objects.create(
+            title='Test',
+            start_time=datetime.now(),
+            end_time=datetime.now(),
+            courts_number=4,
+            schedule_system=ScheduleChoices.TEAM_SYSTEM_OF_8.value,
+            gender='m'
+        )
         schedule_creator = ScheduleCreator(competition.schedule_system,
                                            competition.id)
         schedule_creator.create_schedule()
