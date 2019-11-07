@@ -43,5 +43,5 @@ class SeedingTeamsService:
                 away_team = None
             Game.objects.filter(competition=self.competition,
                                 game_number=i + 1).update(
-                home_team=teams[i].id,
-                away_team=away_team)
+                home_team_id=teams[i].id,
+                away_team_id=away_team)
