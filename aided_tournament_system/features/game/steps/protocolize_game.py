@@ -3,8 +3,9 @@ from datetime import datetime, timedelta
 from behave import given, then, when
 from competition.models import Competition
 from features.utils import api_put
+from game.choices import RoundChoices
 from game.models import Game
-from participant.models import Player, Referee
+from participant.models import Player, Referee, Team
 from user_auth.models import User
 
 
@@ -36,13 +37,14 @@ def create_competition(context, game_round, comp_title):
     teams = {}
     for row in context.table:
         teams[row['status']] = row['team']
+        Team.objects.create(title=row['team'])
     Game.objects.create(start_time=datetime.now(),
-                        round_game=game_round,
+                        round_game=RoundChoices.FINAL_ROUND.value,
                         competition=competition,
                         game_number=1,
                         court_number=1,
-                        home_team=teams['home'],
-                        away_team=teams['away'])
+                        home_team_id=Team.objects.get(title=teams['home']).id,
+                        away_team_id=Team.objects.get(title=teams['away']).id)
 
 
 @when('User protocolized score {home_team_score} - {away_team_score}')
