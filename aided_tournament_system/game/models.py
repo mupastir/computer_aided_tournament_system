@@ -13,18 +13,18 @@ class Game(UUIDTimeStampModel):
                                     null=True,
                                     verbose_name='time end')
     round_game = models.CharField(choices=RoundChoices.get_choices(),
-                                  max_length=30,
+                                  max_length=3,
                                   verbose_name='round')
     game_number = models.IntegerField(verbose_name='number of the game')
     court_number = models.IntegerField(verbose_name='court number',
                                        blank=True,
                                        null=True)
-    home_team = models.UUIDField(verbose_name='team which plays at home',
-                                 blank=True,
-                                 null=True)
-    away_team = models.UUIDField(verbose_name='team which plays visiting',
-                                 blank=True,
-                                 null=True)
+    home_team_id = models.UUIDField(verbose_name='team which plays at home',
+                                    blank=True,
+                                    null=True)
+    away_team_id = models.UUIDField(verbose_name='team which plays visiting',
+                                    blank=True,
+                                    null=True)
     home_team_score = models.IntegerField(blank=True,
                                           null=True,
                                           verbose_name='home team score')

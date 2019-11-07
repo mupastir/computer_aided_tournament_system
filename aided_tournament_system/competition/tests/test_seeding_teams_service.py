@@ -37,29 +37,29 @@ class SeedingTeamsTestCase(TestCase):
         seeding_teams_service.seed()
 
         assert (Game.objects.get(competition=competition,
-                                 game_number=1).home_team
+                                 game_number=1).home_team_id
                 == Team.objects.get(title='carrot').id)
         assert (Game.objects.get(competition=competition,
-                                 game_number=1).away_team
+                                 game_number=1).away_team_id
                 is None)
 
         assert (Game.objects.get(competition=competition,
-                                 game_number=2).home_team
+                                 game_number=2).home_team_id
                 == Team.objects.get(title='cristal').id)
         assert (Game.objects.get(competition=competition,
-                                 game_number=2).away_team
+                                 game_number=2).away_team_id
                 == Team.objects.get(title='beluga').id)
 
         assert (Game.objects.get(competition=competition,
-                                 game_number=3).home_team
+                                 game_number=3).home_team_id
                 == Team.objects.get(title='indigo').id)
         assert (Game.objects.get(competition=competition,
-                                 game_number=3).away_team
+                                 game_number=3).away_team_id
                 == Team.objects.get(title='cookie').id)
 
         assert (Game.objects.get(competition=competition,
-                                 game_number=4).home_team
+                                 game_number=4).home_team_id
                 == Team.objects.get(title='malvin').id)
         assert (Game.objects.get(competition=competition,
-                                 game_number=4).away_team
+                                 game_number=4).away_team_id
                 == Team.objects.get(title='croissant').id)
