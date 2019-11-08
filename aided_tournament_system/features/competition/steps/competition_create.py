@@ -22,7 +22,7 @@ def create_superuser(context, email, password, is_superuser, is_staff):
 @when('User creates competition with valid data')
 def create_competition_with_valid_data(context):
     context.response = api_post(
-        '/competition/create/',
+        '/api/competition/create/',
         context.user,
         {
             'title': 'Test',
@@ -48,7 +48,7 @@ def check_games_created(context):
 @when('User creates competition with invalid data')
 def create_invalid_competition(context):
     context.response = api_post(
-        '/competition/create/',
+        '/api/competition/create/',
         context.user,
         {
             'title': 'Test',

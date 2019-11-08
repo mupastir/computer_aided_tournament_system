@@ -14,7 +14,7 @@ def get_logged_in_user(context):
 
 @when('Try to logout user')
 def logout_user(context):
-    context.response = client.post('/user/logout/')
+    context.response = client.post('/api/user/logout/')
 
 
 @then('I get successfully logout')
