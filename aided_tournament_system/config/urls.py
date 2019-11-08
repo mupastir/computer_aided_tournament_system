@@ -25,7 +25,9 @@ urlpatterns = [
     path('api/user/', include('user_auth.api.urls')),
     path('api/competition/', include('competition.api.urls')),
     path('api/participant/', include('participant.api.urls')),
-    path('api/game/', include('game.api.urls'))
+    path('api/game/', include('game.api.urls')),
+    path('user/', include('user_auth.urls')),
+
 ]
 
 if settings.DEBUG:
