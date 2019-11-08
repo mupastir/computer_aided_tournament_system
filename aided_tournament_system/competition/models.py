@@ -1,3 +1,4 @@
+from competition.choices import CompetitionTypeChoices
 from django.db import models
 from django_utils.models import UUIDTimeStampModel
 from participant.models import Team
@@ -61,6 +62,9 @@ class Competition(UUIDTimeStampModel):
                                        max_length=2,
                                        verbose_name='Schedule by number '
                                                     'of teams participated')
+    type = models.CharField(choices=CompetitionTypeChoices.get_choices(),
+                            max_length=40,
+                            verbose_name='Type of competition')
     gender = models.CharField(choices=GenderChoices.get_choices(),
                               max_length=1,
                               default='m',
