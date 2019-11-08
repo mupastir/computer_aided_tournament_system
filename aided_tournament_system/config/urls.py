@@ -22,10 +22,10 @@ schema_view = get_swagger_view(title='Aided tournament system API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('user_auth.urls')),
-    path('competition/', include('competition.urls')),
-    path('participant/', include('participant.urls')),
-    path('game/', include('game.urls'))
+    path('api/user/', include('user_auth.api.urls')),
+    path('api/competition/', include('competition.api.urls')),
+    path('api/participant/', include('participant.api.urls')),
+    path('api/game/', include('game.api.urls'))
 ]
 
 if settings.DEBUG:

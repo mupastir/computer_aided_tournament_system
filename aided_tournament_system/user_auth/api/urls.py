@@ -1,8 +1,7 @@
 from django.conf.urls import url
 from rest_auth.registration.views import (SocialAccountDisconnectView,
                                           SocialAccountListView)
-
-from .api import views
+from user_auth.api import views
 
 urlpatterns = [
     # /user/
