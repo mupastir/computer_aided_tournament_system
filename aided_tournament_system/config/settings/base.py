@@ -65,6 +65,7 @@ THIRD_PART_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'django_countries',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
@@ -88,7 +89,7 @@ ROOT_URLCONF = '%s.urls' % BASE_NAME
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_ROOT, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,6 +158,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATICFILES_DIRS = [os.path.join(BASE_ROOT, 'static')]
 
 STATIC_URL = '/static/'
 
