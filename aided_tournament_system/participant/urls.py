@@ -21,5 +21,10 @@ urlpatterns = [
         regex=r'^rating/(?P<type>.+)/(?P<gender>.+)/$',
         view=views.RatingView.as_view(),
         name='ratings'
+    ),
+    url(
+        regex=r'^join_to_team/(?P<team_id>.+)/$',
+        view=views.PlayerJoinToTeamView.as_view(),
+        name='join_player_to_team'
     )
 ]
