@@ -36,11 +36,6 @@
         {#TODO add urls#}
         <div class="nav-el"><a href="{% url 'competition_type_choice' %}">Соревнования</a></div>
         <div class="nav-el"><a href="{% url 'rating_choice' %}">Рейтинг</a></div>
-        {% if user.is_superuser %}
-        {#TODO move creating competition in competitions#}
-        <div class="nav-el"><a href="#{#% url 'competition_create' %#}">Создать соревнование</a></div>
-        {% else %}
-        {% endif %}
     </div>
     {% block content %}
     {% endblock %}
