@@ -1,7 +1,6 @@
 from django.contrib import admin
-from participant.models import Rating
 
-from .models import Player, Referee, Team
+from .models import Player, Rating, Referee, Team
 
 
 @admin.register(Player)
