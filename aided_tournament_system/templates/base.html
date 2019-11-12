@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 <html>
   <head>
-    <title>{% block head_title %}{% endblock %}</title>
+    <title>{% block head_title %}ZpBeachVolley{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
   </head>
@@ -10,7 +12,7 @@
 
     {% if messages %}
     <div>
-      <strong>Messages:</strong>
+      <strong>Сообщения:</strong>
       <ul>
         {% for message in messages %}
         <li>{{message}}</li>
@@ -19,17 +21,26 @@
     </div>
     {% endif %}
 
-    <div>
-      <strong>Menu:</strong>
-      <ul>
+    <div class="menu-container">
         {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        <div class="menu"><a href="{% url 'user_detail' %}">{{ user.username }}</a></div>
+        <div class="menu"><a href="{% url 'user_email' %}">Изменить email</a></div>
+        <div class="menu"><a href="{% url 'user_logout' %}">Выйти</a></div>
         {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        <div class="menu"><a href="{% url 'user_login' %}">Войти</a></div>
+        <div class="menu"><a href="{% url 'user_register' %}">Зарегестрироваться</a></div>
         {% endif %}
-      </ul>
+    </div>
+
+    <div class="navi-bar">
+        {#TODO add urls#}
+        <div class="nav-el"><a href="#{#% url 'competitions_list' %#}">Соревнования</a></div>
+        <div class="nav-el"><a href="#{#% url 'participants_rating_list' %#}">Рейтинг</a></div>
+        {% if user.is_superuser %}
+        {#TODO move creating competition in competitions#}
+        <div class="nav-el"><a href="#{#% url 'competition_create' %#}">Создать соревнование</a></div>
+        {% else %}
+        {% endif %}
     </div>
     {% block content %}
     {% endblock %}
