@@ -1,0 +1,15 @@
+{% extends "ratings.html" %}
+{% block content %}
+{% block rating %}
+    <td>
+            <th>Фамилия Имя</th>
+            <th>Рейтинг</th>
+    </td>
+    {% for player in ratings_list %}
+        <td>
+            <th>{{ player.first_name }} {{ player.last_name }}</th>
+            <th>{{ player.rating }}</th>
+        </td>
+    {% endfor %}
+{% endblock %}
+{% endblock %}
