@@ -9,7 +9,7 @@ from .choices import GenderChoices
 class User(UUIDTimeStampModel, AbstractUser):
     gender = models.CharField(max_length=1,
                               choices=GenderChoices.get_choices(),
-                              verbose_name='sex',
+                              verbose_name='gender',
                               null=True,
                               blank=True)
     country = CountryField(blank_label='(select country)',

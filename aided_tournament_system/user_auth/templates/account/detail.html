@@ -1,0 +1,40 @@
+{% extends "account/base.html" %}
+{% block content %}
+    {% load countries %}
+    {% get_countries as countries %}
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+    <h2>{{ user.username }}</h2>
+    {% if user.birthdate is None %}
+        <h2>Дата рождения: </h2>
+    {% else %}
+        <h2>Дата рождения: {{ user.birthdate }}</h2>
+    {% endif %}
+    <h2>Страна: {{ user.country }}</h2>
+    <div class="participant">
+    <div class="add-participant">
+        <a href="{% url 'user_update' pk=user.id %}">Обновить информацию</a>
+    </div>
+    {% if player %}
+        <h2>Пляжный рейтинг: {{ player.rating_beach }}</h2>
+        <h2>Парковый рейтинг: {{ player.rating_park }}</h2>
+    {% else %}
+        <form action="{% url 'add_player' %}" method="post">
+        {% csrf_token %}
+            <div class="add-participant">
+                <input type="submit" value="+ Стать игроком">
+            </div>
+        </form>
+
+    {% endif %}
+
+    {% if referee %}
+        <h2>Вы уже судья!</h2>
+    {% else %}
+        <form action="{% url 'add_referee' %}" method="post">{% csrf_token %}
+            <div class="add-participant">
+                <input type="submit" value="+ Стать судьей">
+            </div>
+        </form>
+    {% endif %}
+    </div>
+{% endblock %}
