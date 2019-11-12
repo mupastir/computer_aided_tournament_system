@@ -2,7 +2,6 @@ from competition.api import views
 from django.conf.urls import url
 
 urlpatterns = [
-    # /competition/
     url(
         regex=r'^detail/$',
         view=views.CompetitionListAPIView.as_view(),
