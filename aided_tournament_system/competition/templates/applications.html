@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <td>
+        <th>Название команды</th>
+        <th>Рейтинг</th>
+    </td>
+    {% for application in applications %}
+    <td>
+        <th>application.team.title</th>
+        <th>application.team.rating</th>
+    </td>
+    {% endfor %}
+
+    <a href="#{% url 'add_application' pk=application.competition.id %}">Подать заявку</a>
+{% endblock %}

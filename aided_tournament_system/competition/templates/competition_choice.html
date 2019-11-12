@@ -5,7 +5,27 @@
         {{ form.as_p }}
         <input type="submit" value="Выбрать">
     </form>
-    <div class="competition-choice">
-        <a href="{#% url '' %#}"></a>
-    </div>
+    {% if user.is_superuser %}
+        <a href="{% url 'competition_create' %}">Создать соревнование</a>
+        {% else %}
+        {% endif %}
+    <td>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Дата проведения</th>
+        <th></th>
+        <th></th>
+    </td>
+    {% for competition in competitions %}
+    <td>
+        <th>competition.title</th>
+        <th>competition.type</th>
+        <th>competition.start_time</th>
+        <th><a href="#{#% url 'games' competition_title=competition.title %#}">Игры</a></th>
+        {% if competition.application.is_active %}
+            <th><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></th>
+        {% endif %}
+    </td>
+
+    {% endfor %}
 {% endblock %}
