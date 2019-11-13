@@ -28,7 +28,6 @@ class CompetitionChoiceView(FormView):
 
 
 class CompetitionCreateView(CreateView):
-
     template_name = "competition_create.html"
     form_class = CompetitionCreateForm
     template_name_suffix = None
@@ -37,14 +36,14 @@ class CompetitionCreateView(CreateView):
 class CompetitionFilteredView(CompetitionChoiceView):
 
     def get_context_data(self, **kwargs):
+        super().get_context_data(**kwargs)
         kwargs['competitions'] = Competition.objects.filter(
             type=self.kwargs['competition_type']
         ).order_by('-created')
-        return super().get_context_data(**kwargs)
+        return kwargs
 
 
 class ApplicationsView(TemplateView):
-
     template_name = "applications.html"
 
     def get_context_data(self, **kwargs):
