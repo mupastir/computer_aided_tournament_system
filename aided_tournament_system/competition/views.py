@@ -6,7 +6,7 @@ from .models import Application, Competition
 
 
 class CompetitionChoiceView(FormView):
-    template_name = "competition_choice.html"
+    template_name = "competitions_list.html"
     form_class = CompetitionChoiceForm
 
     def get_success_url(self):
@@ -38,9 +38,13 @@ class CompetitionFilteredView(CompetitionChoiceView):
 
 
 class CompetitionCreateView(CreateView):
-    template_name = "competition_create.html"
+    template_name = "competition_create_form.html"
     form_class = CompetitionCreateForm
-    template_name_suffix = None
+    success_url = reverse_lazy('competition_type_choice')
+
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = self.get_form()
+        return kwargs
 
 
 class ApplicationsView(TemplateView):
