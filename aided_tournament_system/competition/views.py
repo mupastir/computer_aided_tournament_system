@@ -1,4 +1,5 @@
-from competition.forms import CompetitionChoiceForm, CompetitionCreateForm
+from competition.forms import CompetitionChoiceForm, CompetitionCreateForm, \
+    ApplicationAddForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView, TemplateView
 
@@ -58,3 +59,8 @@ class ApplicationsView(TemplateView):
             title=self.kwargs['competition_title']
         )
         return super().get_context_data(**kwargs)
+
+
+class ApplicationAddView(FormView):
+    template_name = "application_add.html"
+    form_class = ApplicationAddForm

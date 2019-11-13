@@ -18,6 +18,11 @@ urlpatterns = [
         name='applications'
     ),
     url(
+        regex=r'^(?P<competition_title>.+)/application/add/$',
+        view=views.ApplicationAddView.as_view(),
+        name='application_add'
+    ),
+    url(
         regex=r'^(?P<competition_type>.+)/$',
         view=views.CompetitionFilteredView.as_view(),
         name='competition_filtered'
