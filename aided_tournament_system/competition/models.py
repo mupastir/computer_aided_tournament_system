@@ -17,8 +17,6 @@ class Application(UUIDTimeStampModel):
                                     on_delete=models.CASCADE,
                                     verbose_name='competition',
                                     related_name='applications')
-    is_open = models.BooleanField(default=True,
-                                  verbose_name='Is application open')
     objects = RankingsManager()
 
     def __str__(self):
@@ -55,6 +53,8 @@ class Competition(UUIDTimeStampModel):
     title = models.CharField(max_length=300,
                              verbose_name='title',
                              unique=True)
+    is_open = models.BooleanField(default=True,
+                                  verbose_name='are applications open')
     start_time = models.DateTimeField(verbose_name='start time')
     end_time = models.DateTimeField(verbose_name='end time')
     courts_number = models.IntegerField(verbose_name='courts number')

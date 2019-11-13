@@ -11,4 +11,10 @@ class CompetitionChoiceForm(forms.ModelForm):
 class CompetitionCreateForm(forms.ModelForm):
     class Meta:
         model = Competition
-        fields = '__all__'
+        fields = ['title',
+                  'start_time',
+                  'end_time',
+                  'courts_number',
+                  'schedule_system',
+                  'type',
+                  'gender']
