@@ -13,13 +13,13 @@ urlpatterns = [
         name='competition_create'
     ),
     url(
+        regex=r'^(?P<competition_title>.+)/applications/$',
+        view=views.ApplicationsView.as_view(),
+        name='applications'
+    ),
+    url(
         regex=r'^(?P<competition_type>.+)/$',
         view=views.CompetitionFilteredView.as_view(),
         name='competition_filtered'
-    ),
-    url(
-        regex=r'^(?P<competition_title>.+)/applications/$',
-        view=views.CompetitionFilteredView.as_view(),
-        name='applications'
     )
 ]

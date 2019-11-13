@@ -54,4 +54,7 @@ class ApplicationsView(TemplateView):
         kwargs['applications'] = Application.objects.filter(
             competition__title=self.kwargs['competition_title']
         )
+        kwargs['competition'] = Competition.objects.get(
+            title=self.kwargs['competition_title']
+        )
         return super().get_context_data(**kwargs)
