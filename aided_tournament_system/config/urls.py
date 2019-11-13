@@ -31,6 +31,7 @@ urlpatterns = [
     path('user/', include('user_auth.urls')),
     path('participant/', include('participant.urls')),
     path('competition/', include('competition.urls')),
+    path('game/', include('game.urls')),
 ]
 
 if settings.DEBUG:
