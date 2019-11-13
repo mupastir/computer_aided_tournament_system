@@ -22,7 +22,7 @@
         <td>{{competition.title}}</td>
         <td>{{competition.type}}</td>
         <td>{{competition.start_time}}</td>
-        <td><a href="#{#% url 'games' competition_title=competition.title %#}">Игры</a></td>
+        <td><a href="{% url 'games_list' competition_title=competition.title %}">Игры</a></td>
         <td><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></td>
     </tr>
 
