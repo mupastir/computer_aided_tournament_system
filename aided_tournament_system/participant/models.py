@@ -22,7 +22,7 @@ class Player(UUIDTimeStampModel):
 
     def __str__(self):
         user = get_user_by_id(self.user_id)
-        return f'{user.first_name} {user.last_name}'
+        return f'{user.last_name} {user.first_name}'
 
     class Meta:
         db_table = 'player'

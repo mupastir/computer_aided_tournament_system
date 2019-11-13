@@ -14,8 +14,8 @@
         </tr>
         {% for player in ratings_list %}
         <tr>
-            <td>{{ player.first_name }} {{ player.last_name }}</td>
-            <td>{{ player.rating }}</td>
+            <td>{{ player }}</td>
+            <td>{{ player.rating.points }}</td>
         </tr>
     {% endfor %}
     </table>
