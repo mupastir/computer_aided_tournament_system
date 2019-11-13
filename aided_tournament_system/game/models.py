@@ -19,12 +19,18 @@ class Game(UUIDTimeStampModel):
     court_number = models.IntegerField(verbose_name='court number',
                                        blank=True,
                                        null=True)
-    home_team_id = models.UUIDField(verbose_name='team which plays at home',
-                                    blank=True,
-                                    null=True)
-    away_team_id = models.UUIDField(verbose_name='team which plays visiting',
-                                    blank=True,
-                                    null=True)
+    home_team = models.ForeignKey('participant.Team',
+                                  verbose_name='team which plays at home',
+                                  related_name='home_team',
+                                  blank=True,
+                                  null=True,
+                                  on_delete=models.CASCADE)
+    away_team = models.ForeignKey('participant.Team',
+                                  verbose_name='team which plays visiting',
+                                  related_name='away_team',
+                                  blank=True,
+                                  null=True,
+                                  on_delete=models.CASCADE)
     home_team_score = models.IntegerField(blank=True,
                                           null=True,
                                           verbose_name='home team score')
