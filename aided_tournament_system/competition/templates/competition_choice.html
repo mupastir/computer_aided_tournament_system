@@ -9,23 +9,25 @@
         <a href="{% url 'competition_create' %}">Создать соревнование</a>
         {% else %}
         {% endif %}
-    <td>
+    <table>
+    <tr>
         <th>Название</th>
         <th>Тип</th>
         <th>Дата проведения</th>
         <th></th>
         <th></th>
-    </td>
+    </tr>
     {% for competition in competitions %}
-    <td>
-        <th>competition.title</th>
-        <th>competition.type</th>
-        <th>competition.start_time</th>
-        <th><a href="#{#% url 'games' competition_title=competition.title %#}">Игры</a></th>
+    <tr>
+        <td>{{competition.title}}</td>
+        <td>{{competition.type}}</td>
+        <td>{{competition.start_time}}</td>
+        <td><a href="#{#% url 'games' competition_title=competition.title %#}">Игры</a></td>
         {% if competition.application.is_active %}
-            <th><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></th>
+            <td><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></td>
         {% endif %}
-    </td>
+    </tr>
 
     {% endfor %}
+    </table>
 {% endblock %}

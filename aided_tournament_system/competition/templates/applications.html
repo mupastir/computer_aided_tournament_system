@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <td>
+    <table>
+    <tr>
         <th>Название команды</th>
         <th>Рейтинг</th>
-    </td>
+    </tr>
     {% for application in applications %}
-    <td>
-        <th>application.team.title</th>
-        <th>application.team.rating</th>
-    </td>
+    <tr>
+        <td>{{ application.team.title  }}</td>
+        <td>{{ application.team.rating }}</td>
+    </tr>
     {% endfor %}
-
+    </table>
     <a href="#{% url 'add_application' pk=application.competition.id %}">Подать заявку</a>
 {% endblock %}
