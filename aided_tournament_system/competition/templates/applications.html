@@ -12,5 +12,7 @@
     </tr>
     {% endfor %}
     </table>
-    <a href="#{% url 'add_application' pk=application.competition.id %}">Подать заявку</a>
+    {% if competition.is_open %}
+        <a href="#{#% url 'add_application' pk=application.competition.id %#}">Подать заявку</a>
+    {% endif %}
 {% endblock %}
