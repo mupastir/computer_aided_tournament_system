@@ -14,7 +14,7 @@ urlpatterns = [
     ),
     url(
         regex=r'^ratings/$',
-        view=views.ChoiceRatingView.as_view(),
+        view=views.RatingChoiceView.as_view(),
         name='rating_choice'
     ),
     url(

@@ -1,14 +1,14 @@
 from django.shortcuts import redirect
 from django.views import View
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView
 from participant.forms import RatingChoiceForm
 from participant.models import Player, Referee, Team
 from participant.services.get_ratings import (get_rating_url,
                                               get_ratings_by_type_gender)
 
 
-class ChoiceRatingView(FormView):
-    template_name = 'ratings.html'
+class RatingChoiceView(FormView):
+    template_name = 'rating_list.html'
     form_class = RatingChoiceForm
 
     def get_success_url(self):
@@ -19,13 +19,20 @@ class ChoiceRatingView(FormView):
                                           form.data['gender'])
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        kwargs['ratings_list'] = get_ratings_by_type_gender('Beach', 'm')
+        return super().get_context_data(**kwargs)
 
-class RatingView(TemplateView):
-    template_name = "rating_list.html"
+
+class RatingView(RatingChoiceView):
 
     def get_context_data(self, **kwargs):
-        kwargs['ratings_list'] = get_ratings_by_type_gender(kwargs['type'],
-                                                            kwargs['gender'])
+        kwargs = super().get_context_data(**kwargs)
+        kwargs['ratings_list'] = get_ratings_by_type_gender(
+            self.kwargs['type'],
+            self.kwargs['gender']
+        )
+        return kwargs
 
 
 class RefereeCreateView(View):

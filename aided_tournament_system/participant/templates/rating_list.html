@@ -1,15 +1,22 @@
-{% extends "ratings.html" %}
+{% extends "base.html" %}
 {% block content %}
-{% block rating %}
-    <td>
-            <th>Фамилия Имя</th>
-            <th>Рейтинг</th>
-    </td>
-    {% for player in ratings_list %}
-        <td>
-            <th>{{ player.first_name }} {{ player.last_name }}</th>
-            <th>{{ player.rating }}</th>
-        </td>
+    <div class="type-ratings-choices">
+        <form method="post" class="form-update-user">{% csrf_token %}
+            {{ form.as_p }}
+        <input class="update-user-input" type="submit" value="Показать">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+                <th>Фамилия Имя</th>
+                <th>Рейтинг</th>
+        </tr>
+        {% for player in ratings_list %}
+        <tr>
+            <td>{{ player.first_name }} {{ player.last_name }}</td>
+            <td>{{ player.rating }}</td>
+        </tr>
     {% endfor %}
-{% endblock %}
+    </table>
 {% endblock %}
