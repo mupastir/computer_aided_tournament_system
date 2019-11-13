@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if user.is_superusers %}
+    {% if user.is_superuser %}
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
