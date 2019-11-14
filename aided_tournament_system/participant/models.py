@@ -10,12 +10,10 @@ from .managers import PlayerManager
 
 class Player(UUIDTimeStampModel):
     user_id = models.UUIDField(verbose_name='users uuid', unique=True)
-    rating = models.ForeignKey('Rating',
-                               null=True,
-                               blank=True,
-                               verbose_name='rating',
-                               related_name='ratings',
-                               on_delete=models.CASCADE)
+    rating = models.ManyToManyField('Rating',
+                                    blank=True,
+                                    verbose_name='rating',
+                                    related_name='ratings')
     team = models.ManyToManyField('Team',
                                   blank=True,
                                   verbose_name='team')
