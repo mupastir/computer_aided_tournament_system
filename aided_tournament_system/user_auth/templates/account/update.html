@@ -14,24 +14,23 @@
     <div class="form-update-user">
         <form method="post" class="form-update-user">{% csrf_token %}
             <label for="{{ form.birthdate.id_for_label }}">Дата рождения: </label>
-            <input class="update-user-input" id="{{ form.birthdate.id_for_label }}" type="date" name="first_name" value="{{ user.birthdate }}">
+            <input class="update-user-input" id="{{ form.birthdate.id_for_label }}" type="date" name="birthdate" value="{{ user.birthdate }}">
             <label for="{{ form.fist_name.id_for_label }}">Имя: </label>
             <input class="update-user-input" id="{{ form.fist_name.id_for_label }}" type="text" maxlength="100" name="first_name" value="{{ user.first_name }}">
             <label for="{{ form.last_name.id_for_label }}">Фамилия: </label>
             <input class="update-user-input" id="{{ form.last_name.id_for_label }}" type="text" maxlength="100" name="last_name" value="{{ user.last_name }}">
             <div class="gender-choice">
-            {% for choice in form.gender %}
-                {% if choice == user.gender %}
-                    <input class="update-user-input" type="radio" name="gender" id="{{ form.gender.id_for_label }}" value="{{ choice.id }}" checked="checked">
-                {% else %}
-                    <input class="update-user-input" type="radio" name="gender" id="{{ form.gender.id_for_label }}" value="{{ choice.id }}">
-                {% endif %}
-                <label for="choice{{ form.gender.id_for_label }}">{{ choice }}</label>
+            {% for gender_choice in form.gender %}
+                <input class="update-user-input" type="radio" name="gender" id="{{ form.gender.id_for_label }}" value="{{ gender_choice.data.value }}"
+                {% if gender_choice.data.value == user.gender %}
+                    checked="checked"
+                {% endif %}>
+                <label for="choice{{ form.gender.id_for_label }}">{{ gender_choice }}</label>
             {% endfor %}
             </div>
-            <select>
+            <select name="country">
                 {% for country in countries %}
-                    <option selected="{{ user.country }}" id="{{ form.country.id_for_label }}" value="{{ country.code }}">{{ country.name }}</option>
+                    <option  {% if user.country == country.code %}selected{% endif %} id="{{ form.country.id_for_label }}" value="{{ country.code }}">{{ country.name }}</option>
                 {% endfor %}
             </select>
             <input class="update-user-input" type="submit" value="Обновить">
