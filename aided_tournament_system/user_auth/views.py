@@ -1,7 +1,9 @@
 from allauth.account.views import EmailView, LoginView, LogoutView, SignupView
+from competition.choices import CompetitionTypeChoices
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from participant.models import Player, Referee
+from participant.services.get_ratings import get_rating_for_player
 from user_auth.forms import UserUpdateForm
 from user_auth.models import User
 
@@ -30,6 +32,12 @@ class UserInfoView(TemplateView):
             kwargs['player'] = Player.objects.get(
                 user_id=self.request.user.id
             )
+            kwargs['beach_rating'] = get_rating_for_player(
+                kwargs['player'],
+                CompetitionTypeChoices.BEACH_VOLLEY.value)
+            kwargs['park_rating'] = get_rating_for_player(
+                kwargs['player'],
+                CompetitionTypeChoices.PARK_VOLLEY.value)
         except Player.DoesNotExist:
             pass
         try:
@@ -44,7 +52,6 @@ class UserInfoView(TemplateView):
 class UserLoginView(LoginView):
     template_name = 'account/login.html'
     success_url = 'user_detail'
-    redirect_field_name = 'user_detail'
 
 
 class UserLogoutView(LogoutView):

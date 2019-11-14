@@ -15,8 +15,8 @@
         <a href="{% url 'user_update' pk=user.id %}">Обновить информацию</a>
     </div>
     {% if player %}
-        <h2>Пляжный рейтинг: {{ player.rating_beach }}</h2>
-        <h2>Парковый рейтинг: {{ player.rating_park }}</h2>
+        <h2>Пляжный рейтинг: {{ beach_rating }}</h2>
+        <h2>Парковый рейтинг: {{ park_rating }}</h2>
     {% else %}
         <form action="{% url 'add_player' %}" method="post">
         {% csrf_token %}

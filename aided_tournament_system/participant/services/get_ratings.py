@@ -22,3 +22,8 @@ def get_ratings_by_type_gender(rating_type: str, gender: str) -> QuerySet:
                  to_attr="player_rating")
     ).filter(user_id__in=users_ids,
              rating__type=rating_type).order_by('-rating__points')
+
+
+def get_rating_for_player(player: Player, rating_type: str):
+    return player.rating.filter(
+        type=rating_type)[0].points
