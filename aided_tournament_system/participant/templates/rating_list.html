@@ -15,7 +15,7 @@
         {% for player in ratings_list %}
         <tr>
             <td>{{ player }}</td>
-            <td>{{ player.rating.points }}</td>
+            <td>{{ player.player_rating.0.points }}</td>
         </tr>
     {% endfor %}
     </table>
