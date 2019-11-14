@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import FormView
 from participant.forms import RatingChoiceForm
 from participant.models import Player, Referee, Team
+from participant.services.add_rating_to_player import add_rating_to_player
 from participant.services.get_ratings import (get_rating_url,
                                               get_ratings_by_type_gender)
 
@@ -45,7 +46,8 @@ class RefereeCreateView(View):
 class PlayerCreateView(View):
 
     def post(self, request):
-        Player.objects.create(user_id=request.user.id)
+        player = Player.objects.create(user_id=request.user.id)
+        add_rating_to_player(player)
         return redirect('/user/detail/')
 
 
