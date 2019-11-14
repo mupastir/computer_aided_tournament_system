@@ -1,7 +1,6 @@
-from competition.models import Competition, Application
+from competition.models import Competition
 from django import forms
-
-from participant.models import Team
+from participant.models import Player, Team
 
 
 class CompetitionChoiceForm(forms.ModelForm):
@@ -10,8 +9,22 @@ class CompetitionChoiceForm(forms.ModelForm):
         fields = ['type']
 
 
-class ApplicationAddForm(forms.Form):
-    team = forms.ModelChoiceField(queryset=Team.objects.all())
+class ApplicationAddForm(forms.ModelForm):
+    player = forms.ModelMultipleChoiceField(queryset=Player.objects.all())
+
+    class Meta:
+        model = Team
+        fields = ['title']
+
+    def clean_player(self):
+        player = self.cleaned_data['player']
+        if not player:
+            raise forms.ValidationError("Not enough players in a team")
+
+        if len(player) > 6:
+            raise forms.ValidationError("Too many players in a team")
+
+        return player
 
 
 class CompetitionCreateForm(forms.ModelForm):

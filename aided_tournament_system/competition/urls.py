@@ -23,6 +23,11 @@ urlpatterns = [
         name='application_add'
     ),
     url(
+        regex=r'^application/(?P<pk>.+)/remove/$',
+        view=views.ApplicationRemoveView.as_view(),
+        name='application_remove'
+    ),
+    url(
         regex=r'^(?P<competition_type>.+)/$',
         view=views.CompetitionFilteredView.as_view(),
         name='competition_filtered'

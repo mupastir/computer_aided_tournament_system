@@ -9,6 +9,13 @@
     <tr>
         <td>{{ application.team.title  }}</td>
         <td>{{ application.team.rating }}</td>
+        {% if user.is_superuser %}
+        <td>
+             <form method="get" action="{% url 'application_remove' pk=application.id %}">{% csrf_token %}
+                 <input type="submit" value="Удалить">
+             </form>
+        </td>
+        {% endif %}
     </tr>
     {% endfor %}
     </table>

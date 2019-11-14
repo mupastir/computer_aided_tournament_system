@@ -1,7 +1,10 @@
-from competition.forms import CompetitionChoiceForm, CompetitionCreateForm, \
-    ApplicationAddForm
+from uuid import UUID
+
+from competition.forms import (ApplicationAddForm, CompetitionChoiceForm,
+                               CompetitionCreateForm)
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView, TemplateView
+from django.views.generic import CreateView, DeleteView, FormView, TemplateView
+from participant.models import Player, Team
 
 from .models import Application, Competition
 
@@ -64,3 +67,25 @@ class ApplicationsView(TemplateView):
 class ApplicationAddView(FormView):
     template_name = "application_add.html"
     form_class = ApplicationAddForm
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'applications',
+            kwargs={'competition_title': self.kwargs['competition_title']}
+        )
+
+    def form_valid(self, form):
+        team = Team.objects.create(title=form.data['title'])
+        competition = Competition.objects.get(
+            title=self.kwargs['competition_title'])
+        for player_id in form.data.getlist('player'):
+            player = Player.objects.get(id=UUID(player_id))
+            player.team.add(team)
+        Application.objects.create(competition=competition,
+                                   team=team)
+        return super().form_valid(form)
+
+
+class ApplicationRemoveView(DeleteView):
+    model = Application
+    success_url = reverse_lazy('competition_type_choice')
