@@ -27,7 +27,7 @@ class RoundMovingTestCase(TestCase):
         end_time=datetime.now(),
         courts_number=4,
         schedule_system=ScheduleChoices.TEAM_SYSTEM_OF_8.value,
-        gender=GenderChoices.man.value
+        gender=GenderChoices.MAN.value
     )
     schedule_creator = ScheduleCreator(competition.schedule_system,
                                        competition.id)

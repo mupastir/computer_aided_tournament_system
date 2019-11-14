@@ -13,5 +13,5 @@ class CompetitionTypeChoices(BaseChoices):
 
 
 class GenderChoices(BaseChoices):
-    woman = StrChoice('w', 'Woman')
-    man = StrChoice('m', 'Man')
+    WOMAN = StrChoice('w', 'Woman')
+    MAN = StrChoice('m', 'Man')

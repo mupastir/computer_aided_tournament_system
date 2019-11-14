@@ -58,16 +58,20 @@ class Competition(UUIDTimeStampModel):
     start_time = models.DateTimeField(verbose_name='start time')
     end_time = models.DateTimeField(verbose_name='end time')
     courts_number = models.IntegerField(verbose_name='courts number')
-    schedule_system = models.CharField(choices=ScheduleChoices.get_choices(),
-                                       max_length=2,
-                                       verbose_name='Schedule by number '
-                                                    'of teams participated')
+    schedule_system = models.CharField(
+        choices=ScheduleChoices.get_choices(),
+        max_length=2,
+        default=ScheduleChoices.TEAM_SYSTEM_OF_16.value,
+        verbose_name='Schedule by number '
+                     'of teams participated'
+    )
     type = models.CharField(choices=CompetitionTypeChoices.get_choices(),
                             max_length=40,
+                            default=CompetitionTypeChoices.PARK_VOLLEY.value,
                             verbose_name='Type of competition')
     gender = models.CharField(choices=GenderChoices.get_choices(),
                               max_length=1,
-                              default='m',
+                              default=GenderChoices.MAN.value,
                               verbose_name='gender')
 
     def __str__(self):
