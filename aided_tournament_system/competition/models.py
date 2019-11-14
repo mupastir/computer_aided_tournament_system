@@ -10,7 +10,7 @@ from .managers import RankingsManager
 class Application(UUIDTimeStampModel):
     team = models.ForeignKey(Team,
                              verbose_name='Team',
-                             on_delete=models.SET_NULL,
+                             on_delete=models.CASCADE,
                              related_name='applications',
                              null=True)
     competition = models.ForeignKey('Competition',
