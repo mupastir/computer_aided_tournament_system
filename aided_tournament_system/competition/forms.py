@@ -1,5 +1,7 @@
 from competition.models import Competition
 from django import forms
+from django.forms import DateTimeInput
+from django.utils.translation import gettext_lazy as _
 from participant.models import Player, Team
 
 
@@ -38,3 +40,12 @@ class CompetitionCreateForm(forms.ModelForm):
                   'schedule_system',
                   'type',
                   'gender']
+        labels = {'title': _('Название'),
+                  'start_time': _('Время начала'),
+                  'end_time': _('Время окончания'),
+                  'courts_number': _('Количество-кортов'),
+                  'schedule_system': _('Количество команд'),
+                  'type': _('Тип'),
+                  'gender': _('Пол')}
+        widgets = {'start_time': DateTimeInput(),
+                   'end_time': DateTimeInput()}
