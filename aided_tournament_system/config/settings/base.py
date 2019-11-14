@@ -192,6 +192,7 @@ ACCOUNT_FORMS = {
     'signup': 'allauth.account.forms.SignupForm',
 }
 ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/"
 ACCOUNT_SESSION_REMEMBER = None
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
