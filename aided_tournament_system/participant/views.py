@@ -21,7 +21,7 @@ class RatingChoiceView(FormView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        kwargs['ratings_list'] = get_ratings_by_type_gender('Beach', 'm')
+        kwargs['ratings_list'] = get_ratings_by_type_gender('Beach', 'w')
         return super().get_context_data(**kwargs)
 
 
