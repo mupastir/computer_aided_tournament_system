@@ -28,7 +28,7 @@ class Application(UUIDTimeStampModel):
 
 
 class Ranking(UUIDTimeStampModel):
-    place = models.IntegerField(verbose_name='place')
+    place = models.IntegerField(verbose_name='place', null=True)
     team = models.ForeignKey(Team,
                              on_delete=models.SET_NULL,
                              verbose_name='Team',
