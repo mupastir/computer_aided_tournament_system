@@ -9,6 +9,7 @@ class CompetitionChoiceForm(forms.ModelForm):
     class Meta:
         model = Competition
         fields = ['type']
+        labels = {'type': _('Тип')}
 
 
 class ApplicationAddForm(forms.ModelForm):
