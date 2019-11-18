@@ -26,6 +26,7 @@ behave-django = "*"
 bpython = "*"
 coverage = "*"
 celery = "*"
+django-celery-results = "*"
 
 [requires]
 python_version = "3.7"
