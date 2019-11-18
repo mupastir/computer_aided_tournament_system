@@ -85,7 +85,7 @@ class TestRankingsCreateService(TestCase):
             competition=competition
         ).first().ranking == Ranking16Teams.THIRTEENTH_PLACE
 
-    def test_rankings_for_16_teams_creation(self):
+    def test_rankings_for_32_teams_creation(self):
         competition = Competition.objects.create(title='Test',
                                                  start_time=datetime.now(),
                                                  end_time=datetime.now(),
