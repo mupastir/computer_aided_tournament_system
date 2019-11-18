@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="type-ratings-choices">
+        <form method="post" class="form-update-user">{% csrf_token %}
+            {{ form.as_p }}
+        <input class="update-user-input" type="submit" value="Показать">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+                <th>Фамилия Имя</th>
+                <th>Рейтинг</th>
+        </tr>
+        {% for player in ratings_list %}
+        <tr>
+            <td>{{ player }}</td>
+            <td>{{ player.player_rating.0.points }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

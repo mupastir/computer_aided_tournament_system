@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <table>
+    <tr>
+        <th>Название команды</th>
+        <th>Рейтинг</th>
+    </tr>
+    {% for application in applications %}
+    <tr>
+        <td>{{ application.team.title  }}</td>
+        <td>{{ application.team.rating }}</td>
+        {% if user.is_superuser %}
+        <td>
+             <form method="get" action="{% url 'application_remove' pk=application.id %}">{% csrf_token %}
+                 <input type="submit" value="Удалить">
+             </form>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+    {% if competition.is_open %}
+        <a href="{% url 'application_add' competition_title=competition.title %}">Подать заявку</a>
+    {% endif %}
+{% endblock %}

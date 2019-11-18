@@ -13,7 +13,7 @@ def existing_user(context):
 
 @when('User login existing user')
 def login_existed_user(context):
-    context.response = client.post('/user/login/',
+    context.response = client.post('/api/user/login/',
                                    {
                                        'username': 'test',
                                        'email': 'test@test.com',
@@ -33,7 +33,7 @@ def get_success_status_code(context):
 
 @when('User login not existing user')
 def login_not_existing_user(context):
-    context.response = client.post('/user/login/',
+    context.response = client.post('/api/user/login/',
                                    {
                                        'username': 'est',
                                        'email': 'est@test.com',

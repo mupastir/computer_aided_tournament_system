@@ -38,10 +38,10 @@ class SeedingTeamsService:
 
         for i in range(self.teams_number // 2):
             try:
-                away_team = teams[self.teams_number - 1 - i].id
+                away_team = teams[self.teams_number - 1 - i]
             except IndexError:
                 away_team = None
             Game.objects.filter(competition=self.competition,
                                 game_number=i + 1).update(
-                home_team_id=teams[i].id,
-                away_team_id=away_team)
+                home_team=teams[i],
+                away_team=away_team)

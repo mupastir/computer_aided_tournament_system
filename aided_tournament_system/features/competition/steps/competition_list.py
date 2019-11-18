@@ -19,7 +19,7 @@ def existing_competition(context):
 
 @when('Send get request on url /competitions/detail/')
 def send_get_request_to_detail(context):
-    context.response = context.test.client.get('/competition/detail/')
+    context.response = context.test.client.get('/api/competition/detail/')
 
 
 @then('Get list of one existing competition')

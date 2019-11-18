@@ -50,7 +50,7 @@ def create_competition(context, game_round, comp_title):
 @when('User protocolized score {home_team_score} - {away_team_score}')
 def protocolized_score(context, home_team_score, away_team_score):
     context.response = api_put(
-        f'/game/{Game.objects.first().id}/update_score/',
+        f'/api/game/{Game.objects.first().id}/update_score/',
         context.user,
         {
             'home_team_score': home_team_score,

@@ -1,53 +1,35 @@
 from django.conf.urls import url
-from rest_auth.registration.views import (SocialAccountDisconnectView,
-                                          SocialAccountListView)
-
-from .api import views
+from user_auth import views
 
 urlpatterns = [
-    # /user/
     url(
-        regex=r'^details/$',
-        view=views.UserListAPIView.as_view(),
-        name='user_rest_api',
+        regex=r'^register/$',
+        view=views.UserRegisterView.as_view(),
+        name='user_register',
     ),
     url(
-        regex=r'^edit/$',
-        view=views.UserUpdateAPIView.as_view(),
-        name='user_rest_api',
+        regex=r'^update/(?P<pk>.+)/$',
+        view=views.UserUpdateView.as_view(),
+        name='user_update',
+    ),
+    url(
+        regex=r'^detail/$',
+        view=views.UserInfoView.as_view(),
+        name='user_detail',
     ),
     url(
         regex=r'^login/$',
-        view=views.UserLoginAPIView.as_view(),
-        name='user_rest_api',
+        view=views.UserLoginView.as_view(),
+        name='user_login',
     ),
     url(
         regex=r'^logout/$',
-        view=views.UserLogoutAPIView.as_view(),
-        name='user_rest_api',
+        view=views.UserLogoutView.as_view(),
+        name='user_logout',
     ),
     url(
-        regex=r'^register/$',
-        view=views.UserRegisterAPIView.as_view(),
-        name='user_rest_api',
+        regex=r'^email/$',
+        view=views.UserChangeEmailView.as_view(),
+        name='user_email',
     ),
-    url(regex=r'^facebook/login/$',
-        view=views.FacebookLogin.as_view(),
-        name='fb_Login'),
-    url(regex=r'^google/login/$',
-        view=views.GoogleLogin.as_view(),
-        name='g_Login'),
-    url(regex=r'^instagram/login/$',
-        view=views.InstagramLogin.as_view(),
-        name='inst_Login'),
-    url(
-        regex=r'^socialaccounts/$',
-        view=SocialAccountListView.as_view(),
-        name='social_account_list'
-    ),
-    url(
-        regex=r'^socialaccounts/(?P<pk>\d+)/disconnect/$',
-        view=SocialAccountDisconnectView.as_view(),
-        name='social_account_disconnect'
-    )
 ]

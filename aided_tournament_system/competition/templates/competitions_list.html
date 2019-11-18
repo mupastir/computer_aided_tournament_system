@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Выбрать">
+    </form>
+    {% if user.is_superuser %}
+        <a href="{% url 'competition_create' %}">Создать соревнование</a>
+        {% else %}
+        {% endif %}
+    <table>
+    <tr>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Дата проведения</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for competition in competitions %}
+    <tr>
+        <td>{{competition.title}}</td>
+        <td>{{competition.type}}</td>
+        <td>{{competition.start_time}}</td>
+        <td><a href="{% url 'games_list' competition_title=competition.title %}">Игры</a></td>
+        <td><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></td>
+    </tr>
+
+    {% endfor %}
+    </table>
+{% endblock %}
