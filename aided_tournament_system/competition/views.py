@@ -50,13 +50,12 @@ class CompetitionFilteredView(CompetitionChoiceView):
 class CompetitionCreateView(CreateView):
     template_name = "competition_create_form.html"
     form_class = CompetitionCreateForm
-    success_url = reverse_lazy('competition_type_choice')
 
-    def form_valid(self, form):
+    def get_success_url(self):
         chain(
             application_closing_task.si(
                 self.object.id,
-                eta=self.object.start_data - timedelta(
+                eta=self.object.start_time - timedelta(
                     hours=HOURS_TO_CLOSE_APPLICATIONS
                 )
             ),
@@ -69,7 +68,7 @@ class CompetitionCreateView(CreateView):
                 hours=HOURS_TO_CLOSE_APPLICATIONS
             )
         )
-        return super().form_valid(form)
+        return reverse_lazy('competition_type_choice')
 
     def get_context_data(self, **kwargs):
         kwargs['form'] = self.get_form()

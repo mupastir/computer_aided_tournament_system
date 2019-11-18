@@ -1,24 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="competition-create-form">
     {% if user.is_superuser %}
         <form method="post">
             {% csrf_token %}
             <label for="{{ form.title.id_for_label }}">Название</label>
-            <input class="competition-create" id="{{ form.title.id_for_label }}" type="text" name="title">
+            <input class="competition-create" id="{{ form.title.id_for_label }}" type="text" name="title"><br>
             <label for="{{ form.start_time.id_for_label }}">Время начала</label>
-            <input class="competition-create" id="{{ form.start_time.id_for_label }}"type="datetime-local" name="start_time">
+            <input class="competition-create" id="{{ form.start_time.id_for_label }}"type="datetime-local" name="start_time"><br>
             <label for="{{ form.end_time.id_for_label }}">Время окончания</label>
-            <input class="competition-create" id="{{ form.end_time.id_for_label }}"type="datetime-local" name="end_time">
+            <input class="competition-create" id="{{ form.end_time.id_for_label }}"type="datetime-local" name="end_time"><br>
             <label for="{{ form.courts_number.id_for_label }}">Количество кортов</label>
-            <input class="competition-create" id="{{ form.courts_number.id_for_label }}"type="number" name="courts_number">
+            <input class="competition-create" id="{{ form.courts_number.id_for_label }}"type="number" name="courts_number"><br>
             <label for="{{ form.schedule_system.id_for_label }}">Количество команд</label>
-            {{ form.schedule_system }}
+            {{ form.schedule_system }}<br>
             <label for="{{ form.type.id_for_label }}">Тип</label>
-            {{ form.type }}
+            {{ form.type }}<br>
             <label for="{{ form.gender.id_for_label }}">Пол</label>
-            {{ form.gender }}
+            {{ form.gender }}<br>
 
             <input type="submit" value="Создать">
         </form>
     {% endif %}
+    </div>
 {% endblock %}
