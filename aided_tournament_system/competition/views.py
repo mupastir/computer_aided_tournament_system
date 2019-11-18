@@ -1,10 +1,16 @@
+from datetime import timedelta
 from uuid import UUID
 
+from celery import chain
+from competition.constants import HOURS_TO_CLOSE_APPLICATIONS
 from competition.forms import (ApplicationAddForm, CompetitionChoiceForm,
                                CompetitionCreateForm)
+from competition.tasks import (application_closing_task, ranking_creation_task,
+                               seeding_teams_task)
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, FormView, TemplateView
 from participant.models import Player, Team
+from participant.tasks import recalculate_rating_task
 
 from .models import Application, Competition
 
@@ -45,6 +51,25 @@ class CompetitionCreateView(CreateView):
     template_name = "competition_create_form.html"
     form_class = CompetitionCreateForm
     success_url = reverse_lazy('competition_type_choice')
+
+    def form_valid(self, form):
+        chain(
+            application_closing_task.si(
+                self.object.id,
+                eta=self.object.start_data - timedelta(
+                    hours=HOURS_TO_CLOSE_APPLICATIONS
+                )
+            ),
+            ranking_creation_task.si(self.object.id),
+            seeding_teams_task.si(self.object.id)
+        )()
+        recalculate_rating_task.apply_async(
+            self.object.type,
+            eta=self.object.end_time + timedelta(
+                hours=HOURS_TO_CLOSE_APPLICATIONS
+            )
+        )
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         kwargs['form'] = self.get_form()

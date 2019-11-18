@@ -3,7 +3,7 @@ from django.db.models import Sum
 from participant.models import Player
 
 
-def recalculate_rating(competition_type):
+def recalculate_rating(competition_type: str):
     competition_ids = list(
         Competition.objects.filter(
             type=competition_type
