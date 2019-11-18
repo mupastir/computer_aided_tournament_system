@@ -44,7 +44,7 @@ class CompetitionCreateForm(forms.ModelForm):
         labels = {'title': _('Название'),
                   'start_time': _('Время начала'),
                   'end_time': _('Время окончания'),
-                  'courts_number': _('Количество-кортов'),
+                  'courts_number': _('Количество кортов'),
                   'schedule_system': _('Количество команд'),
                   'type': _('Тип'),
                   'gender': _('Пол')}
