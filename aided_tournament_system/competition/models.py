@@ -41,7 +41,7 @@ class Ranking(UUIDTimeStampModel):
     objects = RankingsManager()
 
     def __str__(self):
-        return f'{self.team.title}. place {self.place}. ' \
+        return f'place {self.place}. ' \
                f'comp: {self.competition.title}'
 
     class Meta:
