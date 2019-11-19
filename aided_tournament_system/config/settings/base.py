@@ -61,6 +61,7 @@ LOCAL_APPS = (
 THIRD_PART_APPS = (
     'allauth',
     'allauth.account',
+    'django_celery_results',
     'rest_auth.registration',
     'rest_framework',
     'rest_framework.authtoken',
@@ -229,3 +230,12 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v2.12',
     }
 }
+
+# CELERY SETTINGS
+CELERY_APP = 'config'
+CELERY_BIN = 'celery'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_BROKER_URL = os.environ.get(
+    "CELERY_BROKER_URL",
+    default='pyamqp://guest@localhost:5462//')

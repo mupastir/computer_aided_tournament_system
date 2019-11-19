@@ -25,6 +25,7 @@ pytest = "*"
 behave-django = "*"
 bpython = "*"
 coverage = "*"
+django-celery-results = "*"
 celery = "*"
 
 [requires]
