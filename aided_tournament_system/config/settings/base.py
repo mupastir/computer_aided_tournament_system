@@ -232,5 +232,10 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # CELERY SETTINGS
+CELERY_APP = 'config'
+CELERY_BIN = 'celery'
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_BROKER_URL = os.environ.get(
+    "CELERY_BROKER_URL",
+    default='pyamqp://guest@localhost:5462//')

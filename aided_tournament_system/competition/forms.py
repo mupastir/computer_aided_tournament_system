@@ -31,6 +31,12 @@ class ApplicationAddForm(forms.ModelForm):
 
 
 class CompetitionCreateForm(forms.ModelForm):
+    start_time = forms.DateTimeField(widget=DateTimeInput(
+        attrs={'type': 'datetime-local'}
+    ), input_formats=['%Y-%m-%dT%H:%M'])
+    end_time = forms.DateTimeField(widget=DateTimeInput(
+        attrs={'type': 'datetime-local'}
+    ), input_formats=['%Y-%m-%dT%H:%M'])
 
     class Meta:
         model = Competition
@@ -48,5 +54,3 @@ class CompetitionCreateForm(forms.ModelForm):
                   'schedule_system': _('Количество команд'),
                   'type': _('Тип'),
                   'gender': _('Пол')}
-        widgets = {'start_time': DateTimeInput(),
-                   'end_time': DateTimeInput()}

@@ -53,20 +53,20 @@ class CompetitionCreateView(CreateView):
 
     def get_success_url(self):
         chain(
-            application_closing_task.si(
-                self.object.id,
+            application_closing_task.s(
+                self.object.id).set(
                 eta=self.object.start_time - timedelta(
                     hours=HOURS_TO_CLOSE_APPLICATIONS
                 )
             ),
-            ranking_creation_task.si(self.object.id),
-            seeding_teams_task.si(self.object.id)
+            ranking_creation_task.s(self.object.id),
+            seeding_teams_task.s(self.object.id)
         )()
         recalculate_rating_task.apply_async(
-            self.object.type,
-            eta=self.object.end_time + timedelta(
+            (self.object.type,),
+            eta=(self.object.end_time + timedelta(
                 hours=HOURS_TO_CLOSE_APPLICATIONS
-            )
+            ))
         )
         return reverse_lazy('competition_type_choice')
 
