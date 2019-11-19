@@ -111,6 +111,13 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = '%s.wsgi.application' % BASE_NAME
 
+# Security settings
+
+SECURE_SSL_HOST = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 

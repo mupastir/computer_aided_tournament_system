@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: postgres
+
+  broker:
+    image: rabbitmq
+    ports:
+      - "5462:5672"
+
+  tests:
+    command: python manage.py test --settings=config.settings.test -v 3
+    environment:
+      - SECRET_KEY=
+      - ENV=behave
+
+  web:
+    build: .
+    command: python manage.py runserver --settings=config.settings.production 0.0.0.0:8000
+    volumes:
+      - .:/core
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - broker
+      - tests
+    environment:
+      - DJANGO_SETTINGS_MODULE=congig.settings.production
+      - CELERY_BROKER_URL=pyamqp://guest@localhost:5462//
