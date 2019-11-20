@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+
+  broker:
+    image: rabbitmq
+    ports:
+      - "5462:5672"
+
+  web:
+    build: ..
+    command: python manage.py runserver --settings=config.settings.local 0.0.0.0:8000
+    volumes:
+      - .:/core
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - broker
+    environment:
+      - SECRET_KEY=
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - CELERY_BROKER_URL=pyamqp://guest@localhost:5462//
