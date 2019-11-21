@@ -33,7 +33,7 @@ TEMPLATE_DEBUG = DEBUG
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Add custom user model
 
@@ -238,4 +238,4 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_BROKER_URL = os.environ.get(
     "CELERY_BROKER_URL",
-    default='pyamqp://guest@localhost:5462//')
+    default='pyamqp://guest@0.0.0.0:5462//')

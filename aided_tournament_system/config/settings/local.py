@@ -18,11 +18,11 @@ MIDDLEWARE += [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'oleg',
-        'NAME': 'tournament_system',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'USER': os.environ.get('DB_USER', default='oleg'),
+        'NAME': os.environ.get('DB_NAME', default='tournament_system'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', default=''),
+        'HOST': os.environ.get('DB_HOST', default=''),
+        'PORT': os.environ.get('DB_PORT', default=''),
     }
 }
 
