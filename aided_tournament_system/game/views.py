@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from game.models import Game
+from game.tasks import move_teams_next_round_task
 from participant.services.is_referee import is_referee
 
 
@@ -21,6 +22,7 @@ class GameScoreUpdate(UpdateView):
     fields = ['home_team_score', 'away_team_score']
 
     def get_success_url(self):
+        move_teams_next_round_task.apply_async((self.kwargs['pk'],))
         return reverse_lazy(
             'games_list',
             kwargs={
