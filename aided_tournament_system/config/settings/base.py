@@ -111,13 +111,6 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = '%s.wsgi.application' % BASE_NAME
 
-# Security settings
-
-SECURE_SSL_HOST = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -245,4 +238,4 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_BROKER_URL = os.environ.get(
     "CELERY_BROKER_URL",
-    default='pyamqp://guest@localhost:5462//')
+    default='pyamqp://guest@0.0.0.0:5462//')

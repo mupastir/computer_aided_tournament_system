@@ -5,10 +5,10 @@ services:
   db:
     image: postgres
 
-  broker:
+  rabbit1:
     image: rabbitmq
     ports:
-      - "5462:5672"
+      - "5672:5672"
 
   web:
     build: ..
@@ -19,12 +19,28 @@ services:
       - "8000:8000"
     depends_on:
       - db
-      - broker
-    environment:
-      - SECRET_KEY=
-      - DB_NAME=postgres
-      - DB_USER=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DJANGO_SETTINGS_MODULE=config.settings.production
-      - CELERY_BROKER_URL=pyamqp://guest@localhost:5462//
+      - rabbit1
+    env_file:
+      - .env
+
+  celery:
+    build: ..
+    command: sh -c "sleep 10 && celery -A config worker -l info"
+    volumes:
+      - .:/core
+    depends_on:
+      - db
+      - rabbit1
+    env_file:
+      - .env
+
+  celery-beat:
+    build: ..
+    command: celery -A config beat -l info
+    volumes:
+      - .:/core
+    depends_on:
+      - db
+      - rabbit1
+    env_file:
+      - .env
