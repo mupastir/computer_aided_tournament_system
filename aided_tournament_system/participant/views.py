@@ -2,10 +2,10 @@ from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import FormView
 from participant.forms import RatingChoiceForm
-from participant.models import Player, Referee, Team
-from participant.services.add_rating_to_player import add_rating_to_player
 from participant.services.get_ratings import (get_rating_url,
                                               get_ratings_by_type_gender)
+from participant.tasks import (create_player_task, create_referee_task,
+                               player_join_team_task)
 
 
 class RatingChoiceView(FormView):
@@ -39,23 +39,19 @@ class RatingView(RatingChoiceView):
 class RefereeCreateView(View):
 
     def post(self, request):
-        Referee.objects.create(user_id=request.user.id)
+        create_referee_task.apply_async((request.user.id,))
         return redirect('/user/detail/')
 
 
 class PlayerCreateView(View):
 
     def post(self, request):
-        player = Player.objects.create(user_id=request.user.id)
-        add_rating_to_player(player)
+        create_player_task.apply_async((request.user.id,))
         return redirect('/user/detail/')
 
 
 class PlayerJoinToTeamView(View):
 
     def put(self, request, team_id):
-        team = Team.objects.get(id=team_id)
-        player = Player.objects.get(user_id=request.user.id)
-        player.save()
-        player.team.add(team)
+        player_join_team_task.apply_async((team_id, request.user.id,))
         return redirect('/competitions/list/')
