@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="competition-create-form">
+    <div class="o-container">
     {% if user.is_superuser %}
         <form method="post">
             {% csrf_token %}

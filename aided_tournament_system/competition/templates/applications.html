@@ -1,25 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="o-container">
     <table>
     <tr>
         <th>Название команды</th>
         <th>Рейтинг</th>
+        <th></th>
     </tr>
     {% for application in applications %}
     <tr>
-        <td>{{ application.team.title  }}</td>
-        <td>{{ application.team.rating }}</td>
+        <td><p>{{ application.team.title  }}</p></td>
+        <td><p>{{ application.team.rating }}</p></td>
         {% if user.is_superuser %}
         <td>
              <form method="get" action="{% url 'application_remove' pk=application.id %}">{% csrf_token %}
                  <input type="submit" value="Удалить">
              </form>
         </td>
+        {% else %}
+        <td></td>
         {% endif %}
+
     </tr>
     {% endfor %}
     </table>
     {% if competition.is_open %}
         <a href="{% url 'application_add' competition_title=competition.title %}">Подать заявку</a>
     {% endif %}
+    </div>
 {% endblock %}

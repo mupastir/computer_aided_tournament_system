@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+    <div class="o-container">
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Выбрать">
@@ -28,4 +28,5 @@
 
     {% endfor %}
     </table>
+    </div>
 {% endblock %}

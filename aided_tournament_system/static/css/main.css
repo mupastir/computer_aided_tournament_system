@@ -1,8 +1,47 @@
+html {
+    background-color: transparent;
+    box-sizing: border-box;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 body {
     background: #e8ffff;
     color: black;
     font-size: 85%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+nav {
+    display: block;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 98%;
+}
+
+table td {
+    vertical-align: middle;
+}
+
+table th {
+    background-color: #009e84;
+    color: white;
+    vertical-align: middle;
+}
+
+table img,
+table p,
+table dl {
+    margin: 0;
+}
+
+h2 {
+    color: #009e84;
 }
 
 .menu-container {
@@ -18,6 +57,7 @@ body {
     background: royalblue;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .menu a {
@@ -36,7 +76,7 @@ body {
 }
 
 .menu a:active {
-    background: forestgreen;
+    background: #009e84;
     color: black;
 }
 
@@ -64,45 +104,45 @@ body {
     flex-direction: column;
 }
 
-.add-participant a{
-background: orange;
-width: 30%;
-text-decoration: None;
-text-align: center;
-font-family: "Lucida Grande", sans-serif;
-color: aliceblue;
-padding: 5px;
-border-radius: 5px;
-margin: 0.2% auto;
--webkit-transition-property: background;
--webkit-transition-duration: 0.1s;
--webkit-transition-timing-function: ease-in;
+.add-participant a {
+    background: orange;
+    width: 30%;
+    text-decoration: None;
+    text-align: center;
+    font-family: "Lucida Grande", sans-serif;
+    color: aliceblue;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0.2% auto;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-in;
 }
 
-.add-participant input{
-background: orange;
-width: 30%;
-text-decoration: None;
-text-align: center;
-font-family: "Lucida Grande", sans-serif;
-color: aliceblue;
-padding: 5px;
-border-radius: 5px;
-margin: 0.2% auto;
--webkit-transition-property: background;
--webkit-transition-duration: 0.1s;
--webkit-transition-timing-function: ease-in;
+.add-participant input {
+    background: orange;
+    width: 30%;
+    text-decoration: None;
+    text-align: center;
+    font-family: "Lucida Grande", sans-serif;
+    color: aliceblue;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0.2% auto;
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease-in;
 }
 
 .add-participant input:hover {
-background: forestgreen;
-color: black;
+    background: #009e84;
+    color: black;
 }
 
 
-.add-participant a:hover{
-background: forestgreen;
-color: black;
+.add-participant a:hover {
+    background: #009e84;
+    color: black;
 }
 
 
