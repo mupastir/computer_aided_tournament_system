@@ -2,7 +2,13 @@
 {% block content %}
     <div class="o-container">
     <form method="post">{% csrf_token %}
-        {{ form.as_p }}
+        <p>
+            <select name="type">
+                    {% for type in form.type %}
+                        <option  {% if view.kwargs.competition_type == type.data.value %}selected{% endif %} id="{{ form.type.id_for_label }}" value="{{ type.data.value }}">{{ type.data.label }}</option>
+                    {% endfor %}
+            </select>
+        </p>
         <input type="submit" value="Выбрать">
     </form>
     {% if user.is_superuser %}
