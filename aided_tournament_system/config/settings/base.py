@@ -61,6 +61,7 @@ LOCAL_APPS = (
 THIRD_PART_APPS = (
     'allauth',
     'allauth.account',
+    'django_select2',
     'django_celery_results',
     'rest_auth.registration',
     'rest_framework',

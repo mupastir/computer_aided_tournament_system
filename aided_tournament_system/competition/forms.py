@@ -1,3 +1,5 @@
+from django_select2.forms import Select2MultipleWidget
+
 from competition.models import Competition
 from django import forms
 from django.forms import DateTimeInput
@@ -13,11 +15,14 @@ class CompetitionChoiceForm(forms.ModelForm):
 
 
 class ApplicationAddForm(forms.ModelForm):
-    player = forms.ModelMultipleChoiceField(queryset=Player.objects.all())
+    player = forms.ModelMultipleChoiceField(queryset=Player.objects.all(),
+                                            widget=Select2MultipleWidget,
+                                            label="Игроки")
 
     class Meta:
         model = Team
         fields = ['title']
+        labels = {'title': _('Название')}
 
     def clean_player(self):
         player = self.cleaned_data['player']
