@@ -4,22 +4,14 @@
 
     <div class="o-container">
     <form method="post">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     {% csrf_token %}
-        {#    <p>#}
-        {#        <label for="{{ form.title.id_for_label }}">Название</label>#}
-        {#        <input id="{{ form.birthdate.id_for_label }}" type="text" name="title">#}
-        {#    </p>#}
-        {#    <p>#}
-        {#        Игроки#}
-        {#        <select id="players-select" name="players[]" multiple="multiple">#}
-        {#                {% for player in form.player %}#}
-        {#                        <option  id="{{ form.type.id_for_label }}" value="{{ player.data.value }}">{{ player.data.label }}</option>#}
-        {#                {% endfor %}#}
-        {#            </select>#}
-        {#        </p>#}
         {{ form.as_p }}
         <input type="submit" value="Отправить">
     </form>
     </div>
     {{ form.media.js }}
+    <script type="text/javascript">
+        $('.django-select2').djangoSelect2({maximumSelectionLength: 6});
+    </script>
 {% endblock %}
