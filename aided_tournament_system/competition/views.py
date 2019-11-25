@@ -6,7 +6,7 @@ from competition.constants import HOURS_TO_CLOSE_APPLICATIONS
 from competition.forms import (ApplicationAddForm, CompetitionChoiceForm,
                                CompetitionCreateForm)
 from competition.tasks import (application_closing_task, ranking_creation_task,
-                               seeding_teams_task)
+                               schedule_creating_task, seeding_teams_task)
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, FormView, TemplateView
 from participant.models import Player, Team
@@ -57,6 +57,8 @@ class CompetitionCreateView(CreateView):
     def get_success_url(self):
         (application_closing_task.si(self.object.id) |
          ranking_creation_task.si(self.object.id) |
+         schedule_creating_task.si(self.object.id,
+                                   self.object.schedule_system) |
          seeding_teams_task.si(self.object.id)
          ).apply_async(eta=self.object.start_time - timedelta(
             hours=HOURS_TO_CLOSE_APPLICATIONS))
