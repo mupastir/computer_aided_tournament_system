@@ -35,3 +35,25 @@ class GameScoreUpdate(UpdateView):
         kwargs['game'] = Game.objects.get(id=self.kwargs['pk'])
         kwargs['is_referee'] = is_referee(self.request.user.id)
         return super().get_context_data(**kwargs)
+
+
+class GameInfoUpdate(UpdateView):
+    template_name = "update_game_info.html"
+    model = Game
+    fields = ['start_time',
+              'end_time',
+              'court_number']
+
+    def get_success_url(self):
+        move_teams_next_round_task.apply_async((self.kwargs['pk'],))
+        return reverse_lazy(
+            'games_list',
+            kwargs={
+                'competition_title':
+                    Game.objects.get(id=self.kwargs['pk']).competition.title
+            }
+        )
+
+    def get_context_data(self, **kwargs):
+        kwargs['game'] = Game.objects.get(id=self.kwargs['pk'])
+        return super().get_context_data(**kwargs)

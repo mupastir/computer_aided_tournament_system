@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="o-container">
     <form method="post">
     {% csrf_token %}
-        {{ form.as_p }}
+        <p>
+            <label for="{{ form.home_team_score.id_for_label }}">Команда хозяев</label>
+            <input id="{{ form.home_team_score.id_for_label }}" type="text" name="home_team_score">
+        </p>
+        <p>
+            <label id="{{ form.away_team_score.id_for_label }}">Команда гостей</label>
+            <input id="{{ form.home_team_score.id_for_label }}" type="text" name="away_team_score">
+        </p>
         <input type="submit" value="Обновить">
     </form>
+    </div>
 {% endblock %}

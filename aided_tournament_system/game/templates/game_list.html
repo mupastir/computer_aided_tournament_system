@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="o-container">
     <table>
         <tr>
             <th>Номер игры</th>
@@ -22,7 +23,11 @@
             {% if is_referee or user.is_superuser %}
                 <th><a href="{% url "update_game_score" pk=game.id %}">Обновить счет</a></th>
             {% endif %}
+            {% if user.is_superuser %}
+                <th><a href="{% url "update_game_info" pk=game.id %}">Обновить игру</a></th>
+            {% endif %}
             </tr>
         {% endfor %}
     </table>
+    </div>
 {% endblock %}
