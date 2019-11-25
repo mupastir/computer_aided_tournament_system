@@ -26,6 +26,9 @@ table {
 
 table td {
     vertical-align: middle;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 table th {
