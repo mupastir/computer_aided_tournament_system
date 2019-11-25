@@ -1,23 +1,24 @@
-from django_select2.forms import Select2MultipleWidget
-
 from competition.models import Competition
 from django import forms
 from django.forms import DateTimeInput
 from django.utils.translation import gettext_lazy as _
+from django_select2.forms import Select2MultipleWidget
 from participant.models import Player, Team
 
 
 class CompetitionChoiceForm(forms.ModelForm):
     class Meta:
         model = Competition
-        fields = ['type']
-        labels = {'type': _('Тип')}
+        fields = ['type', 'gender']
+        labels = {'type': _('Тип'),
+                  'gender': _('Пол')}
 
 
 class ApplicationAddForm(forms.ModelForm):
-    player = forms.ModelMultipleChoiceField(queryset=Player.objects.all(),
-                                            widget=Select2MultipleWidget,
-                                            label="Игроки")
+    player = forms.ModelMultipleChoiceField(
+            queryset=Player.objects.all(),
+            widget=Select2MultipleWidget,
+            label="Игроки")
 
     class Meta:
         model = Team

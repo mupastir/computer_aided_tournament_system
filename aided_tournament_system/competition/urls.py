@@ -28,7 +28,7 @@ urlpatterns = [
         name='application_remove'
     ),
     url(
-        regex=r'^(?P<competition_type>.+)/$',
+        regex=r'^(?P<competition_type>.+)/(?P<competition_gender>.+)/$',
         view=views.CompetitionFilteredView.as_view(),
         name='competition_filtered'
     )

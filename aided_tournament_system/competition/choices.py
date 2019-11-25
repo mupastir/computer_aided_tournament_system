@@ -15,3 +15,4 @@ class CompetitionTypeChoices(BaseChoices):
 class GenderChoices(BaseChoices):
     WOMAN = StrChoice('w', 'Woman')
     MAN = StrChoice('m', 'Man')
+    MIXES = StrChoice('x', 'Mixes')

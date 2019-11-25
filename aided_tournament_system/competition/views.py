@@ -1,6 +1,7 @@
 from datetime import timedelta
 from uuid import UUID
 
+from competition.choices import GenderChoices
 from competition.constants import HOURS_TO_CLOSE_APPLICATIONS
 from competition.forms import (ApplicationAddForm, CompetitionChoiceForm,
                                CompetitionCreateForm)
@@ -25,7 +26,9 @@ class CompetitionChoiceView(FormView):
         self.success_url = reverse_lazy('competition_filtered',
                                         kwargs={
                                             'competition_type':
-                                                form.data['type']
+                                                form.data['type'],
+                                            'competition_gender':
+                                                form.data['gender']
                                         })
         return super().form_valid(form)
 
@@ -41,7 +44,8 @@ class CompetitionFilteredView(CompetitionChoiceView):
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         kwargs['competitions'] = Competition.objects.filter(
-            type=self.kwargs['competition_type']
+            type=self.kwargs['competition_type'],
+            gender=self.kwargs['competition_gender']
         ).order_by('-created')
         return kwargs
 
@@ -56,12 +60,13 @@ class CompetitionCreateView(CreateView):
          seeding_teams_task.si(self.object.id)
          ).apply_async(eta=self.object.start_time - timedelta(
             hours=HOURS_TO_CLOSE_APPLICATIONS))
-        recalculate_rating_task.apply_async(
-            (self.object.type,),
-            eta=(self.object.end_time + timedelta(
-                hours=HOURS_TO_CLOSE_APPLICATIONS
-            ))
-        )
+        if self.object.gender != GenderChoices.MIXES.value:
+            recalculate_rating_task.apply_async(
+                (self.object.type,),
+                eta=(self.object.end_time + timedelta(
+                    hours=HOURS_TO_CLOSE_APPLICATIONS
+                ))
+            )
         return reverse_lazy('competition_type_choice')
 
     def get_context_data(self, **kwargs):

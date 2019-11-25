@@ -7,8 +7,7 @@ def recalculate_rating(competition_type: str):
     competition_ids = list(
         Competition.objects.filter(
             type=competition_type
-        ).order_by('-created')[:6].values_list('id',
-                                               flat=True)
+        ).order_by('-created')[:6].values_list('id', flat=True)
     )
 
     for player in Player.objects.all():

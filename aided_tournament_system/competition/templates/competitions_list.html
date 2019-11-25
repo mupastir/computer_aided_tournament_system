@@ -9,6 +9,13 @@
                     {% endfor %}
             </select>
         </p>
+        <p>
+            <select name="gender">
+                    {% for gender in form.gender %}
+                        <option  {% if view.kwargs.competition_gender == gender.data.value %}selected{% endif %} id="{{ form.gender.id_for_label }}" value="{{ gender.data.value }}">{{ gender.data.label }}</option>
+                    {% endfor %}
+            </select>
+        </p>
         <input type="submit" value="Выбрать">
     </form>
     {% if user.is_superuser %}
