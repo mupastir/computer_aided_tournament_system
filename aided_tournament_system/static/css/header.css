@@ -1,4 +1,5 @@
 .o-container {
+	background: white;
 	 margin: 0 auto;
 	 max-width: 1024px;
 	 padding: 0 20px;
@@ -10,8 +11,7 @@
 }
 
 .o-header {
-	 background: #fff;
-	 box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+	 background: #fff0;
 	 font-family: "Rubik", sans-serif;
 	 position: relative;
 	 text-rendering: optimizeLegibility;
@@ -20,6 +20,7 @@
 }
  .o-header__container {
 	 align-items: center;
+	 box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
 	 background-color: #1d46b9;
 	 box-sizing: border-box;
 	 display: flex;

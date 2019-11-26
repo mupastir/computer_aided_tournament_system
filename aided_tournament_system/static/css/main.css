@@ -1,5 +1,4 @@
 html {
-    background-color: transparent;
     box-sizing: border-box;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -8,9 +7,9 @@ html {
 }
 
 body {
-    background: #e8ffff;
+    background: rgba(0, 42, 158, 0);
     color: black;
-    font-size: 85%;
+    font-size: 16px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 

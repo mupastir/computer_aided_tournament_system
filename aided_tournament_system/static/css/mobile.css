@@ -229,7 +229,6 @@
 	}
 	 #nav ul li.menu {
 		 float: right;
-		 background-image: url('images/menu-icon.png');
 		 text-indent: -9999px;
 	}
 	 #nav ul.open li {
@@ -253,7 +252,6 @@
 		 float: right;
 		 width: 50px;
 		 height: 50px;
-		 background-image: url('images/menu-icon.png');
 		 text-indent: -9999px;
 	}
 	 #nav ul.open li.search, #nav ul.open li.menu {
@@ -502,7 +500,7 @@
 	 ul.downloads li .image-info {
 		 width: 250px;
 		 float: none;
-		 margin: 0px auto;
+		 margin: 0 auto;
 	}
 	 ul.downloads li .image-download-links a.btn.dl-zip {
 		 float: right;

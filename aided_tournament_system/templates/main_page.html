@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="o-container">
+    <div class="c-community-clubs__cards">
     {% for game in games %}
-        <div class="main-page-games">
+        <div class="c-community-clubs__programme">
             <p>{{ game.home_team }} {{ game.away_team }}</p>
         </div>
     {% endfor %}

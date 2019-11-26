@@ -192,7 +192,6 @@
 	 float: left;
 	 width: 54px;
 	 height: 50px;
-	 background: #e6e2dd url('images/search.png') no-repeat right;
 	 cursor: pointer;
 }
  #header form.search {
@@ -222,7 +221,6 @@
  form.search input.submit {
 	 width: 130px;
 	 height: 50px;
-	 background: white url('images/search-button.png') no-repeat right;
 	 margin: 0;
 	 padding: 0;
 	 border: 0;
@@ -304,7 +302,6 @@
 }
  #nav ul li.home {
 	 width: 50px;
-	 background: black url('images/logo-black.png') no-repeat;
 	 text-indent: -9999px;
 }
  #nav ul li.yellow {
@@ -366,21 +363,16 @@
 }
  #nav ul li.search {
 	 width: 50px;
-	 background: white url('images/search.png') no-repeat right;
 	 text-indent: -9999px;
 }
  #nav ul li.shop {
 	 float: right;
 	 width: 100px;
 	 height: 99px;
-	 background: transparent url('images/buy-tag-45-mono.png') no-repeat;
 	 margin: 0;
 	 padding: 0;
 	 text-indent: -9999px;
 	 transition-duration: 0.5s;
-}
- #nav ul li.shop:hover {
-	 background: transparent url('images/buy-tag-45.png') no-repeat;
 }
  #nav ul li.shop a {
 	 height: 100%;
@@ -599,18 +591,6 @@
 	 padding: 1px 5px 1px 20px;
 	 border: 1px solid #c61931;
 	 color: white;
-}
- ul.downloads li .image-download-links a.btn.dl-torrent {
-	 background: #c61931 url('images/download-torrent-off.png') left no-repeat;
-}
- ul.downloads li .image-download-links a.btn.dl-torrent:hover {
-	 background: transparent url('images/download-torrent-on.png') left no-repeat;
-}
- ul.downloads li .image-download-links a.btn.dl-zip {
-	 background: #c61931 url('images/download-zip-off.png') left no-repeat;
-}
- ul.downloads li .image-download-links a.btn.dl-zip:hover {
-	 background: transparent url('images/download-zip-on.png') left no-repeat;
 }
  ul.downloads li .image-download-links a.btn:hover {
 	 border: 1px solid #c61931;
@@ -888,9 +868,6 @@
  .entry-content a:hover {
 	 text-decoration: none;
 }
- .entry-content ul li, .content ul li {
-	 list-style-image: url('images/bullet.png');
-}
  .entry-content blockquote, .entry-content pre {
 	 width: 540px;
 	 max-width: 100%;
@@ -917,7 +894,6 @@
 	 font-style: normal;
 }
  .entry-content blockquote cite:before {
-	 content: url('images/bullet.png');
 	 margin-right: 6px;
 }
  .entry-content pre, .entry-content code {
@@ -1068,7 +1044,6 @@
 	 position: absolute;
 	 top: 5px;
 	 right: 5px;
-	 background: transparent url('images/comment.png');
 	 color: white;
 	 text-align: center;
 	 font-size: 14px;
@@ -1398,7 +1373,6 @@
 }
  .comments ol.commentlist li.byuser > .comment-body {
 	 border-top: 2px solid #c61931;
-	 background: #fdfdfd url("images/raspi-red-trans-25.png") no-repeat right 5px bottom 5px;
 }
  .comments ol.commentlist li.comment-author-ukscone > .comment-body {
 	 border-top: 0;
@@ -1695,7 +1669,6 @@
 }
  .team .team-member .photo .text {
 	 display: none;
-	 box-sizing: padding-box;
 	 height: 100%;
 	 padding: 8px;
 	 background: rgba(0, 0, 0, 0.6);
@@ -1723,21 +1696,6 @@
 }
  .team .team-member .photo .text .links a:last-child {
 	 margin-right: 0;
-}
- .team .team-member .photo .text .links a.twitter {
-	 background: url('images/social-icons/twitter-26x26.png') no-repeat;
-}
- .team .team-member .photo .text .links a.github {
-	 background: url('images/social-icons/github-26x26.png') no-repeat;
-}
- .team .team-member .photo .text .links a.linkedin {
-	 background: url('images/social-icons/linkedin-26x26.png') no-repeat;
-}
- .team .team-member .photo .text .links a.raspberrypi {
-	 background: url('images/social-icons/raspberrypi-26x26.png') no-repeat;
-}
- .team .team-member .photo .text .links a.web {
-	 background: url('images/social-icons/web-26x26.png') no-repeat;
 }
  .team .team-member .info {
 	 background: white;
@@ -1842,7 +1800,6 @@
 	 float: left;
 	 width: 50px;
 	 height: 50px;
-	 content: url('images/logo-white.png');
 }
  #footer footer .info {
 	 float: left;
@@ -1940,7 +1897,7 @@
 	 font-size: 18px;
 	 font-weight: bold;
 	 padding: 5px 10px;
-	 transition-property: background-color color;
+	 transition-property: background-color;
 	 transition-duration: 150ms;
 	 width: 50%;
 }

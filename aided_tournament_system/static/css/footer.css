@@ -8,13 +8,13 @@
 	 box-sizing: border-box;
 }
  .o-footer__slice {
-	 background-color: #f5f6f9;
+	 background-color: #dfc33d;
 	 padding: 25px 0;
 }
- @media screen and (min-width: 768px) {
-	 .o-footer__slice {
-		 padding: 50px 0;
-	}
+@media screen and (min-width: 768px) {
+ .o-footer__slice {
+	 padding: 50px 0;
+ }
 }
  .o-footer__container {
 	 align-items: flex-start;
