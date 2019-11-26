@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="o-container">
+    {% for game in games %}
+        <div class="main-page-games">
+            <p>{{ game.home_team }} {{ game.away_team }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

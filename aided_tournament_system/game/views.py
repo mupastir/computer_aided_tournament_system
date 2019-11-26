@@ -57,3 +57,11 @@ class GameInfoUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         kwargs['game'] = Game.objects.get(id=self.kwargs['pk'])
         return super().get_context_data(**kwargs)
+
+
+class GameViewLast10(TemplateView):
+    template_name = "main_page.html"
+
+    def get_context_data(self, **kwargs):
+        kwargs['games'] = Game.objects.all().order_by('start_time')[:10]
+        return super().get_context_data(**kwargs)
