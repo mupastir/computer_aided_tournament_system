@@ -18,6 +18,11 @@ urlpatterns = [
         name='rating_choice'
     ),
     url(
+        regex=r'^team/(?P<pk>.+)/$',
+        view=views.TeamDetailsView.as_view(),
+        name='team_details'
+    ),
+    url(
         regex=r'^rating/(?P<type>.+)/(?P<gender>.+)/$',
         view=views.RatingView.as_view(),
         name='ratings'

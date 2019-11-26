@@ -5,9 +5,10 @@ from competition.choices import GenderChoices
 from competition.constants import HOURS_TO_CLOSE_APPLICATIONS
 from competition.forms import (ApplicationAddForm, CompetitionChoiceForm,
                                CompetitionCreateForm)
-from competition.tasks import (application_closing_task, ranking_creation_task,
-                               schedule_creating_task, seeding_teams_task,
-                               calculate_team_rating_task)
+from competition.tasks import (application_closing_task,
+                               calculate_team_rating_task,
+                               ranking_creation_task, schedule_creating_task,
+                               seeding_teams_task)
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, FormView, TemplateView
 from participant.models import Player, Team
@@ -109,7 +110,7 @@ class ApplicationAddView(FormView):
             player.team.add(team)
         Application.objects.create(competition=competition,
                                    team=team)
-        calculate_team_rating_task.delay(team.id)
+        calculate_team_rating_task.delay(team.id, competition.type)
         return super().form_valid(form)
 
 

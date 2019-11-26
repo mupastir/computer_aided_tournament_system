@@ -1,7 +1,8 @@
 from django.shortcuts import redirect
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from participant.forms import RatingChoiceForm
+from participant.models import Team
 from participant.services.get_ratings import (get_rating_url,
                                               get_ratings_by_type_gender)
 from participant.tasks import (create_player_task, create_referee_task,
@@ -55,3 +56,12 @@ class PlayerJoinToTeamView(View):
     def put(self, request, team_id):
         player_join_team_task.apply_async((team_id, request.user.id,))
         return redirect('/competitions/list/')
+
+
+class TeamDetailsView(TemplateView):
+    template_name = "team_detail.html"
+
+    def get_context_data(self, **kwargs):
+        kwargs['team'] = Team.objects.get(id=self.kwargs['pk'])
+        kwargs['players'] = kwargs['team'].player_set.all()
+        return super().get_context_data(**kwargs)

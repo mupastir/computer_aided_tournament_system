@@ -9,7 +9,7 @@
     </tr>
     {% for application in applications %}
     <tr>
-        <td><p>{{ application.team.title  }}</p></td>
+        <td><a href="{% url 'team_details' pk=application.team.id %}"><p>{{ application.team.title  }}</p></a></td>
         <td><p>{{ application.team.rating }}</p></td>
         {% if user.is_superuser %}
         <td>

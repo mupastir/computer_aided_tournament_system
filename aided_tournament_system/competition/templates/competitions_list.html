@@ -1,45 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="o-container">
-    <form method="post">{% csrf_token %}
-        <p>
-            <select name="type">
+        <form method="post">{% csrf_token %}
+            <p>
+                <select name="type">
                     {% for type in form.type %}
-                        <option  {% if view.kwargs.competition_type == type.data.value %}selected{% endif %} id="{{ form.type.id_for_label }}" value="{{ type.data.value }}">{{ type.data.label }}</option>
+                        <option {% if view.kwargs.competition_type == type.data.value %}selected{% endif %}
+                                id="{{ form.type.id_for_label }}"
+                                value="{{ type.data.value }}">{{ type.data.label }}</option>
                     {% endfor %}
-            </select>
-        </p>
-        <p>
-            <select name="gender">
+                </select>
+            </p>
+            <p>
+                <select name="gender">
                     {% for gender in form.gender %}
-                        <option  {% if view.kwargs.competition_gender == gender.data.value %}selected{% endif %} id="{{ form.gender.id_for_label }}" value="{{ gender.data.value }}">{{ gender.data.label }}</option>
+                        <option {% if view.kwargs.competition_gender == gender.data.value %}selected{% endif %}
+                                id="{{ form.gender.id_for_label }}"
+                                value="{{ gender.data.value }}">{{ gender.data.label }}</option>
                     {% endfor %}
-            </select>
-        </p>
-        <input type="submit" value="Выбрать">
-    </form>
-    {% if user.is_superuser %}
-        <a href="{% url 'competition_create' %}">Создать соревнование</a>
+                </select>
+            </p>
+            <input type="submit" value="Выбрать">
+        </form>
+        {% if user.is_superuser %}
+            <a href="{% url 'competition_create' %}">Создать соревнование</a>
         {% else %}
         {% endif %}
-    <table>
-    <tr>
-        <th>Название</th>
-        <th>Тип</th>
-        <th>Дата проведения</th>
-        <th></th>
-        <th></th>
-    </tr>
-    {% for competition in competitions %}
-    <tr>
-        <td>{{competition.title}}</td>
-        <td>{{competition.type}}</td>
-        <td>{{competition.start_time}}</td>
-        <td><a href="{% url 'games_list' competition_title=competition.title %}">Игры</a></td>
-        <td><a href="{% url 'applications' competition_title=competition.title %}">Заявки</a></td>
-    </tr>
+        <table>
+            <tr>
+                <th>Название</th>
+                <th>Тип</th>
+                <th>Пол</th>
+                <th>Дата проведения</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% for competition in competitions %}
+                <tr>
+                    <td>{{ competition.title }}</td>
+                    <td>{{ competition.type }}</td>
+                    <td>{{ competition.gender }}</td>
+                    <td>{{ competition.start_time }}</td>
+                    <td>
+                        <a href="{% url 'games_list' competition_title=competition.title %}">Игры</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'applications' competition_title=competition.title %}">Заявки</a>
+                    </td>
+                </tr>
 
-    {% endfor %}
-    </table>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}

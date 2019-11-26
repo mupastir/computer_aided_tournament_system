@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="o-header">
+    <div class="o-container">
     <form method="post">{% csrf_token %}
         <p>Подтвердить удаление {{ object }}</p>
         <input type="submit" value="Удалить">

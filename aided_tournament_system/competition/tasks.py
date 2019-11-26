@@ -39,5 +39,5 @@ def seeding_teams_task(competition_id: UUID):
 
 
 @shared_task
-def calculate_team_rating_task(team_id: UUID):
-    team_rating_calculate(team_id)
+def calculate_team_rating_task(team_id: UUID, competition_type: str):
+    team_rating_calculate(team_id, competition_type)
