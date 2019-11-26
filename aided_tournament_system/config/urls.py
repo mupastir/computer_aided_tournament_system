@@ -32,6 +32,13 @@ urlpatterns = [
     path('participant/', include('participant.urls')),
     path('competition/', include('competition.urls')),
     path('game/', include('game.urls')),
+    path('select2/', include('django_select2.urls')),
+    path('api-auth/', include('rest_framework.urls'),
+         name='rest_framework'),
+    path(r'rest-auth/', include('rest_auth.urls')),
+    path(r'accounts/', include('allauth.urls')),
+    path(r'rest-auth/registration/',
+         include('rest_auth.registration.urls')),
 ]
 
 if settings.DEBUG:
@@ -39,12 +46,5 @@ if settings.DEBUG:
 
     urlpatterns = [
                       path('swagger/', schema_view),
-                      path('api-auth/', include('rest_framework.urls'),
-                           name='rest_framework'),
-                      path(r'rest-auth/', include('rest_auth.urls')),
-                      path(r'accounts/', include('allauth.urls')),
-                      path(r'rest-auth/registration/',
-                           include('rest_auth.registration.urls')),
                       path('__debug__/', include(debug_toolbar.urls)),
-                      path('select2/', include('django_select2.urls')),
                   ] + urlpatterns
