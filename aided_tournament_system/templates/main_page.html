@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="c-community-clubs__cards">
+    <div class="o-container">
+    <div class="main-page-games">
     {% for game in games %}
-        <div class="c-community-clubs__programme">
-            <p>{{ game.home_team }} {{ game.away_team }}</p>
-        </div>
+            <div class="main-page-games">
+                <div class="game-header">
+
+                </div>
+                <p>{{ game.home_team }} {{ game.away_team }}</p>
+
+            </div>
     {% endfor %}
+    </div>
     </div>
 {% endblock %}

@@ -147,30 +147,17 @@ h2 {
     color: black;
 }
 
-
-.update-user-input {
-    background: white;
-    width: 50%;
-    margin: 0.3% auto;
-    color: black;
-    text-decoration: None;
-    text-align: center;
-    padding: 0.3%;
-    border-radius: 5px;
-}
-
-
-.form-update-user {
-    display: flex;
-    width: 50%;
-    margin: 0 auto;
-    margin-outside: 10px;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .gender-choice {
     display: flex;
     justify-content: center;
     flex-direction: row;
+}
+
+.main-page-games {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
 }
