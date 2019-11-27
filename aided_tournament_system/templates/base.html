@@ -91,23 +91,6 @@
             document.querySelector('.c-nav-toggle__icon').classList.toggle('c-nav-toggle__icon--open')
             document.querySelector('.c-nav-toggle__icon-inner').classList.toggle('c-nav-toggle__icon-inner--open')
         })
-
-        var searchToggle = document.querySelector('.c-search-toggle')
-
-        searchToggle.addEventListener('click', function (event) {
-            event.preventDefault()
-
-            var searchContainer = document.querySelector('.o-header__search')
-            var searchInput = document.querySelector('.c-search__input')
-
-            searchInput.blur()
-            searchToggle.classList.toggle('c-search-toggle--open')
-            searchContainer.classList.toggle('o-header__search--open')
-
-            if (searchContainer.classList.contains('o-header__search--open')) {
-                searchInput.focus()
-            }
-        })
     </script>
     <div class="container">
     <div class="main">
