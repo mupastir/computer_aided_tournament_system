@@ -29,6 +29,7 @@ coverage = "*"
 django-celery-results = "*"
 celery = "*"
 gunicorn = "*"
+uwsgi = "*"
 
 [requires]
 python_version = "3.7"
