@@ -28,6 +28,7 @@ bpython = "*"
 coverage = "*"
 django-celery-results = "*"
 celery = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
