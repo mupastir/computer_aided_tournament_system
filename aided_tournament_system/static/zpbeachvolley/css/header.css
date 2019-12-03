@@ -30,7 +30,7 @@
 	 max-width: 1300px;
 }
  .o-header__home-link {
-	 background-image: url('../../static/img/logo_small.png');
+	 background-image: url('../img/logo_small.png');
 	 background-position: center;
 	 background-repeat: no-repeat;
 	 background-size: auto 50px;

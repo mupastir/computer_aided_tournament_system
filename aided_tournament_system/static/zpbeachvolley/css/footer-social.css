@@ -1,5 +1,5 @@
 .c-footer-social {
-	 background-image: url("../../static/img/data_image_svg+xml;….svg");
+	 background-image: url("../img/data_image_svg+xml;….svg");
 	 background-position: bottom;
 	 background-repeat: no-repeat;
 	 background-size: 80% auto;
@@ -52,19 +52,19 @@
 	 width: 50px;
 }
  .c-footer-social__link--facebook {
-	 background-image: url('../../static/img/facebook.svg');
+	 background-image: url('../img/facebook.svg');
 }
  .c-footer-social__link--facebook:hover {
 	 transform: rotate(6deg) scale(1.2) translateY(-20%);
 }
  .c-footer-social__link--instagram {
-	 background-image: url('../../static/img/instagram.svg');
+	 background-image: url('../img/instagram.svg');
 }
  .c-footer-social__link--instagram:hover {
 	 transform: rotate(-3deg) scale(1.2) translateY(-20%);
 }
  .c-footer-social__link--youtube {
-	 background-image: url('../../static/img/youtube.svg');
+	 background-image: url('../img/youtube.svg');
 }
  .c-footer-social__link--youtube:hover {
 	 transform: rotate(-2deg) scale(1.2) translateY(-20%);

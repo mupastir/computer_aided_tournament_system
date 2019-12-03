@@ -10,3 +10,4 @@ RUN pip3 install --no-cache-dir -U pip pipenv \
     && pipenv install --dev --system --deploy --ignore-pipfile
 
 COPY . /core/
+ENTRYPOINT ["/core/entrypoint.sh"]
