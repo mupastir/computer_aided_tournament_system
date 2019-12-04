@@ -16,8 +16,8 @@ services:
     volumes:
       - .:/core
       - static_volume:/core/static_base
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - db
       - rabbit1

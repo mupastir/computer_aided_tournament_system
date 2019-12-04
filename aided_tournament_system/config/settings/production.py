@@ -11,6 +11,8 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='*').split(" ")
+
 # Security settings
 
 SECURE_SSL_HOST = True
