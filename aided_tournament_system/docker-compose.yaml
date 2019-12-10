@@ -8,7 +8,7 @@ services:
   rabbit1:
     image: rabbitmq
     ports:
-      - "5672:5672"
+      - 5672:5672
 
   web:
     build: ..
@@ -29,7 +29,7 @@ services:
     volumes:
       - static_volume:/core/static_base
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web
 
