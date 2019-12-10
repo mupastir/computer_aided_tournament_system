@@ -16,7 +16,8 @@ class Player(UUIDTimeStampModel):
                                     related_name='ratings')
     team = models.ManyToManyField('Team',
                                   blank=True,
-                                  verbose_name='team')
+                                  verbose_name='team',
+                                  related_name='players')
     objects = PlayerManager()
 
     def __str__(self):

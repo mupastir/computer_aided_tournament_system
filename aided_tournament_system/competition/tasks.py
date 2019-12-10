@@ -9,8 +9,7 @@ from competition.services.ranking_creating_service import ranking_create
 from competition.services.seeding_teams_service import SeedingTeamsService
 from game.services.schedule_creation_services.schedule_creator import \
     ScheduleCreator
-from participant.services.team_rating_calculate_service import \
-    team_rating_calculate
+from participant.services.team import team_rating_calculate
 
 
 @shared_task
