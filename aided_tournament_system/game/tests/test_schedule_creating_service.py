@@ -11,6 +11,18 @@ from game.services.schedule_creation_services.tournament_schedules import (
 
 class TestScheduleCreatingService(TestCase):
 
+    def test_fail_teams_creating(self):
+        competition = Competition.objects.create(title='Test',
+                                                 start_time=datetime.now(),
+                                                 end_time=datetime.now(),
+                                                 courts_number=4,
+                                                 schedule_system='4',
+                                                 gender='m')
+        self.assertRaises(ValueError,
+                          ScheduleCreator,
+                          schedule_size=competition.schedule_system,
+                          competition_id=competition.pk)
+
     def test_create_32_teams_schedule(self):
         competition = Competition.objects.create(title='Test',
                                                  start_time=datetime.now(),
