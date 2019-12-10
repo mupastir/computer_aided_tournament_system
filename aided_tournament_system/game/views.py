@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from game.models import Game
 from game.tasks import move_teams_next_round_task
-from participant.services.is_referee import is_referee
+from participant.services.referee import is_referee
 
 
 class GameListView(TemplateView):
