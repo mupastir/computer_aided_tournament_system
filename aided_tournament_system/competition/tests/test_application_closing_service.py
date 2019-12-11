@@ -1,8 +1,7 @@
 from datetime import datetime
 
 from competition.models import Competition
-from competition.services.application_closing_service import \
-    ApplicationClosingService
+from competition.services.application import ApplicationClosingService
 from django.test import TestCase
 
 

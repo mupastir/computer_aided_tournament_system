@@ -93,7 +93,7 @@ RANKING_CHOICES = {8: Ranking8TeamsCreator,
                    32: Ranking32TeamsCreator}
 
 
-def ranking_create(competition_id: UUID) -> None:
+def ranking_creating_service(competition_id: UUID) -> None:
     competition = Competition.objects.get(id=competition_id)
     ranking_creator = RANKING_CHOICES[
         int(competition.schedule_system)

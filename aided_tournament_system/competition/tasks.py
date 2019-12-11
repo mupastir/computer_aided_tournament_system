@@ -3,9 +3,8 @@ from __future__ import absolute_import, unicode_literals
 from uuid import UUID
 
 from celery import shared_task
-from competition.services.application_closing_service import \
-    ApplicationClosingService
-from competition.services.ranking_creating_service import ranking_create
+from competition.services.application import ApplicationClosingService
+from competition.services.ranking import ranking_creating_service
 from competition.services.seeding_teams_service import SeedingTeamsService
 from game.services.schedule_creation_services.schedule_creator import \
     ScheduleCreator
@@ -20,7 +19,7 @@ def application_closing_task(competition_id: UUID):
 
 @shared_task
 def ranking_creation_task(competition_id: UUID):
-    ranking_create(competition_id)
+    ranking_creating_service(competition_id)
 
 
 @shared_task

@@ -3,7 +3,7 @@ from datetime import datetime
 from competition.models import Competition, Ranking
 from competition.services.constants import (Ranking8Teams, Ranking16Teams,
                                             Ranking32Teams)
-from competition.services.ranking_creating_service import ranking_create
+from competition.services.ranking import ranking_creating_service
 from django.test import TestCase
 
 
@@ -16,7 +16,7 @@ class TestRankingsCreateService(TestCase):
                                                  courts_number=4,
                                                  schedule_system='8',
                                                  gender='m')
-        ranking_create(competition_id=competition.id)
+        ranking_creating_service(competition_id=competition.id)
         assert len(Ranking.objects.all()) == 8
         assert Ranking.objects.get(
             place=1,
@@ -50,7 +50,7 @@ class TestRankingsCreateService(TestCase):
                                                  courts_number=4,
                                                  schedule_system='16',
                                                  gender='m')
-        ranking_create(competition_id=competition.id)
+        ranking_creating_service(competition_id=competition.id)
         assert len(Ranking.objects.all()) == 16
         assert Ranking.objects.get(
             place=1,
@@ -92,7 +92,7 @@ class TestRankingsCreateService(TestCase):
                                                  courts_number=4,
                                                  schedule_system='32',
                                                  gender='m')
-        ranking_create(competition_id=competition.id)
+        ranking_creating_service(competition_id=competition.id)
         assert len(Ranking.objects.all()) == 32
         assert Ranking.objects.get(
             place=1,
