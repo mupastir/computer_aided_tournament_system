@@ -39,7 +39,8 @@ class Game(UUIDTimeStampModel):
                                           verbose_name='away team score')
     competition = models.ForeignKey('competition.Competition',
                                     on_delete=models.CASCADE,
-                                    verbose_name='competition')
+                                    verbose_name='competition',
+                                    related_name='games')
     winner_ref = models.CharField(blank=True,
                                   null=True,
                                   max_length=3,

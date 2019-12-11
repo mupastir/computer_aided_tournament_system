@@ -63,5 +63,5 @@ class TeamDetailsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         kwargs['team'] = Team.objects.get(id=self.kwargs['pk'])
-        kwargs['players'] = kwargs['team'].player_set.all()
+        kwargs['players'] = kwargs['team'].players.all()
         return super().get_context_data(**kwargs)

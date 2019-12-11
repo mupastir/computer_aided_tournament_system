@@ -1,3 +1,4 @@
+from competition.models import Competition
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from game.models import Game
@@ -64,4 +65,7 @@ class GameViewLast10(TemplateView):
 
     def get_context_data(self, **kwargs):
         kwargs['games'] = Game.objects.all().order_by('start_time')[:10]
+        kwargs['competition'] = Competition.objects.get(
+            games=kwargs['games'][0]
+        )
         return super().get_context_data(**kwargs)
