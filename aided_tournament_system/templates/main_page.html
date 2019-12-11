@@ -25,15 +25,14 @@
             <a href="#">
                 <span class="score">{{ game.home_team_score }} - {{ game.away_team_score }}</span>
             </a>
-{#            <ol class="sets">#}
-{#                <li class="sets-score">#}
-{#                </li>#}
-{#            </ol>#}
+            <ol class="sets">
+                <li class="sets-score">
+                </li>
+            </ol>
         </span>
 
                         <figure class="team">
                             <a class="ng-scope">
-{#                                href="{% url 'team_details' pk=game.home_team.id %}">#}
                             <figcaption class="ng-binding ng-scope">{{ game.home_team }}
                             </figcaption>
                             </a>
@@ -41,7 +40,6 @@
 
                         <figure class="team">
                             <a class="ng-scope">
-{#                                href="{% url 'team_details' pk=game.away_team.id %}">#}
                             <figcaption class="ng-binding ng-scope">{{ game.away_team }}
                             </figcaption>
                             </a>
@@ -60,13 +58,6 @@
                     </div>
 
                 </div>
-{#                <div class="main-page-games">#}
-{#                    <div class="game-header">#}
-{##}
-{#                    </div>#}
-{#                    <p>{{ game.home_team }} {{ game.away_team }}</p>#}
-{##}
-{#                </div>#}
             {% endfor %}
         </div>
     </div>
