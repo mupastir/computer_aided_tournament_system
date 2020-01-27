@@ -2,6 +2,9 @@ from django.conf.urls import url
 from rest_auth.registration.views import (SocialAccountDisconnectView,
                                           SocialAccountListView)
 from user_auth.api import views
+from user_auth.api.views import (UserPasswordChangeAPIView,
+                                 UserPasswordResetAPIView,
+                                 UserPasswordResetConfirmAPIView)
 
 urlpatterns = [
     # /user/
@@ -26,9 +29,24 @@ urlpatterns = [
         name='user_rest_api',
     ),
     url(
-        regex=r'^register/$',
+        regex=r'^registration/$',
         view=views.UserRegisterAPIView.as_view(),
         name='user_rest_api',
+    ),
+    url(
+        regex=r'^password/reset/$',
+        view=UserPasswordResetAPIView.as_view(),
+        name='password_reset'
+    ),
+    url(
+        regex=r'^password/reset/confirm/$',
+        view=UserPasswordResetConfirmAPIView.as_view(),
+        name='password_reset_confirm'
+    ),
+    url(
+        regex=r'^password/change/$',
+        view=UserPasswordChangeAPIView.as_view(),
+        name='password_change'
     ),
     url(regex=r'^facebook/login/$',
         view=views.FacebookLogin.as_view(),
