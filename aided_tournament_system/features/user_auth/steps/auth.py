@@ -3,7 +3,7 @@ from behave import then, when
 
 @when('User entered a valid user data')
 def valid_user_data(context):
-    context.response = context.test.client.post('/api/user/register/',
+    context.response = context.test.client.post('/api/user/registration/',
                                                 {
                                                     'username': 'test',
                                                     'password1': 'top_secure',
@@ -21,7 +21,7 @@ def get_success_status_code(context):
 
 @when('User entered invalid user data')
 def invalid_user_data(context):
-    context.response = context.test.client.post('/api/user/register',
+    context.response = context.test.client.post('/api/user/registration',
                                                 {
                                                     'username': 'test1',
                                                     'password1': 'top_secure',
