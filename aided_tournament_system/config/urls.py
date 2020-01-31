@@ -16,35 +16,23 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from game.views import GameViewLast10
 from rest_framework_swagger.views import get_swagger_view
 
 schema_view = get_swagger_view(title='Aided tournament system API')
 
 urlpatterns = [
-    path('', GameViewLast10.as_view(), name='main'),
+    path('', schema_view),
     path('admin/', admin.site.urls),
-    path('api/user/', include('user_auth.api.urls')),
+    path('api/user/', include('user_auth.api.urls'),
+         name='api_user'),
     path('api/competition/', include('competition.api.urls')),
     path('api/participant/', include('participant.api.urls')),
     path('api/game/', include('game.api.urls')),
-    path('user/', include('user_auth.urls')),
-    path('participant/', include('participant.urls')),
-    path('competition/', include('competition.urls')),
-    path('game/', include('game.urls')),
-    path('select2/', include('django_select2.urls')),
-    path('api-auth/', include('rest_framework.urls'),
-         name='rest_framework'),
-    path(r'rest-auth/', include('rest_auth.urls')),
-    path(r'accounts/', include('allauth.urls')),
-    path(r'rest-auth/registration/',
-         include('rest_auth.registration.urls')),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [
-                      path('swagger/', schema_view),
                       path('__debug__/', include(debug_toolbar.urls)),
                   ] + urlpatterns
