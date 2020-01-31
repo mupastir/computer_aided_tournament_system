@@ -6,32 +6,33 @@ from user_auth.api.views import (UserPasswordChangeAPIView,
                                  UserPasswordResetAPIView,
                                  UserPasswordResetConfirmAPIView)
 
+app_name = 'api_user'
 urlpatterns = [
     # /user/
     url(
         regex=r'^details/$',
         view=views.UserListAPIView.as_view(),
-        name='user_rest_api',
+        name='details',
     ),
     url(
         regex=r'^edit/$',
         view=views.UserUpdateAPIView.as_view(),
-        name='user_rest_api',
+        name='edit',
     ),
     url(
         regex=r'^login/$',
         view=views.UserLoginAPIView.as_view(),
-        name='user_rest_api',
+        name='login',
     ),
     url(
         regex=r'^logout/$',
         view=views.UserLogoutAPIView.as_view(),
-        name='user_rest_api',
+        name='logout',
     ),
     url(
         regex=r'^registration/$',
         view=views.UserRegisterAPIView.as_view(),
-        name='user_rest_api',
+        name='registration',
     ),
     url(
         regex=r'^password/reset/$',
