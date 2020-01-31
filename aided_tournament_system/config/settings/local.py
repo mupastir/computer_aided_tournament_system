@@ -38,11 +38,10 @@ SWAGGER_SETTINGS = {
             }
         },
         'USE_SESSION_AUTH': False,
+        'LOGIN_URL': 'rest_framework:login',
+        'LOGOUT_URL': 'rest_framework:logout'
     }
 
-
-LOGIN_URL = 'rest_framework:login'
-LOGOUT_URL = 'rest_framework:logout'
 
 if os.environ.get('ENV') == 'behave':
     from .test import *
