@@ -38,8 +38,8 @@ SWAGGER_SETTINGS = {
             }
         },
         'USE_SESSION_AUTH': False,
-        'LOGIN_URL': 'rest_framework:login',
-        'LOGOUT_URL': 'rest_framework:logout'
+        'LOGIN_URL': 'api_user:login',
+        'LOGOUT_URL': 'api_user:logout'
     }
 
 

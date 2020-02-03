@@ -8,6 +8,7 @@ django-debug-toolbar = "*"
 pudb = "*"
 isort = "*"
 django-select2 = "*"
+pre-commit = "*"
 
 [packages]
 django-rest-swagger = "==2.1.2"
