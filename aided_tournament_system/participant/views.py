@@ -40,7 +40,7 @@ class RatingView(RatingChoiceView):
 class RefereeCreateView(View):
 
     def post(self, request):
-        create_referee_task.apply_async((request.user.id,))
+        create_referee_task.apply_async((request.user,))
         return redirect('/user/detail/')
 
 

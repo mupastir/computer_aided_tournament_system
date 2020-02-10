@@ -1,4 +1,5 @@
 from participant.models import Player, Referee, Team
+from participant.tasks import add_rating_to_player_task
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -31,7 +32,8 @@ class PlayerCreateAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        Player.objects.create(user=request.user)
+        player = Player.objects.create(user=request.user)
+        add_rating_to_player_task.apply_async((player,))
         return Response(data={'detail': 'Player has successfully created.'},
                         status=status.HTTP_201_CREATED)
 
@@ -59,5 +61,5 @@ class PlayerJoinToTeamAPIView(APIView):
         player.save()
         player.team.add(team)
         return Response(data={
-            'detail': f'You successfully added to {team.title}.'
+            'detail': f'You successfully added to team with id {team_id}.'
         })
