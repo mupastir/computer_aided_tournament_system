@@ -4,6 +4,7 @@ from datetime import datetime
 from behave import given, then, when
 from features.utils import api_post
 from game.models import Game
+from participant.models import Referee
 from user_auth.models import User
 
 
@@ -17,6 +18,19 @@ def create_superuser(context, email, password, is_superuser, is_staff):
         is_superuser=literal_eval(is_superuser),
         is_staff=literal_eval(is_staff)
     )
+
+
+@given('Referee with First name: {first_name}, Last name: {last_name}, '
+       'username: {username}, email: {email}, password: {password}.')
+def create_referee(context, first_name, last_name, username, email, password):
+    user = User.objects.create_superuser(
+        username=username,
+        password=password,
+        email=email,
+        first_name=first_name,
+        last_name=last_name
+    )
+    Referee.objects.create(user=user)
 
 
 @when('User creates competition with valid data')
