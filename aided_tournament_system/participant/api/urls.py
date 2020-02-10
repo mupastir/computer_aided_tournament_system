@@ -18,11 +18,6 @@ urlpatterns = [
         name='team_list'
     ),
     url(
-        regex=r'^team/(?P<title>.+)/players/$',
-        view=views.PlayersInTeamsListAPIView.as_view(),
-        name='players_in_team'
-    ),
-    url(
         regex=r'^player/add/$',
         view=views.PlayerCreateAPIView.as_view(),
         name='add_player_role'
