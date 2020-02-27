@@ -1,11 +1,11 @@
 from participant.models import Player, Referee, Team
-from participant.tasks import add_rating_to_player_task
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from ..services.add_rating_to_player import add_rating_to_player
 from .serializers import (PlayerListSerializer, RefereeListSerializer,
                           TeamCreateSerializer, TeamListSerializer)
 
@@ -33,7 +33,7 @@ class PlayerCreateAPIView(APIView):
 
     def post(self, request):
         player = Player.objects.create(user=request.user)
-        add_rating_to_player_task.apply_async((player,))
+        add_rating_to_player(player)
         return Response(data={'detail': 'Player has successfully created.'},
                         status=status.HTTP_201_CREATED)
 
