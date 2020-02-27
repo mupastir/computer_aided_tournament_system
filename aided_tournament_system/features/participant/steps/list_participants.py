@@ -30,21 +30,21 @@ def create_team_with_players(context, team_title):
 @when('User check list of teams')
 def get_list_teams(context):
     context.response = api_get(
-        '/api/participant/team/detail/',
+        '/api/participant/teams/',
         context.user)
 
 
 @when('User check list of referees')
 def get_list_referees(context):
     context.response = api_get(
-        '/api/participant/referee/detail/',
+        '/api/participant/referees/',
         context.user)
 
 
 @when('User check list of players')
 def get_list_players(context):
     context.response = api_get(
-        '/api/participant/player/detail/',
+        '/api/participant/players/',
         context.user)
 
 

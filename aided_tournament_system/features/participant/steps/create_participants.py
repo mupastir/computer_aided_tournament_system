@@ -5,19 +5,19 @@ from participant.models import Player, Referee, Team
 
 @when('User add player role')
 def add_player(context):
-    context.response = api_post('/api/participant/player/add/',
+    context.response = api_post('/api/participant/players/',
                                 context.user)
 
 
 @when('User add referee role')
 def add_referee(context):
-    context.response = api_post('/api/participant/referee/add/',
+    context.response = api_post('/api/participant/referees/',
                                 context.user)
 
 
 @when('User create {team_title}')
 def add_team(context, team_title):
-    context.response = api_post('/api/participant/team/create/',
+    context.response = api_post('/api/participant/teams/',
                                 context.user,
                                 {
                                     'title': team_title
@@ -31,9 +31,12 @@ def create_players(context):
 
 @when('User try to join to {team_title}')
 def add_players_to_team(context, team_title):
+    player = Player.objects.get(user=context.user)
+    team = Team.objects.first()
     context.response = api_put(
-        f'/api/participant/join_to_team/{Team.objects.first().id}/',
-        context.user)
+        f'/api/participant/teams/{team.id}/player/{player.id}/',
+        context.user
+    )
 
 
 @given('The {team_title}')
