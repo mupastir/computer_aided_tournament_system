@@ -5,7 +5,6 @@ from .base import *
 INSTALLED_APPS += (
     'debug_toolbar',
     'django_extensions',
-    'rest_framework_swagger',
 )
 
 MIDDLEWARE += [
@@ -25,22 +24,6 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT', default=''),
     }
 }
-
-
-# SWAGGER CONF
-
-SWAGGER_SETTINGS = {
-        'SECURITY_DEFINITIONS': {
-            'api_key': {
-                'type': 'apiKey',
-                'in': 'header',
-                'name': 'Authorization'
-            }
-        },
-        'USE_SESSION_AUTH': False,
-        'LOGIN_URL': 'rest_framework:login',
-        'LOGOUT_URL': 'rest_framework:logout'
-    }
 
 
 if os.environ.get('ENV') == 'behave':

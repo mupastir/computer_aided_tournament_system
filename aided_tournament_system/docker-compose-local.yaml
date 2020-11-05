@@ -4,6 +4,10 @@ services:
 
   db:
     image: postgres
+    volumes:
+      - .:/core
+    env_file:
+      - .env
 
   rabbit1:
     image: rabbitmq
@@ -12,26 +16,17 @@ services:
 
   web:
     build: ..
-    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/core
       - static_volume:/core/static_base
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
     depends_on:
       - db
       - rabbit1
     env_file:
       - .env
-
-  nginx:
-    build: ../nginx
-    volumes:
-      - static_volume:/core/static_base
-    ports:
-      - 1337:80
-    depends_on:
-      - web
 
   celery:
     build: ..
