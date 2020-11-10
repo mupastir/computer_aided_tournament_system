@@ -61,10 +61,12 @@ LOCAL_APPS = (
 THIRD_PART_APPS = (
     'allauth',
     'allauth.account',
+    'behave_django',
     'django_select2',
     'django_celery_results',
     'rest_auth.registration',
     'rest_framework',
+    'rest_framework_swagger',
     'rest_framework.authtoken',
     'rest_auth',
     'django_countries',
@@ -178,6 +180,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+
+# SWAGGER CONF
+
+SWAGGER_SETTINGS = {
+        'SECURITY_DEFINITIONS': {
+            'api_key': {
+                'type': 'apiKey',
+                'in': 'header',
+                'name': 'Authorization'
+            }
+        },
+        'USE_SESSION_AUTH': False,
+        'LOGIN_URL': 'api_user:login',
+        'LOGOUT_URL': 'api_user:logout'
+    }
 
 # Internal IPs
 
