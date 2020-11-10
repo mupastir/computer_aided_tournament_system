@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django_utils.permisions import IsRefereeScorerOrAdmin
+from django_utils.permissions import IsRefereeScorerOrAdmin
 from game.api.serializers import GameSerializer
 from game.models import Game
 from rest_framework import status, viewsets
