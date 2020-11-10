@@ -10,9 +10,10 @@ from rest_framework.response import Response
 class GameAPIView(viewsets.ViewSet):
     permission_classes = (IsRefereeScorerOrAdmin, IsAuthenticated,)
 
-    def list(self, request):
+    def get(self, request, pk=None):
         queryset = Game.objects.all()
-        serializer = GameSerializer(queryset, many=True)
+        game = get_object_or_404(queryset, pk=pk)
+        serializer = GameSerializer(game)
         return Response(serializer.data)
 
     def partial_update(self, request, pk=None):
