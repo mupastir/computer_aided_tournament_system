@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 
 from behave import given, then, when
+from rest_framework import status
+
 from competition.models import Competition
-from features.utils import api_put
+from features.utils import api_patch
 from game.choices import RoundChoices
 from game.models import Game
 from participant.models import Player, Referee, Team
@@ -49,8 +51,8 @@ def create_competition(context, game_round, comp_title):
 
 @when('User protocolized score {home_team_score} - {away_team_score}')
 def protocolized_score(context, home_team_score, away_team_score):
-    context.response = api_put(
-        f'/api/game/{Game.objects.first().id}/update_score/',
+    context.response = api_patch(
+        f'/api/game/{Game.objects.first().id}/',
         context.user,
         {
             'home_team_score': home_team_score,
@@ -60,4 +62,4 @@ def protocolized_score(context, home_team_score, away_team_score):
 
 @then("Error user doesn't have permission")
 def check_winner(context):
-    assert context.response.status_code == 403
+    assert context.response.status_code == status.HTTP_403_FORBIDDEN
