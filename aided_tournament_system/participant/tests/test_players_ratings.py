@@ -3,7 +3,7 @@ from django.test import TestCase
 from participant.models import Player
 from participant.services.add_rating_to_player import add_rating_to_player
 from participant.services.get_ratings import (get_rating_for_player,
-                                              get_ratings_by_type_gender)
+                                              get_players_by_rating_type_and_gender)
 from user_auth.models import User
 
 
@@ -39,15 +39,20 @@ class RatingActionsTestCase(TestCase):
 
     def test_getting_rating_by_type_and_gender(self):
         add_rating_to_player(self.player)
-        competition_type = CompetitionTypeChoices.BEACH_VOLLEY.value
+        competition_beach_type = CompetitionTypeChoices.BEACH_VOLLEY.value
+        competition_park_type = CompetitionTypeChoices.PARK_VOLLEY.value
         gender = GenderChoices.MAN.value
-        assert get_ratings_by_type_gender(
-            competition_type,
+        filtered_player_beach = get_players_by_rating_type_and_gender(
+            competition_beach_type,
             gender
-        )[0].rating.get(type=competition_type).points == 0
-        assert get_ratings_by_type_gender(
-            competition_type,
+        )[0]
+        filtered_player_park = get_players_by_rating_type_and_gender(
+            competition_park_type,
             gender
-        )[0].rating.get(
-            type=CompetitionTypeChoices.BEACH_VOLLEY.value
-        ).points == 0
+        )[0]
+        assert filtered_player_beach == self.player
+        assert filtered_player_park == self.player
+        assert filtered_player_beach.player_rating[0].type == competition_beach_type
+        assert filtered_player_beach.player_rating[0].points == 0
+        assert filtered_player_park.player_rating[0].type == competition_park_type
+        assert filtered_player_park.player_rating[0].points == 0

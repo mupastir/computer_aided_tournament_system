@@ -12,15 +12,12 @@ def get_rating_url(rating_type: str, gender: str):
     )
 
 
-def get_ratings_by_type_gender(rating_type: str, gender: str) -> QuerySet:
-    users_ids = User.objects.filter(
-        gender=gender
-    ).values_list('id', flat=True)
+def get_players_by_rating_type_and_gender(rating_type: str, gender: str) -> QuerySet:
     return Player.objects.prefetch_related(
         Prefetch('rating',
                  queryset=Rating.objects.filter(type=rating_type),
                  to_attr="player_rating")
-    ).filter(user_id__in=users_ids,
+    ).filter(user__gender=gender,
              rating__type=rating_type).order_by('-rating__points')
 
 
