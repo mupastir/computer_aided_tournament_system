@@ -1,6 +1,6 @@
 from participant.models import Player, Rating, Referee, Team
 from rest_framework import serializers
-from user_auth.api.serializers import UserSerializer
+from user_auth.serializers import UserSerializer
 
 
 class RatingSerializer(serializers.ModelSerializer):
