@@ -12,7 +12,7 @@ urlpatterns = [
          name='api_user'),
     path('api/competition/', include('competition.urls')),
     path('api/participant/', include('participant.urls')),
-    path('api/game/', include('game.api.urls')),
+    path('api/game/', include('game.urls')),
 ]
 
 if settings.DEBUG:
