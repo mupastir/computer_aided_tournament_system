@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from participant.api import views
+from participant import views
 
 urlpatterns = [
     url(

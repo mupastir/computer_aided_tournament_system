@@ -1,10 +1,10 @@
-from participant.models import Player, Referee, Team
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from ..services.add_rating_to_player import add_rating_to_player
-from .serializers import (PlayerCreateSerializer, PlayerListSerializer,
+from participant.models import Player, Referee, Team
+from participant.services.add_rating_to_player import add_rating_to_player
+from participant.serializers import (PlayerCreateSerializer, PlayerListSerializer,
                           RefereeCreateSerializer, RefereeListSerializer,
                           TeamCreateSerializer, TeamListSerializer)
 
