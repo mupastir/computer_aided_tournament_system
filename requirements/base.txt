@@ -17,4 +17,3 @@ djangorestframework-jwt
 django_select2
 django-rest-auth
 django-rest-swagger
-rest_framework_swagger
