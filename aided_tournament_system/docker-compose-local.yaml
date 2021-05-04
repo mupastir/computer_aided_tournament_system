@@ -7,26 +7,12 @@ services:
     volumes:
       - .:/core
     env_file:
-      - .env
+      - ../envs/.env
 
   rabbit1:
     image: rabbitmq
     ports:
       - "5672:5672"
-
-  web:
-    build: ..
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/core
-      - static_volume:/core/static_base
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-      - rabbit1
-    env_file:
-      - .env
 
   celery:
     build: ..
@@ -37,7 +23,7 @@ services:
       - db
       - rabbit1
     env_file:
-      - .env
+      - ../envs/.env
 
   celery-beat:
     build: ..
@@ -48,7 +34,7 @@ services:
       - db
       - rabbit1
     env_file:
-      - .env
+      - ../envs/.env
 
 volumes:
   static_volume:
