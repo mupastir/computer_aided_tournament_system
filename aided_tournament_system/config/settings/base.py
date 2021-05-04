@@ -194,7 +194,12 @@ SWAGGER_SETTINGS = {
         },
         'USE_SESSION_AUTH': False,
         'LOGIN_URL': 'api_user:login',
-        'LOGOUT_URL': 'api_user:logout'
+        'LOGOUT_URL': 'api_user:logout',
+        "JSON_EDITOR": True,
+        "SHOW_REQUEST_HEADERS": True,
+        "DOC_EXPANSION": None,
+        "permission_denied_handler": None,
+        "DEFAULT_AUTO_SCHEMA_CLASS": "config.swagger.CustomSwaggerSchema"
     }
 
 # Internal IPs
