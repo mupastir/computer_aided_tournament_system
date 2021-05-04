@@ -6,6 +6,7 @@ def force_authenticated(method: callable):
         client = APIClient()
         client.force_authenticate(user)
         return method(path, client, *args, **kwargs)
+
     return wrapper
 
 

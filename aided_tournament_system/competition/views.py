@@ -1,6 +1,5 @@
 from competition.models import Competition
-from game.services.schedule_creation_services.schedule_creator import \
-    ScheduleCreator
+from game.services.schedule_creation_services.schedule_creator import ScheduleCreator
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 
@@ -15,11 +14,13 @@ class CompetitionListAPIView(ListAPIView):
 
 class CompetitionCreateAPIView(CreateAPIView):
     serializer_class = CompetitionCreateSerializer
-    permission_classes = (IsAdminUser, IsAuthenticated,)
+    permission_classes = (
+        IsAdminUser,
+        IsAuthenticated,
+    )
 
     def perform_create(self, serializer):
         super().perform_create(serializer)
         competition = serializer.instance
-        tournament_games = ScheduleCreator(competition.schedule_system,
-                                           competition.id)
+        tournament_games = ScheduleCreator(competition.schedule_system, competition.id)
         tournament_games.create_schedule()

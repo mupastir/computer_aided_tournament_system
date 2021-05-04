@@ -13,4 +13,5 @@ def before_all(context):
 def after_step(context, step):
     if BEHAVE_DEBUG_ON_ERROR and step.status == "failed":
         from pudb import set_trace
+
         set_trace()

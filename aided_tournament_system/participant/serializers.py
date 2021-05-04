@@ -4,11 +4,10 @@ from user_auth.serializers import UserSerializer
 
 
 class RatingSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Rating
-        fields = ['id', 'type', 'points']
-        read_only_fileds = ['id']
+        fields = ["id", "type", "points"]
+        read_only_fileds = ["id"]
 
 
 class PlayerListSerializer(serializers.ModelSerializer):
@@ -17,8 +16,8 @@ class PlayerListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Player
-        fields = ['id', 'rating', 'user']
-        read_only_fields = ['id']
+        fields = ["id", "rating", "user"]
+        read_only_fields = ["id"]
 
 
 class RefereeListSerializer(serializers.ModelSerializer):
@@ -26,8 +25,8 @@ class RefereeListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Referee
-        fields = ['id', 'user']
-        read_only_fields = ['id', 'user']
+        fields = ["id", "user"]
+        read_only_fields = ["id", "user"]
 
 
 class TeamListSerializer(serializers.ModelSerializer):
@@ -35,26 +34,26 @@ class TeamListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'title', 'rating', 'players']
-        read_only_fields = ['id']
+        fields = ["id", "title", "rating", "players"]
+        read_only_fields = ["id"]
 
 
 class PlayerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ['id']
-        read_only_fields = ['id']
+        fields = ["id"]
+        read_only_fields = ["id"]
 
 
 class RefereeCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Referee
-        fields = ['id']
-        read_only_fields = ['id']
+        fields = ["id"]
+        read_only_fields = ["id"]
 
 
 class TeamCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ['id', 'title']
-        read_only_fields = ['id']
+        fields = ["id", "title"]
+        read_only_fields = ["id"]

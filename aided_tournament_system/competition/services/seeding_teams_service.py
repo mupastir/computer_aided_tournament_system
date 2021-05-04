@@ -7,7 +7,6 @@ from participant.models import Team
 
 
 class SeedingTeamsService:
-
     def __init__(self, competition_id: UUID):
         self.competition_id = competition_id
         self.competition = self._get_competition()
@@ -17,9 +16,9 @@ class SeedingTeamsService:
         return Competition.objects.get(id=self.competition_id)
 
     def _get_teams(self) -> QuerySet:
-        return Team.objects \
-                   .filter(applications__competition=self.competition) \
-                   .order_by('-rating')[:self.teams_number]
+        return Team.objects.filter(applications__competition=self.competition).order_by(
+            "-rating"
+        )[: self.teams_number]
 
     def _get_teams_number(self) -> int:
         return int(self.competition.schedule_system)
@@ -41,7 +40,6 @@ class SeedingTeamsService:
                 away_team = teams[self.teams_number - 1 - i]
             except IndexError:
                 away_team = None
-            Game.objects.filter(competition=self.competition,
-                                game_number=i + 1).update(
-                home_team=teams[i],
-                away_team=away_team)
+            Game.objects.filter(competition=self.competition, game_number=i + 1).update(
+                home_team=teams[i], away_team=away_team
+            )

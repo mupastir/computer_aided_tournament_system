@@ -6,19 +6,13 @@ from user_auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name',
-                  'last_name',
-                  'username',
-                  'email']
+        fields = ["first_name", "last_name", "username", "email"]
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['birthdate',
-                  'email',
-                  'first_name',
-                  'last_name']
+        fields = ["birthdate", "email", "first_name", "last_name"]
 
 
 class UserRegisterSerializer(RegisterSerializer):
@@ -28,10 +22,10 @@ class UserRegisterSerializer(RegisterSerializer):
     def get_cleaned_data(self):
         super().get_cleaned_data()
         return {
-            'username': self.validated_data.get('username', ''),
-            'password1': self.validated_data.get('password1', ''),
-            'password2': self.validated_data.get('password2', ''),
-            'email': self.validated_data.get('email', ''),
-            'first_name': self.validated_data.get('first_name', ''),
-            'last_name': self.validated_data.get('last_name', '')
+            "username": self.validated_data.get("username", ""),
+            "password1": self.validated_data.get("password1", ""),
+            "password2": self.validated_data.get("password2", ""),
+            "email": self.validated_data.get("email", ""),
+            "first_name": self.validated_data.get("first_name", ""),
+            "last_name": self.validated_data.get("last_name", ""),
         }

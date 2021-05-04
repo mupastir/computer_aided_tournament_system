@@ -8,7 +8,10 @@ from rest_framework.response import Response
 
 
 class GameAPIView(viewsets.ViewSet):
-    permission_classes = (IsRefereeScorerOrAdmin, IsAuthenticated,)
+    permission_classes = (
+        IsRefereeScorerOrAdmin,
+        IsAuthenticated,
+    )
 
     def get(self, request, pk=None):
         queryset = Game.objects.all()
@@ -19,8 +22,8 @@ class GameAPIView(viewsets.ViewSet):
     def partial_update(self, request, pk=None):
         queryset = Game.objects.all()
         game = get_object_or_404(queryset, pk=pk)
-        game.home_team_score = request.data['home_team_score']
-        game.away_team_score = request.data['away_team_score']
+        game.home_team_score = request.data["home_team_score"]
+        game.away_team_score = request.data["away_team_score"]
         game.save()
         serializer = GameSerializer(game)
         return Response(serializer.data, status=status.HTTP_200_OK)

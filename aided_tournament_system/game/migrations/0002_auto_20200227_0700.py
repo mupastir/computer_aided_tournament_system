@@ -9,25 +9,43 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('game', '0001_initial'),
-        ('participant', '0001_initial'),
-        ('competition', '0002_auto_20200227_0700'),
+        ("game", "0001_initial"),
+        ("participant", "0001_initial"),
+        ("competition", "0002_auto_20200227_0700"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='game',
-            name='away_team',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='away_team', to='participant.Team', verbose_name='team which plays visiting'),
+            model_name="game",
+            name="away_team",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="away_team",
+                to="participant.Team",
+                verbose_name="team which plays visiting",
+            ),
         ),
         migrations.AddField(
-            model_name='game',
-            name='competition',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='competition.Competition', verbose_name='competition'),
+            model_name="game",
+            name="competition",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="competition.Competition",
+                verbose_name="competition",
+            ),
         ),
         migrations.AddField(
-            model_name='game',
-            name='home_team',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='home_team', to='participant.Team', verbose_name='team which plays at home'),
+            model_name="game",
+            name="home_team",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="home_team",
+                to="participant.Team",
+                verbose_name="team which plays at home",
+            ),
         ),
     ]

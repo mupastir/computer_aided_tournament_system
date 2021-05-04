@@ -12,12 +12,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsRefereeScorerOrAdmin(permissions.BasePermission):
-
     @staticmethod
     def _is_referee_scorer(request):
         try:
-            Referee.objects.get(user_id=request.user.id,
-                                role='scr')
+            Referee.objects.get(user_id=request.user.id, role="scr")
         except participant.models.Referee.DoesNotExist:
             return False
         else:
@@ -25,10 +23,12 @@ class IsRefereeScorerOrAdmin(permissions.BasePermission):
 
     def has_permission(self, request, view):
 
-        return bool(self._is_referee_scorer(request)
-                    or (request.user and request.user.is_staff))
+        return bool(
+            self._is_referee_scorer(request) or (request.user and request.user.is_staff)
+        )
 
     def has_object_permission(self, request, view, obj):
 
-        return bool(self._is_referee_scorer(request)
-                    or (request.user and request.user.is_staff))
+        return bool(
+            self._is_referee_scorer(request) or (request.user and request.user.is_staff)
+        )
