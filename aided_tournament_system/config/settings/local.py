@@ -18,9 +18,9 @@ MIDDLEWARE += [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "USER": os.environ.get("DB_USER", default="oleg"),
+        "USER": os.environ.get("DB_USER", default="test"),
         "NAME": os.environ.get("DB_NAME", default="tournament_system"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", default="VLOzddFcmta2kSSaYcoqKt0zIKwM74YELZnlqNQGTJR7YSgqxLjsqWc9etu8m1fZ"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", default="test"),
         "HOST": os.environ.get("DB_HOST", default="0.0.0.0"),
         "PORT": os.environ.get("DB_PORT", default="5432"),
     }
