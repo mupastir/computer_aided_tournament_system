@@ -1,67 +1,96 @@
-from django.shortcuts import redirect
-from django.views import View
-from django.views.generic import FormView, TemplateView
-from participant.forms import RatingChoiceForm
-from participant.models import Team
-from participant.services.get_ratings import (get_rating_url,
-                                              get_ratings_by_type_gender)
-from participant.tasks import (create_player_task, create_referee_task,
-                               player_join_team_task)
+from rest_framework import status, viewsets
+from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
+
+from participant.models import Player, Referee, Team
+from participant.services.add_rating_to_player import add_rating_to_player
+from participant.serializers import (
+    PlayerCreateSerializer,
+    PlayerListSerializer,
+    RefereeCreateSerializer,
+    RefereeListSerializer,
+    TeamCreateSerializer,
+    TeamListSerializer,
+)
 
 
-class RatingChoiceView(FormView):
-    template_name = 'rating_list.html'
-    form_class = RatingChoiceForm
+class PlayerApiViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminUser, IsAuthenticatedOrReadOnly)
 
-    def get_success_url(self):
-        return super().get_success_url()
+    def list(self, request):
+        queryset = Player.objects.all()
+        serializer = PlayerListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    def form_valid(self, form):
-        self.success_url = get_rating_url(form.data['type'],
-                                          form.data['gender'])
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        kwargs['ratings_list'] = get_ratings_by_type_gender('Beach', 'w')
-        return super().get_context_data(**kwargs)
-
-
-class RatingView(RatingChoiceView):
-
-    def get_context_data(self, **kwargs):
-        kwargs = super().get_context_data(**kwargs)
-        kwargs['ratings_list'] = get_ratings_by_type_gender(
-            self.kwargs['type'],
-            self.kwargs['gender']
+    def create(self, request):
+        player = Player.objects.create(user=request.user)
+        serializer = PlayerCreateSerializer(player)
+        add_rating_to_player(player)
+        headers = {"Location": f"/api/participant/players/{player.id}/"}
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
-        return kwargs
 
 
-class RefereeCreateView(View):
+class RefereeApiViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminUser, IsAuthenticatedOrReadOnly)
 
-    def post(self, request):
-        create_referee_task.apply_async((request.user.id,))
-        return redirect('/user/detail/')
+    def list(self, request):
+        queryset = Referee.objects.all()
+        serializer = RefereeListSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-
-class PlayerCreateView(View):
-
-    def post(self, request):
-        create_player_task.apply_async((request.user.id,))
-        return redirect('/user/detail/')
-
-
-class PlayerJoinToTeamView(View):
-
-    def put(self, request, team_id):
-        player_join_team_task.apply_async((team_id, request.user.id,))
-        return redirect('/competitions/list/')
+    def create(self, request):
+        referee = Referee.objects.create(user=request.user)
+        serializer = RefereeCreateSerializer(referee)
+        headers = {"Location": f"/api/participant/referees/{referee.id}/"}
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
-class TeamDetailsView(TemplateView):
-    template_name = "team_detail.html"
+class TeamApiViewSet(viewsets.ViewSet):
+    permission_classes = (IsAdminUser, IsAuthenticatedOrReadOnly)
 
-    def get_context_data(self, **kwargs):
-        kwargs['team'] = Team.objects.get(id=self.kwargs['pk'])
-        kwargs['players'] = kwargs['team'].player_set.all()
-        return super().get_context_data(**kwargs)
+    def list(self, request):
+        queryset = Team.objects.all()
+        serializer = TeamListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        data = request.data
+        team = Team.objects.create(title=data["title"])
+        serializer = TeamCreateSerializer(team)
+        headers = {"Location": f"/api/participant/referees/{team.id}/"}
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
+    def partial_update(self, request, team_id=None, player_id=None):
+        team = Team.objects.get(id=team_id)
+        player = Player.objects.get(id=player_id)
+        team.players.add(player)
+        team.save()
+        serializer = TeamListSerializer(team)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+player_list = PlayerApiViewSet.as_view({"get": "list", "post": "create"})
+
+
+player_detail = PlayerApiViewSet.as_view(
+    {"get": "retrieve", "put": "update", "patch": "partial_update", "delete": "destroy"}
+)
+
+
+referee_list = RefereeApiViewSet.as_view({"get": "list", "post": "create"})
+
+
+referee_detail = RefereeApiViewSet.as_view(
+    {"get": "retrieve", "put": "update", "patch": "partial_update", "delete": "destroy"}
+)
+
+
+team_list = TeamApiViewSet.as_view({"get": "list", "post": "create"})
+
+team_squad = TeamApiViewSet.as_view({"put": "partial_update"})

@@ -2,34 +2,18 @@ from django.conf.urls import url
 from participant import views
 
 urlpatterns = [
+    url(regex=r"^players/$", view=views.player_list, name="player_list"),
+    url(regex=r"^players/(?P<id>.+)/$", view=views.player_detail, name="player_detail"),
+    url(regex=r"^referees/$", view=views.referee_list, name="referee_list"),
     url(
-        regex=r'^add_player/$',
-        view=views.PlayerCreateView.as_view(),
-        name='add_player'
+        regex=r"^referees/(?P<id>.+)/$",
+        view=views.referee_detail,
+        name="referee_detail",
     ),
+    url(regex=r"^teams/$", view=views.team_list, name="team_list"),
     url(
-        regex=r'^add_referee/$',
-        view=views.RefereeCreateView.as_view(),
-        name='add_referee'
+        regex=r"^teams/(?P<team_id>.+)/player/(?P<player_id>.+)/$",
+        view=views.team_squad,
+        name="join_player_to_team",
     ),
-    url(
-        regex=r'^ratings/$',
-        view=views.RatingChoiceView.as_view(),
-        name='rating_choice'
-    ),
-    url(
-        regex=r'^team/(?P<pk>.+)/$',
-        view=views.TeamDetailsView.as_view(),
-        name='team_details'
-    ),
-    url(
-        regex=r'^rating/(?P<type>.+)/(?P<gender>.+)/$',
-        view=views.RatingView.as_view(),
-        name='ratings'
-    ),
-    url(
-        regex=r'^join_to_team/(?P<team_id>.+)/$',
-        view=views.PlayerJoinToTeamView.as_view(),
-        name='join_player_to_team'
-    )
 ]

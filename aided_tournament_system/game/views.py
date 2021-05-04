@@ -1,67 +1,35 @@
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, UpdateView
+from django.shortcuts import get_object_or_404
+from django_utils.permissions import IsRefereeScorerOrAdmin
+from game.serializers import GameSerializer
 from game.models import Game
-from game.tasks import move_teams_next_round_task
-from participant.services.is_referee import is_referee
+from rest_framework import status, viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 
-class GameListView(TemplateView):
-    template_name = "game_list.html"
+class GameAPIView(viewsets.ViewSet):
+    permission_classes = (
+        IsRefereeScorerOrAdmin,
+        IsAuthenticated,
+    )
 
-    def get_context_data(self, **kwargs):
-        kwargs['games'] = Game.objects.filter(
-            competition__title=self.kwargs['competition_title']
-        ).order_by('game_number')
-        kwargs['is_referee'] = is_referee(self.request.user.id)
-        return super().get_context_data(**kwargs)
+    def get(self, request, pk=None):
+        queryset = Game.objects.all()
+        game = get_object_or_404(queryset, pk=pk)
+        serializer = GameSerializer(game)
+        return Response(serializer.data)
 
+    def partial_update(self, request, pk=None):
+        queryset = Game.objects.all()
+        game = get_object_or_404(queryset, pk=pk)
+        game.home_team_score = request.data["home_team_score"]
+        game.away_team_score = request.data["away_team_score"]
+        game.save()
+        serializer = GameSerializer(game)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-class GameScoreUpdate(UpdateView):
-    template_name = "update_score.html"
-    model = Game
-    fields = ['home_team_score', 'away_team_score']
-
-    def get_success_url(self):
-        move_teams_next_round_task.apply_async((self.kwargs['pk'],))
-        return reverse_lazy(
-            'games_list',
-            kwargs={
-                'competition_title':
-                    Game.objects.get(id=self.kwargs['pk']).competition.title
-            }
-        )
-
-    def get_context_data(self, **kwargs):
-        kwargs['game'] = Game.objects.get(id=self.kwargs['pk'])
-        kwargs['is_referee'] = is_referee(self.request.user.id)
-        return super().get_context_data(**kwargs)
-
-
-class GameInfoUpdate(UpdateView):
-    template_name = "update_game_info.html"
-    model = Game
-    fields = ['start_time',
-              'end_time',
-              'court_number']
-
-    def get_success_url(self):
-        move_teams_next_round_task.apply_async((self.kwargs['pk'],))
-        return reverse_lazy(
-            'games_list',
-            kwargs={
-                'competition_title':
-                    Game.objects.get(id=self.kwargs['pk']).competition.title
-            }
-        )
-
-    def get_context_data(self, **kwargs):
-        kwargs['game'] = Game.objects.get(id=self.kwargs['pk'])
-        return super().get_context_data(**kwargs)
-
-
-class GameViewLast10(TemplateView):
-    template_name = "main_page.html"
-
-    def get_context_data(self, **kwargs):
-        kwargs['games'] = Game.objects.all().order_by('start_time')[:10]
-        return super().get_context_data(**kwargs)
+    def retrieve(self, request, pk=None):
+        queryset = Game.objects.all()
+        game = get_object_or_404(queryset, pk=pk)
+        serializer = GameSerializer(game)
+        return Response(serializer.data, status=status.HTTP_200_OK)

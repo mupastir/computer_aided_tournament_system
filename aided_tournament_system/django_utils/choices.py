@@ -11,7 +11,6 @@ class ChoiceMixin:
 
 
 class BaseChoices(Enum):
-
     @classmethod
     def get_choices(cls) -> tuple:
         return tuple((i.value, i.value.text) for i in cls)

@@ -6,6 +6,7 @@ def force_authenticated(method: callable):
         client = APIClient()
         client.force_authenticate(user)
         return method(path, client, *args, **kwargs)
+
     return wrapper
 
 
@@ -22,3 +23,8 @@ def api_post(path, client, *args, **kwargs):
 @force_authenticated
 def api_put(path, client, *args, **kwargs):
     return client.put(path, *args, **kwargs)
+
+
+@force_authenticated
+def api_patch(path, client, *args, **kwargs):
+    return client.patch(path, *args, **kwargs)

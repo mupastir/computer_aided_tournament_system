@@ -1,69 +1,69 @@
-from allauth.account.views import EmailView, LoginView, LogoutView, SignupView
-from competition.choices import CompetitionTypeChoices
-from django.urls import reverse_lazy
-from django.views.generic import TemplateView, UpdateView
-from participant.models import Player, Referee
-from participant.services.get_ratings import get_rating_for_player
-from user_auth.forms import UserUpdateForm
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.instagram.views import InstagramOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from rest_auth.registration.views import RegisterView, SocialLoginView, VerifyEmailView
+from rest_auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordChangeView,
+    PasswordResetConfirmView,
+    PasswordResetView,
+)
+from rest_framework.generics import ListAPIView, UpdateAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from user_auth.models import User
 
-
-class UserUpdateView(UpdateView):
-    model = User
-    form_class = UserUpdateForm
-    template_name = 'account/update.html'
-    success_url = reverse_lazy('user_detail')
-
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        kwargs['user'] = User.objects.get(id=self.request.user.id)
-        return super().get_context_data(**kwargs)
+from .serializers import UserRegisterSerializer, UserSerializer, UserUpdateSerializer
 
 
-class UserInfoView(TemplateView):
-    template_name = 'account/detail.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user'] = User.objects.get(id=self.request.user.id)
-        try:
-            kwargs['player'] = Player.objects.get(
-                user_id=self.request.user.id
-            )
-            kwargs['beach_rating'] = get_rating_for_player(
-                kwargs['player'],
-                CompetitionTypeChoices.BEACH_VOLLEY.value)
-            kwargs['park_rating'] = get_rating_for_player(
-                kwargs['player'],
-                CompetitionTypeChoices.PARK_VOLLEY.value)
-        except Player.DoesNotExist:
-            pass
-        try:
-            kwargs['referee'] = Referee.objects.get(
-                user_id=self.request.user.id
-            )
-        except Referee.DoesNotExist:
-            pass
-        return super().get_context_data(**kwargs)
+class UserListAPIView(ListAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
 
 
-class UserLoginView(LoginView):
-    template_name = 'account/login.html'
-    success_url = 'user_detail'
+class UserUpdateAPIView(UpdateAPIView):
+    serializer_class = UserUpdateSerializer
+    permission_classes = (IsAuthenticated,)
 
 
-class UserLogoutView(LogoutView):
-    template_name = 'account/logout.html'
-    success_url = '/user/detail/'
+class UserLoginAPIView(LoginView):
+    pass
 
 
-class UserRegisterView(SignupView):
-    template_name = 'account/signup.html'
-    success_url = '/user/detail/'
+class UserLogoutAPIView(LogoutView):
+    pass
 
 
-class UserChangeEmailView(EmailView):
-    template_name = 'account/email.html'
-    success_url = '/user/detail/'
+class UserRegisterAPIView(RegisterView):
+    serializer_class = UserRegisterSerializer
+
+
+class UserVerifyEmailAPIView(VerifyEmailView):
+    pass
+
+
+class UserPasswordResetAPIView(PasswordResetView):
+    pass
+
+
+class UserPasswordResetConfirmAPIView(PasswordResetConfirmView):
+    pass
+
+
+class UserPasswordChangeAPIView(PasswordChangeView):
+    pass
+
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+    client_class = OAuth2Client
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+
+
+class InstagramLogin(SocialLoginView):
+    adapter_class = InstagramOAuth2Adapter
