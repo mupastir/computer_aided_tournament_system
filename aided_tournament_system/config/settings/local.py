@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 from .base import *
 
+SECRET_KEY = "4g%&2hwr@-a2+k=g*9to#3^5p87ft+3f2+n_s&uz)un!%08bog"
 INSTALLED_APPS += (
     "debug_toolbar",
     "django_extensions",
@@ -17,11 +18,11 @@ MIDDLEWARE += [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "USER": os.environ.get("DB_USER", default="oleg"),
+        "USER": "gSPdeqXCmNyUVZYiHmjfJYsppJmkmqQq",
         "NAME": os.environ.get("DB_NAME", default="tournament_system"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", default=""),
-        "HOST": os.environ.get("DB_HOST", default=""),
-        "PORT": os.environ.get("DB_PORT", default=""),
+        "PASSWORD": "VLOzddFcmta2kSSaYcoqKt0zIKwM74YELZnlqNQGTJR7YSgqxLjsqWc9etu8m1fZ",
+        "HOST": os.environ.get("DB_HOST", default="0.0.0.0"),
+        "PORT": os.environ.get("DB_PORT", default="5432"),
     }
 }
 
